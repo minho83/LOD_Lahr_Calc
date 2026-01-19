@@ -250,7 +250,7 @@
                 <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
                     <div>
                         <label class="block text-sm font-medium text-gray-300 mb-2">라르 할인율</label>
-                        <select id="discountRate" 
+                        <select id="discountRate"
                             class="input-field w-full px-4 py-3 border-2 border-purple-300 rounded-lg focus:outline-none focus:border-purple-500">
                             <option value="0">할인 없음 (10,000 골드/라르)</option>
                             <option value="20">20% 할인 (8,000 골드/라르)</option>
@@ -263,6 +263,36 @@
                         <input type="text" id="exchangeRate" placeholder="예: 1,000" value="1,000"
                             class="input-field w-full px-4 py-3 border-2 border-blue-500 rounded-lg focus:outline-none focus:border-blue-400">
                         <p class="text-xs text-gray-400 mt-1">어둠돈 1억당 현금 가격을 입력하세요</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 무료 라르 입력 섹션 -->
+            <div class="mt-6 pt-6 border-t-2 border-slate-600 border-opacity-40">
+                <div class="flex items-center justify-center mb-4">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
+                        <i class="fas fa-gift text-white text-lg"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-white">무료 라르 (목표 기간 계산)</h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">매일 무료 라르</label>
+                        <input type="text" id="dailyFreeRar" placeholder="예: 100" value="0"
+                            class="input-field w-full px-4 py-3 border-2 border-emerald-400 rounded-lg focus:outline-none focus:border-emerald-500">
+                        <p class="text-xs text-gray-400 mt-1">매일 획득 가능한 무료 라르 개수</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">주간 무료 라르</label>
+                        <input type="text" id="weeklyFreeRar" placeholder="예: 500" value="0"
+                            class="input-field w-full px-4 py-3 border-2 border-emerald-400 rounded-lg focus:outline-none focus:border-emerald-500">
+                        <p class="text-xs text-gray-400 mt-1">주간 보상으로 획득 가능한 무료 라르 개수</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">목표 기간 (일)</label>
+                        <input type="text" id="targetDays" placeholder="예: 30" value=""
+                            class="input-field w-full px-4 py-3 border-2 border-amber-400 rounded-lg focus:outline-none focus:border-amber-500">
+                        <p class="text-xs text-gray-400 mt-1">목표 달성까지 원하는 기간</p>
                     </div>
                 </div>
             </div>
@@ -297,6 +327,62 @@
                         <div class="text-5xl font-bold text-sky-300 mb-3" id="totalCash"></div>
                         <div class="text-xl text-gray-300">예상 현금 비용</div>
                     </div>
+                </div>
+            </div>
+
+            <!-- 무료 라르로 목표 달성 기간 -->
+            <div id="freeRarSection" class="glass-card p-8 mb-8 text-center result-card hidden">
+                <h3 class="text-2xl font-bold text-white mb-6">
+                    <i class="fas fa-calendar-alt mr-2" style="color: #10b981;"></i>무료 라르로 목표 달성 예상 기간
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <div>
+                        <div class="text-4xl font-bold text-emerald-400 mb-2" id="weeklyRarTotal"></div>
+                        <div class="text-lg text-gray-300">주간 획득 라르</div>
+                        <div class="text-sm text-gray-400" id="weeklyRarBreakdown"></div>
+                    </div>
+                    <div>
+                        <div class="text-5xl font-bold text-emerald-300 mb-2" id="weeksNeeded"></div>
+                        <div class="text-xl text-gray-300">예상 소요 기간</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-teal-300 mb-2" id="targetDate"></div>
+                        <div class="text-lg text-gray-300">예상 달성일</div>
+                    </div>
+                </div>
+                <div class="bg-slate-700 bg-opacity-50 rounded-lg p-4 max-w-xl mx-auto">
+                    <p class="text-gray-300 text-sm">
+                        <i class="fas fa-info-circle mr-2 text-emerald-400"></i>
+                        무료 라르만으로 목표 달성 시 예상 기간입니다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 목표 기간 내 필요 라르 계산 -->
+            <div id="targetDaysSection" class="glass-card p-8 mb-8 text-center result-card hidden">
+                <h3 class="text-2xl font-bold text-white mb-6">
+                    <i class="fas fa-crosshairs mr-2" style="color: #f59e0b;"></i>목표 기간 내 달성 분석
+                </h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                    <div>
+                        <div class="text-3xl font-bold text-amber-400 mb-2" id="targetDaysDisplay"></div>
+                        <div class="text-lg text-gray-300">목표 기간</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-emerald-400 mb-2" id="freeRarInPeriod"></div>
+                        <div class="text-lg text-gray-300">기간 내 무료 라르</div>
+                        <div class="text-sm text-gray-400" id="freeRarInPeriodBreakdown"></div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold mb-2" id="shortfallRar"></div>
+                        <div class="text-lg text-gray-300">부족한 라르</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold text-blue-300 mb-2" id="shortfallCost"></div>
+                        <div class="text-lg text-gray-300">추가 필요 비용</div>
+                    </div>
+                </div>
+                <div id="targetDaysMessage" class="bg-slate-700 bg-opacity-50 rounded-lg p-4 max-w-2xl mx-auto">
                 </div>
             </div>
         </div>
@@ -780,12 +866,12 @@
         function displayResults(hpResult, mpResult) {
             // Total Summary
             const totalRar = hpResult.totalRar + mpResult.totalRar;
-            
+
             // 할인율 계산
             const discountRate = parseInt(document.getElementById('discountRate').value) || 0;
             const rarPricePerUnit = 10000 * (1 - discountRate / 100); // 할인된 라르 가격
             const totalCost = totalRar * rarPricePerUnit; // 골드 비용
-            
+
             // 어둠돈 환산 계산
             const exchangeRate = parseNumber(document.getElementById('exchangeRate').value) || 1000;
             const totalCostInBillions = totalCost / 100000000; // 골드를 억 단위로 변환
@@ -794,6 +880,135 @@
             document.getElementById('totalRar').textContent = formatNumber(totalRar) + ' 개';
             document.getElementById('totalCost').textContent = formatCurrency(totalCost);
             document.getElementById('totalCash').textContent = formatCash(totalCash);
+
+            // 무료 라르 계산
+            const dailyFreeRar = parseNumber(document.getElementById('dailyFreeRar').value) || 0;
+            const weeklyFreeRar = parseNumber(document.getElementById('weeklyFreeRar').value) || 0;
+            const weeklyRarFromDaily = dailyFreeRar * 7; // 일주일 = 7일
+            const totalWeeklyRar = weeklyRarFromDaily + weeklyFreeRar;
+
+            const freeRarSection = document.getElementById('freeRarSection');
+
+            if (totalWeeklyRar > 0 && totalRar > 0) {
+                // 주간 획득 라르 표시
+                document.getElementById('weeklyRarTotal').textContent = formatNumber(totalWeeklyRar) + ' 개';
+                document.getElementById('weeklyRarBreakdown').textContent =
+                    `(매일 ${formatNumber(dailyFreeRar)} × 7일 = ${formatNumber(weeklyRarFromDaily)}) + (주간 ${formatNumber(weeklyFreeRar)})`;
+
+                // 필요 주수 계산
+                const weeksNeeded = Math.ceil(totalRar / totalWeeklyRar);
+                const daysNeeded = weeksNeeded * 7;
+
+                // 기간 표시 (주 + 개월 + 년)
+                let periodText = '';
+                if (weeksNeeded < 4) {
+                    periodText = `${weeksNeeded}주`;
+                } else if (weeksNeeded < 52) {
+                    const months = Math.floor(weeksNeeded / 4.33);
+                    const remainingWeeks = Math.round(weeksNeeded % 4.33);
+                    periodText = months + '개월';
+                    if (remainingWeeks > 0) {
+                        periodText += ` ${remainingWeeks}주`;
+                    }
+                } else {
+                    const years = Math.floor(weeksNeeded / 52);
+                    const remainingMonths = Math.floor((weeksNeeded % 52) / 4.33);
+                    periodText = years + '년';
+                    if (remainingMonths > 0) {
+                        periodText += ` ${remainingMonths}개월`;
+                    }
+                }
+                periodText += ` (${formatNumber(weeksNeeded)}주)`;
+
+                document.getElementById('weeksNeeded').textContent = periodText;
+
+                // 예상 달성일 계산
+                const targetDateCalc = new Date();
+                targetDateCalc.setDate(targetDateCalc.getDate() + daysNeeded);
+                const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+                document.getElementById('targetDate').textContent = targetDateCalc.toLocaleDateString('ko-KR', dateOptions);
+
+                freeRarSection.classList.remove('hidden');
+            } else {
+                freeRarSection.classList.add('hidden');
+            }
+
+            // 목표 기간 계산
+            const targetDays = parseNumber(document.getElementById('targetDays').value) || 0;
+            const targetDaysSection = document.getElementById('targetDaysSection');
+
+            if (targetDays > 0 && totalRar > 0) {
+                // 목표 기간 내 획득 가능한 무료 라르 계산
+                const weeksInPeriod = Math.floor(targetDays / 7);
+                const remainingDays = targetDays % 7;
+                const freeRarFromDaily = dailyFreeRar * targetDays;
+                const freeRarFromWeekly = weeklyFreeRar * weeksInPeriod;
+                const totalFreeRarInPeriod = freeRarFromDaily + freeRarFromWeekly;
+
+                // 부족한 라르 계산
+                const shortfall = Math.max(0, totalRar - totalFreeRarInPeriod);
+                const shortfallCost = shortfall * rarPricePerUnit;
+                const shortfallCostInBillions = shortfallCost / 100000000;
+                const shortfallCash = shortfallCostInBillions * exchangeRate;
+
+                // 목표 기간 표시
+                let targetDaysText = '';
+                if (targetDays < 7) {
+                    targetDaysText = `${targetDays}일`;
+                } else if (targetDays < 30) {
+                    const weeks = Math.floor(targetDays / 7);
+                    const days = targetDays % 7;
+                    targetDaysText = `${weeks}주`;
+                    if (days > 0) targetDaysText += ` ${days}일`;
+                } else {
+                    const months = Math.floor(targetDays / 30);
+                    const days = targetDays % 30;
+                    targetDaysText = `${months}개월`;
+                    if (days > 0) targetDaysText += ` ${days}일`;
+                }
+                targetDaysText += ` (${formatNumber(targetDays)}일)`;
+
+                document.getElementById('targetDaysDisplay').textContent = targetDaysText;
+                document.getElementById('freeRarInPeriod').textContent = formatNumber(totalFreeRarInPeriod) + ' 개';
+                document.getElementById('freeRarInPeriodBreakdown').textContent =
+                    `(매일 ${formatNumber(dailyFreeRar)} × ${targetDays}일) + (주간 ${formatNumber(weeklyFreeRar)} × ${weeksInPeriod}주)`;
+
+                const shortfallElement = document.getElementById('shortfallRar');
+                const messageElement = document.getElementById('targetDaysMessage');
+
+                if (shortfall > 0) {
+                    shortfallElement.textContent = formatNumber(shortfall) + ' 개';
+                    shortfallElement.className = 'text-3xl font-bold text-red-400 mb-2';
+                    document.getElementById('shortfallCost').textContent = formatCurrency(shortfallCost);
+
+                    messageElement.innerHTML = `
+                        <p class="text-gray-300 text-sm mb-2">
+                            <i class="fas fa-exclamation-triangle mr-2 text-amber-400"></i>
+                            목표 기간 내 달성을 위해 <span class="text-red-400 font-bold">${formatNumber(shortfall)}개</span>의 라르를 추가 구매해야 합니다.
+                        </p>
+                        <p class="text-gray-400 text-xs">
+                            추가 비용: ${formatCurrency(shortfallCost)} (약 ${formatCash(shortfallCash)})
+                        </p>
+                    `;
+                } else {
+                    shortfallElement.textContent = '0 개';
+                    shortfallElement.className = 'text-3xl font-bold text-emerald-400 mb-2';
+                    document.getElementById('shortfallCost').textContent = '0원';
+
+                    const surplus = totalFreeRarInPeriod - totalRar;
+                    messageElement.innerHTML = `
+                        <p class="text-gray-300 text-sm">
+                            <i class="fas fa-check-circle mr-2 text-emerald-400"></i>
+                            무료 라르만으로 목표 기간 내 달성 가능합니다!
+                            <span class="text-emerald-400 font-bold">${formatNumber(surplus)}개</span>의 라르가 남습니다.
+                        </p>
+                    `;
+                }
+
+                targetDaysSection.classList.remove('hidden');
+            } else {
+                targetDaysSection.classList.add('hidden');
+            }
 
             // Show results section
             document.getElementById('resultsSection').classList.remove('hidden');
