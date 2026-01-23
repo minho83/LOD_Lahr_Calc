@@ -206,6 +206,21 @@
             background-color: #1e293b;
             color: #e2e8f0;
         }
+
+        .tab-button {
+            opacity: 0.6;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            opacity: 1;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .tab-button:hover:not(.active) {
+            opacity: 0.8;
+            background: rgba(59, 130, 246, 0.2);
+        }
     </style>
 </head>
 
@@ -247,45 +262,133 @@
 
         <!-- Input Section -->
         <div class="glass-card p-8 mb-8">
+            <!-- Tab Navigation -->
+            <div class="flex justify-center mb-6">
+                <div class="inline-flex rounded-lg p-1 bg-slate-700 bg-opacity-50">
+                    <button id="tabRar" onclick="switchTab('rar')"
+                        class="tab-button px-6 py-3 rounded-lg font-bold text-white transition-all active">
+                        <i class="fas fa-gem mr-2"></i>라르 계산
+                    </button>
+                    <button id="tabDansu" onclick="switchTab('dansu')"
+                        class="tab-button px-6 py-3 rounded-lg font-bold text-white transition-all">
+                        <i class="fas fa-star mr-2"></i>목표 단수
+                    </button>
+                </div>
+            </div>
+
+            <!-- 현재 HP/MP 입력 (공통) -->
             <div class="grid md:grid-cols-2 gap-8 mb-6">
-                <!-- HP Calculator -->
+                <!-- HP Input -->
                 <div class="space-y-4">
                     <div class="flex items-center mb-4">
                         <div class="hp-theme w-12 h-12 rounded-full flex items-center justify-center mr-3">
                             <i class="fas fa-heart text-white text-xl"></i>
                         </div>
-                        <h2 class="text-2xl font-bold text-white">HP 계산</h2>
+                        <h2 class="text-2xl font-bold text-white">HP</h2>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-300 mb-2">현재 HP</label>
                         <input type="text" id="currentHP" placeholder="예: 3,000,000"
                             class="input-field w-full px-4 py-3 border-2 border-red-400 rounded-lg focus:outline-none focus:border-red-500">
                     </div>
-                    <div>
+                    <!-- 목표 HP (라르 계산 모드에서만) -->
+                    <div id="targetHPSection">
                         <label class="block text-sm font-medium text-gray-300 mb-2">목표 HP</label>
                         <input type="text" id="targetHP" placeholder="예: 5,800,000"
                             class="input-field w-full px-4 py-3 border-2 border-red-400 rounded-lg focus:outline-none focus:border-red-500">
                     </div>
                 </div>
 
-                <!-- MP Calculator -->
+                <!-- MP Input -->
                 <div class="space-y-4">
                     <div class="flex items-center mb-4">
                         <div class="mp-theme w-12 h-12 rounded-full flex items-center justify-center mr-3">
                             <i class="fas fa-bolt text-white text-xl"></i>
                         </div>
-                        <h2 class="text-2xl font-bold text-white">MP 계산</h2>
+                        <h2 class="text-2xl font-bold text-white">MP</h2>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-300 mb-2">현재 MP</label>
                         <input type="text" id="currentMP" placeholder="예: 150,000"
                             class="input-field w-full px-4 py-3 border-2 border-blue-400 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
-                    <div>
+                    <!-- 목표 MP (라르 계산 모드에서만) -->
+                    <div id="targetMPSection">
                         <label class="block text-sm font-medium text-gray-300 mb-2">목표 MP</label>
                         <input type="text" id="targetMP" placeholder="예: 2,800,000"
                             class="input-field w-full px-4 py-3 border-2 border-blue-400 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
+                </div>
+            </div>
+
+            <!-- 현재 단수 표시 (목표 단수 모드에서만) -->
+            <div id="currentDansuSection" class="hidden mb-6">
+                <div class="bg-gradient-to-r from-purple-900 to-indigo-900 rounded-xl p-6 border border-purple-500 border-opacity-30">
+                    <div class="text-center mb-4">
+                        <div class="text-lg text-purple-300 mb-2">현재 단수</div>
+                        <div class="text-6xl font-bold text-white mb-2" id="currentDansuDisplay">-</div>
+                        <div class="text-sm text-purple-200" id="currentExpDisplay">경험치: -</div>
+                    </div>
+                    <div class="w-full bg-slate-700 rounded-full h-3 mb-2">
+                        <div id="dansuProgressBar" class="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <div class="text-xs text-gray-400 text-center" id="nextDansuInfo">다음 단수까지: -</div>
+                </div>
+
+                <!-- 목표 단수 선택 -->
+                <div class="mt-6 grid md:grid-cols-2 gap-6">
+                    <!-- 목표 단수 +/- 버튼 -->
+                    <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
+                        <label class="block text-sm font-medium text-gray-300 mb-3">
+                            <i class="fas fa-bullseye mr-2 text-amber-400"></i>목표 단수
+                        </label>
+                        <div class="flex items-center justify-center gap-3">
+                            <button type="button" onclick="adjustTargetDansu(-1)"
+                                class="w-12 h-12 rounded-lg bg-amber-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-2xl transition-all active:scale-95 flex items-center justify-center">
+                                −
+                            </button>
+                            <div class="text-5xl font-bold text-amber-400 w-24 text-center" id="targetDansuDisplay">-</div>
+                            <button type="button" onclick="adjustTargetDansu(1)"
+                                class="w-12 h-12 rounded-lg bg-amber-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-2xl transition-all active:scale-95 flex items-center justify-center">
+                                +
+                            </button>
+                        </div>
+                        <input type="hidden" id="targetDansu" value="">
+                        <div class="text-xs text-gray-400 text-center mt-2" id="targetDansuExpInfo">-</div>
+                    </div>
+
+                    <!-- 필요 추가 경험치 -->
+                    <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
+                        <label class="block text-sm font-medium text-gray-300 mb-3">
+                            <i class="fas fa-flask mr-2 text-cyan-400"></i>필요 추가 경험치
+                        </label>
+                        <div class="text-3xl font-bold text-cyan-400" id="neededExpDisplay">-</div>
+                        <div class="text-xs text-gray-400 mt-2" id="neededExpDetail">HP/MP를 입력하세요</div>
+                    </div>
+                </div>
+
+                <!-- 올릴 스탯 체크박스 -->
+                <div class="mt-6 bg-slate-700 bg-opacity-30 rounded-xl p-4">
+                    <label class="block text-sm font-medium text-gray-300 mb-3 text-center">
+                        <i class="fas fa-arrow-up mr-2 text-green-400"></i>올릴 스탯 선택
+                    </label>
+                    <div class="flex justify-center gap-6">
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" id="statChoiceHP" checked
+                                class="w-6 h-6 rounded accent-red-500 cursor-pointer">
+                            <span class="text-lg font-bold text-red-400 group-hover:text-red-300 transition-colors">
+                                <i class="fas fa-heart mr-1"></i>HP
+                            </span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" id="statChoiceMP"
+                                class="w-6 h-6 rounded accent-blue-500 cursor-pointer">
+                            <span class="text-lg font-bold text-blue-400 group-hover:text-blue-300 transition-colors">
+                                <i class="fas fa-bolt mr-1"></i>MP
+                            </span>
+                        </label>
+                    </div>
+                    <div class="text-xs text-gray-400 text-center mt-2">둘 다 선택하면 효율적으로 분배합니다</div>
                 </div>
             </div>
 
@@ -773,6 +876,133 @@
     </div>
 
     <script>
+        // 단수 테이블 (7단~71단) - 필요 누적 경험치
+        const dansuTable = [
+            { dansu: 7, exp: 2000000000 },           // 20억
+            { dansu: 8, exp: 107000000000 },         // 1,070억
+            { dansu: 9, exp: 212000000000 },         // 2,120억
+            { dansu: 10, exp: 315000000000 },        // 3,150억
+            { dansu: 11, exp: 420000000000 },        // 4,200억
+            { dansu: 12, exp: 530000000000 },        // 5,300억
+            { dansu: 13, exp: 631000000000 },        // 6,310억
+            { dansu: 14, exp: 1250000000000 },       // 1조 2,500억
+            { dansu: 15, exp: 1900000000000 },       // 1조 9,000억
+            { dansu: 16, exp: 2500000000000 },       // 2조 5,000억
+            { dansu: 17, exp: 3150000000000 },       // 3조 1,500억
+            { dansu: 18, exp: 3750000000000 },       // 3조 7,500억
+            { dansu: 19, exp: 4400000000000 },       // 4조 4,000억
+            { dansu: 20, exp: 5000000000000 },       // 5조
+            { dansu: 21, exp: 6000000000000 },       // 6조
+            { dansu: 22, exp: 7100000000000 },       // 7조 1,000억
+            { dansu: 23, exp: 8200000000000 },       // 8조 2,000억
+            { dansu: 24, exp: 9300000000000 },       // 9조 3,000억
+            { dansu: 25, exp: 10300000000000 },      // 10조 3,000억
+            { dansu: 26, exp: 11500000000000 },      // 11조 5,000억
+            { dansu: 27, exp: 12600000000000 },      // 12조 6,000억
+            { dansu: 28, exp: 13500000000000 },      // 13조 5,000억
+            { dansu: 29, exp: 14500000000000 },      // 14조 5,000억
+            { dansu: 30, exp: 15600000000000 },      // 15조 6,000억
+            { dansu: 31, exp: 17600000000000 },      // 17조 6,000억
+            { dansu: 32, exp: 20700000000000 },      // 20조 7,000억
+            { dansu: 33, exp: 24820000000000 },      // 24조 8,200억
+            { dansu: 34, exp: 29900000000000 },      // 29조 9,000억
+            { dansu: 35, exp: 36000000000000 },      // 36조
+            { dansu: 36, exp: 40000000000000 },      // 40조
+            { dansu: 37, exp: 51000000000000 },      // 51조
+            { dansu: 38, exp: 60000000000000 },      // 60조
+            { dansu: 39, exp: 70000000000000 },      // 70조
+            { dansu: 40, exp: 81000000000000 },      // 81조
+            { dansu: 41, exp: 93500000000000 },      // 93조 5,000억
+            { dansu: 42, exp: 108000000000000 },     // 108조
+            { dansu: 43, exp: 122500000000000 },     // 122조 5,000억
+            { dansu: 44, exp: 137000000000000 },     // 137조
+            { dansu: 45, exp: 151500000000000 },     // 151조 5,000억
+            { dansu: 46, exp: 169500000000000 },     // 169조 5,000억
+            { dansu: 47, exp: 187500000000000 },     // 187조 5,000억
+            { dansu: 48, exp: 206000000000000 },     // 206조
+            { dansu: 49, exp: 224500000000000 },     // 224조 5,000억
+            { dansu: 50, exp: 248000000000000 },     // 248조
+            { dansu: 51, exp: 271500000000000 },     // 271조 5,000억
+            { dansu: 52, exp: 292000000000000 },     // 292조
+            { dansu: 53, exp: 318500000000000 },     // 318조 5,000억
+            { dansu: 54, exp: 342000000000000 },     // 342조
+            { dansu: 55, exp: 367150000000000 },     // 367조 1,500억
+            { dansu: 56, exp: 394200000000000 },     // 394조 2,000억
+            { dansu: 57, exp: 422250000000000 },     // 422조 2,500억
+            { dansu: 58, exp: 451350000000000 },     // 451조 3,500억
+            { dansu: 59, exp: 482500000000000 },     // 482조 5,000억
+            { dansu: 60, exp: 512400000000000 },     // 512조 4,000억
+            { dansu: 61, exp: 545000000000000 },     // 545조
+            { dansu: 62, exp: 577000000000000 },     // 577조
+            { dansu: 63, exp: 611000000000000 },     // 611조
+            { dansu: 64, exp: 646500000000000 },     // 646조 5,000억
+            { dansu: 65, exp: 682500000000000 },     // 682조 5,000억
+            { dansu: 66, exp: 719500000000000 },     // 719조 5,000억
+            { dansu: 67, exp: 758500000000000 },     // 758조 5,000억
+            { dansu: 68, exp: 798000000000000 },     // 798조
+            { dansu: 69, exp: 837000000000000 },     // 837조
+            { dansu: 70, exp: 878000000000000 },     // 878조
+            { dansu: 71, exp: 921000000000000 },     // 921조
+        ];
+
+        // HP -> 경험치 변환 함수
+        function calculateHpExp(hp) {
+            const baseHp = 300000; // 30만 (라르 시작 기준)
+            if (hp <= baseHp) return 0;
+            return (hp + baseHp - 50) * (hp - baseHp) * 5;
+        }
+
+        // MP -> 경험치 변환 함수
+        function calculateMpExp(mp) {
+            const baseMp = 150000; // 15만 (라르 시작 기준)
+            if (mp <= baseMp) return 0;
+            return (mp + baseMp - 25) * (mp - baseMp) * 10;
+        }
+
+        // 총 경험치 계산
+        function calculateTotalExp(hp, mp) {
+            return calculateHpExp(hp) + calculateMpExp(mp);
+        }
+
+        // 경험치로 단수 계산
+        function calculateDansu(totalExp) {
+            if (totalExp < dansuTable[0].exp) {
+                return { dansu: 6, nextExp: dansuTable[0].exp, currentExp: 0, progress: (totalExp / dansuTable[0].exp) * 100 };
+            }
+
+            for (let i = dansuTable.length - 1; i >= 0; i--) {
+                if (totalExp >= dansuTable[i].exp) {
+                    const currentDansu = dansuTable[i].dansu;
+                    const nextDansu = i < dansuTable.length - 1 ? dansuTable[i + 1] : null;
+                    const progress = nextDansu
+                        ? ((totalExp - dansuTable[i].exp) / (nextDansu.exp - dansuTable[i].exp)) * 100
+                        : 100;
+                    return {
+                        dansu: currentDansu,
+                        nextExp: nextDansu ? nextDansu.exp : null,
+                        currentExp: dansuTable[i].exp,
+                        progress: Math.min(progress, 100)
+                    };
+                }
+            }
+            return { dansu: 6, nextExp: dansuTable[0].exp, currentExp: 0, progress: 0 };
+        }
+
+        // 경험치 포맷팅 (조/억 단위)
+        function formatExp(exp) {
+            if (exp >= 1000000000000) {
+                const jo = Math.floor(exp / 1000000000000);
+                const eok = Math.floor((exp % 1000000000000) / 100000000);
+                if (eok > 0) {
+                    return `${jo}조 ${eok.toLocaleString()}억`;
+                }
+                return `${jo}조`;
+            } else if (exp >= 100000000) {
+                return `${Math.floor(exp / 100000000).toLocaleString()}억`;
+            }
+            return exp.toLocaleString();
+        }
+
         // Tier data from spreadsheet
         const hpTiers = [
             { min: 300000, max: 400000, increment: null, rarPerUpgrade: 10, label: "30만 이상 ~ 40만 미만" },
@@ -1136,6 +1366,378 @@
                 }
             });
         });
+
+        // 현재 모드 (rar 또는 dansu)
+        let currentMode = 'rar';
+
+        // 탭 전환 함수
+        function switchTab(mode) {
+            currentMode = mode;
+
+            // 탭 버튼 스타일 업데이트
+            document.getElementById('tabRar').classList.toggle('active', mode === 'rar');
+            document.getElementById('tabDansu').classList.toggle('active', mode === 'dansu');
+
+            // 섹션 표시/숨김
+            document.getElementById('targetHPSection').classList.toggle('hidden', mode === 'dansu');
+            document.getElementById('targetMPSection').classList.toggle('hidden', mode === 'dansu');
+            document.getElementById('currentDansuSection').classList.toggle('hidden', mode === 'rar');
+
+            // 단수 모드일 때 현재 단수 업데이트
+            if (mode === 'dansu') {
+                updateCurrentDansu();
+                populateTargetDansuOptions();
+            }
+
+            // 결과 섹션 숨기기
+            document.getElementById('resultsSection').classList.add('hidden');
+        }
+
+        // 현재 단수 업데이트
+        function updateCurrentDansu() {
+            const currentHP = parseNumber(document.getElementById('currentHP').value) || 0;
+            const currentMP = parseNumber(document.getElementById('currentMP').value) || 0;
+
+            const hpExp = calculateHpExp(currentHP);
+            const mpExp = calculateMpExp(currentMP);
+            const totalExp = hpExp + mpExp;
+
+            const dansuInfo = calculateDansu(totalExp);
+
+            document.getElementById('currentDansuDisplay').textContent = dansuInfo.dansu + '단';
+            document.getElementById('currentExpDisplay').textContent = `총 경험치: ${formatExp(totalExp)}`;
+            document.getElementById('dansuProgressBar').style.width = `${dansuInfo.progress}%`;
+
+            if (dansuInfo.nextExp) {
+                const neededForNext = dansuInfo.nextExp - totalExp;
+                document.getElementById('nextDansuInfo').textContent =
+                    `다음 단수(${dansuInfo.dansu + 1}단)까지: ${formatExp(neededForNext)}`;
+            } else {
+                document.getElementById('nextDansuInfo').textContent = '최대 단수 도달!';
+            }
+
+            // 목표 단수 기본값 설정 (현재 단수 + 1)
+            initTargetDansu(dansuInfo.dansu);
+
+            // 목표 단수 필요 경험치 업데이트
+            updateNeededExp();
+        }
+
+        // 목표 단수 초기화 (현재 단수 기준)
+        function initTargetDansu(currentDansu) {
+            const currentTarget = parseInt(document.getElementById('targetDansu').value);
+            const defaultTarget = currentDansu + 1;
+            const maxDansu = dansuTable[dansuTable.length - 1].dansu;
+
+            // 현재 설정된 목표가 없거나 현재 단수 이하면 기본값으로 설정
+            if (!currentTarget || currentTarget <= currentDansu) {
+                const newTarget = Math.min(defaultTarget, maxDansu);
+                document.getElementById('targetDansu').value = newTarget;
+                document.getElementById('targetDansuDisplay').textContent = newTarget + '단';
+
+                const targetData = dansuTable.find(d => d.dansu === newTarget);
+                if (targetData) {
+                    document.getElementById('targetDansuExpInfo').textContent = `필요 경험치: ${formatExp(targetData.exp)}`;
+                }
+            }
+        }
+
+        // 목표 단수까지 필요한 경험치 업데이트
+        function updateNeededExp() {
+            const targetDansu = parseInt(document.getElementById('targetDansu').value);
+            if (!targetDansu) {
+                document.getElementById('neededExpDisplay').textContent = '-';
+                document.getElementById('neededExpDetail').textContent = '목표 단수를 선택하세요';
+                return;
+            }
+
+            const currentHP = parseNumber(document.getElementById('currentHP').value) || 0;
+            const currentMP = parseNumber(document.getElementById('currentMP').value) || 0;
+            const totalExp = calculateTotalExp(currentHP, currentMP);
+
+            const targetDansuData = dansuTable.find(d => d.dansu === targetDansu);
+            if (targetDansuData) {
+                const neededExp = targetDansuData.exp - totalExp;
+                document.getElementById('neededExpDisplay').textContent = formatExp(Math.max(0, neededExp));
+                document.getElementById('neededExpDetail').textContent =
+                    neededExp > 0 ? `현재 ${formatExp(totalExp)} → 목표 ${formatExp(targetDansuData.exp)}` : '이미 달성!';
+            }
+        }
+
+        // 목표 단수 +/- 조절 함수
+        function adjustTargetDansu(delta) {
+            const currentHP = parseNumber(document.getElementById('currentHP').value) || 0;
+            const currentMP = parseNumber(document.getElementById('currentMP').value) || 0;
+            const totalExp = calculateTotalExp(currentHP, currentMP);
+            const currentDansuInfo = calculateDansu(totalExp);
+
+            let currentTarget = parseInt(document.getElementById('targetDansu').value) || currentDansuInfo.dansu + 1;
+            let newTarget = currentTarget + delta;
+
+            // 범위 제한: 현재 단수+1 ~ 최대 단수
+            const minDansu = currentDansuInfo.dansu + 1;
+            const maxDansu = dansuTable[dansuTable.length - 1].dansu;
+            newTarget = Math.max(minDansu, Math.min(maxDansu, newTarget));
+
+            document.getElementById('targetDansu').value = newTarget;
+            document.getElementById('targetDansuDisplay').textContent = newTarget + '단';
+
+            // 목표 단수 경험치 정보 표시
+            const targetData = dansuTable.find(d => d.dansu === newTarget);
+            if (targetData) {
+                document.getElementById('targetDansuExpInfo').textContent = `필요 경험치: ${formatExp(targetData.exp)}`;
+            }
+
+            updateNeededExp();
+        }
+
+        // 스탯 선택 가져오기 (체크박스 기반)
+        function getStatChoice() {
+            const hpChecked = document.getElementById('statChoiceHP').checked;
+            const mpChecked = document.getElementById('statChoiceMP').checked;
+
+            if (hpChecked && mpChecked) return 'both';
+            if (hpChecked) return 'hp';
+            if (mpChecked) return 'mp';
+            return 'none';
+        }
+
+        // 체크박스 변경 이벤트
+        document.getElementById('statChoiceHP').addEventListener('change', function() {
+            // 최소 하나는 선택되어야 함
+            if (!this.checked && !document.getElementById('statChoiceMP').checked) {
+                this.checked = true;
+            }
+            updateNeededExp();
+        });
+        document.getElementById('statChoiceMP').addEventListener('change', function() {
+            // 최소 하나는 선택되어야 함
+            if (!this.checked && !document.getElementById('statChoiceHP').checked) {
+                this.checked = true;
+            }
+            updateNeededExp();
+        });
+
+        // HP/MP 입력 변경 시 단수 업데이트
+        document.getElementById('currentHP').addEventListener('input', function() {
+            if (currentMode === 'dansu') {
+                updateCurrentDansu();
+            }
+        });
+        document.getElementById('currentMP').addEventListener('input', function() {
+            if (currentMode === 'dansu') {
+                updateCurrentDansu();
+            }
+        });
+
+        // 목표 단수에서 필요한 HP/MP 찾기 (경험치 역산)
+        function findRequiredStats(targetExp, currentHP, currentMP, statChoice) {
+            const currentTotalExp = calculateTotalExp(currentHP, currentMP);
+            const neededExp = targetExp - currentTotalExp;
+
+            if (neededExp <= 0) return { hp: currentHP, mp: currentMP, hpGain: 0, mpGain: 0 };
+
+            if (statChoice === 'hp') {
+                // HP만 올리기
+                let low = currentHP;
+                let high = 20000000; // 2000만
+
+                while (low < high) {
+                    const mid = Math.floor((low + high) / 2);
+                    const exp = calculateTotalExp(mid, currentMP);
+                    if (exp < targetExp) {
+                        low = mid + 1;
+                    } else {
+                        high = mid;
+                    }
+                }
+
+                return {
+                    hp: low,
+                    mp: currentMP,
+                    hpGain: low - currentHP,
+                    mpGain: 0
+                };
+            } else if (statChoice === 'mp') {
+                // MP만 올리기
+                let low = currentMP;
+                let high = 10000000; // 1000만
+
+                while (low < high) {
+                    const mid = Math.floor((low + high) / 2);
+                    const exp = calculateTotalExp(currentHP, mid);
+                    if (exp < targetExp) {
+                        low = mid + 1;
+                    } else {
+                        high = mid;
+                    }
+                }
+
+                return {
+                    hp: currentHP,
+                    mp: low,
+                    hpGain: 0,
+                    mpGain: low - currentMP
+                };
+            } else {
+                // HP + MP 균등하게 올리기
+                // HP:MP 대략 2:1 비율로 증가시키며 탐색
+                let resultHP = currentHP;
+                let resultMP = currentMP;
+
+                // 반복적으로 HP와 MP를 번갈아 올리기
+                let iterations = 0;
+                while (calculateTotalExp(resultHP, resultMP) < targetExp && iterations < 100000) {
+                    // HP를 50씩 올렸을 때 vs MP를 25씩 올렸을 때 경험치 효율 비교
+                    const hpExpGain = calculateHpExp(resultHP + 50) - calculateHpExp(resultHP);
+                    const mpExpGain = calculateMpExp(resultMP + 25) - calculateMpExp(resultMP);
+
+                    // 더 효율적인 쪽을 올림 (같으면 HP 우선)
+                    if (hpExpGain >= mpExpGain) {
+                        resultHP += 50;
+                    } else {
+                        resultMP += 25;
+                    }
+                    iterations++;
+                }
+
+                return {
+                    hp: resultHP,
+                    mp: resultMP,
+                    hpGain: resultHP - currentHP,
+                    mpGain: resultMP - currentMP
+                };
+            }
+        }
+
+        // 계산 함수 수정 (모드에 따라 다르게 동작)
+        const originalCalculate = calculate;
+        calculate = function() {
+            if (currentMode === 'rar') {
+                originalCalculate();
+            } else {
+                calculateDansuMode();
+            }
+        };
+
+        // 목표 단수 모드 계산
+        function calculateDansuMode() {
+            document.getElementById('errorMessage').classList.add('hidden');
+
+            const currentHP = parseNumber(document.getElementById('currentHP').value);
+            const currentMP = parseNumber(document.getElementById('currentMP').value);
+            const targetDansu = parseInt(document.getElementById('targetDansu').value);
+            const statChoice = getStatChoice();
+
+            // Validation
+            let errors = [];
+            if (!currentHP && !currentMP) {
+                errors.push('현재 HP 또는 MP를 입력해주세요.');
+            }
+            if (!targetDansu) {
+                errors.push('목표 단수를 선택해주세요.');
+            }
+            if (statChoice === 'none') {
+                errors.push('올릴 스탯을 최소 하나 선택해주세요.');
+            }
+            // HP만 올리려는데 HP 입력 안한 경우
+            if ((statChoice === 'hp' || statChoice === 'both') && !currentHP) {
+                errors.push('HP를 올리려면 현재 HP를 입력해주세요.');
+            }
+            // MP만 올리려는데 MP 입력 안한 경우
+            if ((statChoice === 'mp' || statChoice === 'both') && !currentMP) {
+                errors.push('MP를 올리려면 현재 MP를 입력해주세요.');
+            }
+
+            if (errors.length > 0) {
+                document.getElementById('errorMessage').textContent = errors.join(' ');
+                document.getElementById('errorMessage').classList.remove('hidden');
+                return;
+            }
+
+            const targetDansuData = dansuTable.find(d => d.dansu === targetDansu);
+            const currentTotalExp = calculateTotalExp(currentHP, currentMP);
+
+            if (currentTotalExp >= targetDansuData.exp) {
+                document.getElementById('errorMessage').textContent = '이미 목표 단수에 도달했습니다!';
+                document.getElementById('errorMessage').classList.remove('hidden');
+                return;
+            }
+
+            // 필요한 스탯 계산 (스탯 선택에 따라)
+            const required = findRequiredStats(targetDansuData.exp, currentHP, currentMP, statChoice);
+
+            // 라르 계산 (HP 증가분에 대해)
+            let hpResult = { totalRar: 0, breakdown: [] };
+            if (required.hpGain > 0) {
+                hpResult = calculateTierRar(currentHP, required.hp, hpTiers, 50);
+            }
+
+            let mpResult = { totalRar: 0, breakdown: [] };
+            if (required.mpGain > 0) {
+                mpResult = calculateTierRar(currentMP, required.mp, mpTiers, 25);
+            }
+
+            // 결과 표시
+            displayResults(hpResult, mpResult);
+
+            // 추가 정보 표시
+            const resultSection = document.getElementById('resultsSection');
+            const statChoiceText = statChoice === 'hp' ? 'HP만 올리기' : (statChoice === 'mp' ? 'MP만 올리기' : 'HP + MP 균등');
+
+            let hpDisplay, mpDisplay;
+            if (statChoice === 'hp') {
+                hpDisplay = `<div class="text-3xl font-bold text-red-400">${formatNumber(required.hp)}</div>
+                            <div class="text-gray-400">목표 HP (+${formatNumber(required.hpGain)})</div>`;
+                mpDisplay = `<div class="text-3xl font-bold text-gray-500">${formatNumber(currentMP)}</div>
+                            <div class="text-gray-500">MP (변경 없음)</div>`;
+            } else if (statChoice === 'mp') {
+                hpDisplay = `<div class="text-3xl font-bold text-gray-500">${formatNumber(currentHP)}</div>
+                            <div class="text-gray-500">HP (변경 없음)</div>`;
+                mpDisplay = `<div class="text-3xl font-bold text-blue-400">${formatNumber(required.mp)}</div>
+                            <div class="text-gray-400">목표 MP (+${formatNumber(required.mpGain)})</div>`;
+            } else {
+                hpDisplay = `<div class="text-3xl font-bold text-red-400">${formatNumber(required.hp)}</div>
+                            <div class="text-gray-400">목표 HP (+${formatNumber(required.hpGain)})</div>`;
+                mpDisplay = `<div class="text-3xl font-bold text-blue-400">${formatNumber(required.mp)}</div>
+                            <div class="text-gray-400">목표 MP (+${formatNumber(required.mpGain)})</div>`;
+            }
+
+            let dansuInfoHtml = `
+                <div class="glass-card p-6 mb-8 result-card">
+                    <h3 class="text-2xl font-bold text-white mb-4 text-center">
+                        <i class="fas fa-star mr-2 text-amber-400"></i>목표 단수 달성 정보
+                    </h3>
+                    <div class="text-center mb-4">
+                        <span class="inline-block px-4 py-2 rounded-full text-sm font-bold" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
+                            <i class="fas fa-arrow-up mr-2"></i>${statChoiceText}
+                        </span>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-4 text-center">
+                        <div>
+                            <div class="text-3xl font-bold text-purple-400">${targetDansu}단</div>
+                            <div class="text-gray-400">목표 단수</div>
+                        </div>
+                        <div>
+                            ${hpDisplay}
+                        </div>
+                        <div>
+                            ${mpDisplay}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // 기존 단수 정보 카드가 있으면 제거
+            const existingDansuCard = document.getElementById('dansuResultCard');
+            if (existingDansuCard) existingDansuCard.remove();
+
+            // 새 카드 추가
+            const dansuCard = document.createElement('div');
+            dansuCard.id = 'dansuResultCard';
+            dansuCard.innerHTML = dansuInfoHtml;
+            resultSection.insertBefore(dansuCard.firstElementChild, resultSection.firstChild);
+        }
     </script>
 </body>
 
