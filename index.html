@@ -1643,12 +1643,13 @@
         }
 
         // Tier data from spreadsheet
+        // HP 구간별 증가량: 30만~555만=50, 555만~560만=45, 560만~565만=40, ... 600만+=1
         const hpTiers = [
-            { min: 300000, max: 400000, increment: null, rarPerUpgrade: 10, label: "30만 이상 ~ 40만 미만" },
-            { min: 400000, max: 500000, increment: null, rarPerUpgrade: 20, label: "40만 이상 ~ 50만 미만" },
+            { min: 300000, max: 400000, increment: 50, rarPerUpgrade: 10, label: "30만 이상 ~ 40만 미만" },
+            { min: 400000, max: 500000, increment: 50, rarPerUpgrade: 20, label: "40만 이상 ~ 50만 미만" },
             { min: 500000, max: 1000000, increment: 50, rarPerUpgrade: 30, label: "50만 이상 ~ 100만 미만" },
-            { min: 1000000, max: 2500000, increment: null, rarPerUpgrade: 50, label: "100만 이상 ~ 250만 미만" },
-            { min: 2500000, max: 5550000, increment: null, rarPerUpgrade: 100, label: "250만 이상 ~ 555만 미만" },
+            { min: 1000000, max: 2500000, increment: 50, rarPerUpgrade: 50, label: "100만 이상 ~ 250만 미만" },
+            { min: 2500000, max: 5550000, increment: 50, rarPerUpgrade: 100, label: "250만 이상 ~ 555만 미만" },
             { min: 5550000, max: 5600000, increment: 45, rarPerUpgrade: 200, label: "555만 이상 ~ 560만 미만" },
             { min: 5600000, max: 5650000, increment: 40, rarPerUpgrade: 200, label: "560만 이상 ~ 565만 미만" },
             { min: 5650000, max: 5700000, increment: 35, rarPerUpgrade: 200, label: "565만 이상 ~ 570만 미만" },
@@ -1661,14 +1662,15 @@
             { min: 6000000, max: Infinity, increment: 1, rarPerUpgrade: 200, label: "600만 이상" }
         ];
 
+        // MP 구간별 증가량: 15만~280만=25, 280만~285만=20, 285만~290만=15, 290만~295만=10, 295만~300만=5, 300만+=1
         const mpTiers = [
-            { min: 150000, max: 200000, increment: null, rarPerUpgrade: 10, label: "15만 이상 ~ 20만 미만" },
-            { min: 200000, max: 250000, increment: null, rarPerUpgrade: 20, label: "20만 이상 ~ 25만 미만" },
-            { min: 250000, max: 500000, increment: null, rarPerUpgrade: 30, label: "25만 이상 ~ 50만 미만" },
+            { min: 150000, max: 200000, increment: 25, rarPerUpgrade: 10, label: "15만 이상 ~ 20만 미만" },
+            { min: 200000, max: 250000, increment: 25, rarPerUpgrade: 20, label: "20만 이상 ~ 25만 미만" },
+            { min: 250000, max: 500000, increment: 25, rarPerUpgrade: 30, label: "25만 이상 ~ 50만 미만" },
             { min: 500000, max: 1000000, increment: 25, rarPerUpgrade: 50, label: "50만 이상 ~ 100만 미만" },
-            { min: 1000000, max: 1250000, increment: null, rarPerUpgrade: 50, label: "100만 이상 ~ 125만 미만" },
-            { min: 1250000, max: 2750000, increment: null, rarPerUpgrade: 100, label: "125만 이상 ~ 275만 미만" },
-            { min: 2750000, max: 2800000, increment: null, rarPerUpgrade: 200, label: "275만 이상 ~ 280만 미만" },
+            { min: 1000000, max: 1250000, increment: 25, rarPerUpgrade: 50, label: "100만 이상 ~ 125만 미만" },
+            { min: 1250000, max: 2750000, increment: 25, rarPerUpgrade: 100, label: "125만 이상 ~ 275만 미만" },
+            { min: 2750000, max: 2800000, increment: 25, rarPerUpgrade: 200, label: "275만 이상 ~ 280만 미만" },
             { min: 2800000, max: 2850000, increment: 20, rarPerUpgrade: 200, label: "280만 이상 ~ 285만 미만" },
             { min: 2850000, max: 2900000, increment: 15, rarPerUpgrade: 200, label: "285만 이상 ~ 290만 미만" },
             { min: 2900000, max: 2950000, increment: 10, rarPerUpgrade: 200, label: "290만 이상 ~ 295만 미만" },
