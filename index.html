@@ -1041,7 +1041,7 @@
         </div>
 
         <!-- Modal Overlay -->
-        <div id="modalOverlay" class="modal-overlay" onclick="closeModal(event)">
+        <div id="modalOverlay" class="modal-overlay" onclick="if(event.target === this) closeModal()">
             <div class="modal-container" onclick="event.stopPropagation()">
                 <div class="modal-header">
                     <div class="flex-1">
@@ -1500,13 +1500,10 @@
                 document.body.style.overflow = 'hidden';
             }
 
-            function closeModal(event) {
-                // X 버튼 클릭 시 바로 닫기
-                if (!event || event.target.closest('.modal-close') || event.target.id === 'modalOverlay') {
-                    const modal = document.getElementById('modalOverlay');
-                    modal.classList.remove('show');
-                    document.body.style.overflow = '';
-                }
+            function closeModal() {
+                const modal = document.getElementById('modalOverlay');
+                modal.classList.remove('show');
+                document.body.style.overflow = '';
             }
 
             // ESC 키로 모달 닫기
