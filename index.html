@@ -2297,6 +2297,10 @@
                 const currentTotalExp = calculateTotalExp(currentHP, currentMP);
                 const neededExp = targetExp - currentTotalExp;
 
+                // HP/MP 증가 단위 상수
+                const HP_STEP = 50;
+                const MP_STEP = 25;
+
                 if (neededExp <= 0) return { hp: currentHP, mp: currentMP, hpGain: 0, mpGain: 0 };
 
                 if (statChoice === 'hp') {
@@ -2314,10 +2318,13 @@
                         }
                     }
 
+                    // HP는 50씩 증가하므로 50의 배수로 올림 처리
+                    const targetHP = Math.ceil(low / HP_STEP) * HP_STEP;
+
                     return {
-                        hp: low,
+                        hp: targetHP,
                         mp: currentMP,
-                        hpGain: low - currentHP,
+                        hpGain: targetHP - currentHP,
                         mpGain: 0
                     };
                 } else if (statChoice === 'mp') {
@@ -2335,11 +2342,14 @@
                         }
                     }
 
+                    // MP는 25씩 증가하므로 25의 배수로 올림 처리
+                    const targetMP = Math.ceil(low / MP_STEP) * MP_STEP;
+
                     return {
                         hp: currentHP,
-                        mp: low,
+                        mp: targetMP,
                         hpGain: 0,
-                        mpGain: low - currentMP
+                        mpGain: targetMP - currentMP
                     };
                 } else {
                     // HP + MP 균등하게 올리기
