@@ -321,7 +321,7 @@
         <!-- Header -->
         <div class="text-center mb-8">
             <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-                <i class="fas fa-calculator mr-3"></i>라르 포인트 계산기
+                <i class="fas fa-calculator mr-3"></i>라르계산기
             </h1>
             <p class="text-xl text-white opacity-90">어둠의전설 순수 HP/MP 강화에 필요한 라르를 계산해보세요</p>
         </div>
@@ -358,12 +358,28 @@
             <div class="flex justify-center mb-6">
                 <div class="inline-flex rounded-lg p-1 bg-slate-700 bg-opacity-50">
                     <button id="tabRar" onclick="switchTab('rar')"
-                        class="tab-button px-6 py-3 rounded-lg font-bold text-white transition-all active">
-                        <i class="fas fa-gem mr-2"></i>라르 계산
+                        class="tab-button px-6 py-3 rounded-lg font-bold text-white transition-all active flex flex-col items-center">
+                        <div class="flex items-center">
+                            <i class="fas fa-gem mr-2"></i>
+                            <span>필요 라르는?</span>
+                        </div>
+                        <div class="text-xs font-normal opacity-80 mt-1">목표 HP/MP → 필요 라르</div>
                     </button>
                     <button id="tabDansu" onclick="switchTab('dansu')"
-                        class="tab-button px-6 py-3 rounded-lg font-bold text-white transition-all">
-                        <i class="fas fa-star mr-2"></i>목표 단수
+                        class="tab-button px-6 py-3 rounded-lg font-bold text-white transition-all flex flex-col items-center">
+                        <div class="flex items-center">
+                            <i class="fas fa-star mr-2"></i>
+                            <span>목표 단수는?</span>
+                        </div>
+                        <div class="text-xs font-normal opacity-80 mt-1">목표 단수 → 필요 HP/MP</div>
+                    </button>
+                    <button id="tabReverse" onclick="switchTab('reverse')"
+                        class="tab-button px-6 py-3 rounded-lg font-bold text-white transition-all flex flex-col items-center">
+                        <div class="flex items-center">
+                            <i class="fas fa-arrow-up mr-2"></i>
+                            <span>올릴 수 있는 수치는?</span>
+                        </div>
+                        <div class="text-xs font-normal opacity-80 mt-1">보유 라르 → 올릴 수 있는 HP/MP</div>
                     </button>
                 </div>
             </div>
@@ -379,7 +395,7 @@
                         <h2 class="text-2xl font-bold text-white">HP</h2>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-2">현재 HP</label>
+                        <label id="currentHPLabel" class="block text-sm font-medium text-gray-300 mb-2">현재 HP</label>
                         <input type="text" id="currentHP" placeholder="예: 3,000,000"
                             class="input-field w-full px-4 py-3 border-2 border-red-400 rounded-lg focus:outline-none focus:border-red-500">
                     </div>
@@ -400,7 +416,7 @@
                         <h2 class="text-2xl font-bold text-white">MP</h2>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-2">현재 MP</label>
+                        <label id="currentMPLabel" class="block text-sm font-medium text-gray-300 mb-2">현재 MP</label>
                         <input type="text" id="currentMP" placeholder="예: 150,000"
                             class="input-field w-full px-4 py-3 border-2 border-blue-400 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
@@ -494,53 +510,128 @@
                 </div>
             </div>
 
+            <!-- 라르 역산 섹션 (라르 역산 모드에서만) -->
+            <div id="reverseRarSection" class="hidden mb-6">
+                <div class="max-w-2xl mx-auto space-y-4">
+                    <!-- 보유 라르 및 목걸이 강화수치 (한 행에 배치) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- 보유 라르 입력 -->
+                        <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
+                            <label class="block text-sm font-medium text-gray-300 mb-3">
+                                <i class="fas fa-coins mr-2 text-yellow-400"></i>보유 라르
+                            </label>
+                            <input type="text" id="availableRar" placeholder="예: 1,000,000"
+                                class="input-field w-full px-4 py-3 border-2 border-yellow-400 border-opacity-50 rounded-lg focus:outline-none focus:border-yellow-500 text-center text-lg font-semibold">
+                            <p class="text-xs text-gray-400 mt-2 text-center">현재 가지고 있는 라르 개수</p>
+                        </div>
+
+                        <!-- 목걸이 강화수치 -->
+                        <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
+                            <label class="block text-sm font-medium text-gray-300 mb-3">
+                                <i class="fas fa-sword mr-2 text-orange-400"></i>목걸이 강화수치
+                            </label>
+                            <div class="flex items-center gap-2">
+                                <button type="button" onclick="adjustEnhanceLevel(-1)"
+                                    class="w-10 h-10 rounded-lg bg-orange-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
+                                    −
+                                </button>
+                                <div class="relative flex-1">
+                                    <input type="number" id="enhanceLevel" placeholder="5" value="5" min="0" max="30"
+                                        class="input-field w-full px-3 py-2 border-2 border-orange-400 border-opacity-50 rounded-lg focus:outline-none focus:border-orange-500 text-center text-lg font-semibold"
+                                        oninput="if(this.value > 30) this.value = 30; if(this.value < 0) this.value = 0;">
+                                </div>
+                                <button type="button" onclick="adjustEnhanceLevel(1)"
+                                    class="w-10 h-10 rounded-lg bg-orange-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
+                                    +
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2 text-center">0~30 (30렙 = 3.6%)</p>
+                        </div>
+                    </div>
+
+                    <!-- 올릴 스탯 선택 -->
+                    <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
+                        <label class="block text-sm font-medium text-gray-300 mb-3 text-center">
+                            <i class="fas fa-arrow-up mr-2 text-cyan-400"></i>올릴 스탯 선택
+                        </label>
+                        <div class="flex justify-center gap-6">
+                            <label class="flex items-center gap-2 cursor-pointer group">
+                                <input type="radio" name="reverseStatChoice" value="hp" id="reverseStatHP" checked
+                                    class="w-5 h-5 rounded accent-red-500 cursor-pointer">
+                                <span class="text-lg font-bold text-red-400 group-hover:text-red-300">
+                                    <i class="fas fa-heart mr-1"></i>HP
+                                </span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer group">
+                                <input type="radio" name="reverseStatChoice" value="mp" id="reverseStatMP"
+                                    class="w-5 h-5 rounded accent-blue-500 cursor-pointer">
+                                <span class="text-lg font-bold text-blue-400 group-hover:text-blue-300">
+                                    <i class="fas fa-bolt mr-1"></i>MP
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 추가 데미지 계산 안내 -->
+                    <div class="bg-slate-600 bg-opacity-30 rounded-lg p-3">
+                        <p class="text-xs text-gray-400 text-center">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            추가 데미지 공식: (순수체력 + 순수마력×2) × (0.1% + 강화수치%)
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             <div class="mt-6 pt-6 border-t-2 border-slate-600 border-opacity-40">
                 <div class="max-w-xl mx-auto space-y-4">
-                    <!-- 라르 할인율 -->
-                    <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
-                        <label class="block text-sm font-medium text-gray-300 mb-3">
-                            <i class="fas fa-percent mr-2 text-purple-400"></i>라르 할인율
-                        </label>
-                        <div class="flex items-center gap-2">
-                            <button type="button" onclick="adjustDiscountRate(-10)"
-                                class="w-10 h-10 rounded-lg bg-purple-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
-                                −
-                            </button>
-                            <div class="relative flex-1">
-                                <input type="number" id="discountRate" placeholder="0" value="0" min="0" max="99"
-                                    class="input-field w-full px-3 py-2 border-2 border-purple-400 border-opacity-50 rounded-lg focus:outline-none focus:border-purple-500 text-center text-lg font-semibold">
-                                <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-300 font-medium">%</span>
+                    <!-- 첫 번째 행: 라르 할인율 | 어둠돈 환율 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- 라르 할인율 -->
+                        <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
+                            <label class="block text-sm font-medium text-gray-300 mb-3">
+                                <i class="fas fa-percent mr-2 text-purple-400"></i>라르 할인율
+                            </label>
+                            <div class="flex items-center gap-2">
+                                <button type="button" onclick="adjustDiscountRate(-10)"
+                                    class="w-10 h-10 rounded-lg bg-purple-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
+                                    −
+                                </button>
+                                <div class="relative flex-1">
+                                    <input type="number" id="discountRate" placeholder="0" value="0" min="0" max="99"
+                                        class="input-field w-full px-3 py-2 border-2 border-purple-400 border-opacity-50 rounded-lg focus:outline-none focus:border-purple-500 text-center text-lg font-semibold">
+                                    <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-300 font-medium">%</span>
+                                </div>
+                                <button type="button" onclick="adjustDiscountRate(10)"
+                                    class="w-10 h-10 rounded-lg bg-purple-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
+                                    +
+                                </button>
                             </div>
-                            <button type="button" onclick="adjustDiscountRate(10)"
-                                class="w-10 h-10 rounded-lg bg-purple-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
-                                +
-                            </button>
+                            <p class="text-xs text-gray-400 mt-2 text-center">10% 단위 조절 (0~99%)</p>
                         </div>
-                        <p class="text-xs text-gray-400 mt-2 text-center">10% 단위 조절 (0~99%)</p>
-                    </div>
-                    <!-- 어둠돈 환율 -->
-                    <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
-                        <label class="block text-sm font-medium text-gray-300 mb-3">
-                            <i class="fas fa-coins mr-2 text-blue-400"></i>어둠돈 1억 = 현금
-                        </label>
-                        <div class="flex items-center gap-2">
-                            <button type="button" onclick="adjustExchangeRate(-100)"
-                                class="w-10 h-10 rounded-lg bg-blue-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
-                                −
-                            </button>
-                            <div class="relative flex-1">
-                                <input type="text" id="exchangeRate" placeholder="6,000" value="6,000"
-                                    class="input-field w-full px-3 py-2 border-2 border-blue-400 border-opacity-50 rounded-lg focus:outline-none focus:border-blue-500 text-center text-lg font-semibold">
-                                <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-300 font-medium">원</span>
+                        <!-- 어둠돈 환율 -->
+                        <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
+                            <label class="block text-sm font-medium text-gray-300 mb-3">
+                                <i class="fas fa-coins mr-2 text-blue-400"></i>어둠돈 1억 = 현금
+                            </label>
+                            <div class="flex items-center gap-2">
+                                <button type="button" onclick="adjustExchangeRate(-100)"
+                                    class="w-10 h-10 rounded-lg bg-blue-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
+                                    −
+                                </button>
+                                <div class="relative flex-1">
+                                    <input type="text" id="exchangeRate" placeholder="6,000" value="6,000"
+                                        class="input-field w-full px-3 py-2 border-2 border-blue-400 border-opacity-50 rounded-lg focus:outline-none focus:border-blue-500 text-center text-lg font-semibold">
+                                    <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-300 font-medium">원</span>
+                                </div>
+                                <button type="button" onclick="adjustExchangeRate(100)"
+                                    class="w-10 h-10 rounded-lg bg-blue-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
+                                    +
+                                </button>
                             </div>
-                            <button type="button" onclick="adjustExchangeRate(100)"
-                                class="w-10 h-10 rounded-lg bg-blue-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
-                                +
-                            </button>
+                            <p class="text-xs text-gray-400 mt-2 text-center">100원 단위 조절</p>
                         </div>
-                        <p class="text-xs text-gray-400 mt-2 text-center">100원 단위 조절</p>
                     </div>
-                    <!-- 무료 라르 입력 섹션 -->
+                    <!-- 두 번째 행: 무료 라르 입력 섹션 -->
                     <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
                         <label class="block text-sm font-medium text-gray-300 mb-3">
                             <i class="fas fa-gift mr-2 text-green-400"></i>무료 라르 (목표 기간 계산)
@@ -1291,6 +1382,74 @@
             return window._calcTier(current, target, tiers, defaultIncrement);
         }
 
+        // 라르 역산 계산 함수 (라르로부터 최대 올릴 수 있는 HP/MP 계산)
+        function calculateReverseRar(current, availableRar, tiers, defaultIncrement) {
+            let remainingRar = availableRar;
+            let currentValue = Math.max(current, tiers[0].min);
+            let totalGain = 0;
+            let breakdown = [];
+
+            if (currentValue < tiers[0].min) {
+                return { finalValue: currentValue, totalGain: 0, breakdown: [] };
+            }
+
+            for (let tier of tiers) {
+                if (remainingRar <= 0) break;
+                if (currentValue >= tier.max) continue;
+                if (currentValue < tier.min) currentValue = tier.min;
+
+                let tierStart = currentValue;
+                let tierEnd = tier.max;
+                let gainInTier = 0;
+                let rarUsedInTier = 0;
+
+                if (tier.increment) {
+                    // increment가 있는 경우: 정확히 계산
+                    const maxUpgrades = Math.floor((tierEnd - tierStart) / tier.increment);
+                    const rarPerUpgrade = tier.rarPerUpgrade;
+                    const possibleUpgrades = Math.floor(remainingRar / rarPerUpgrade);
+                    const actualUpgrades = Math.min(possibleUpgrades, maxUpgrades);
+                    
+                    gainInTier = actualUpgrades * tier.increment;
+                    rarUsedInTier = actualUpgrades * rarPerUpgrade;
+                } else {
+                    // increment가 없는 경우: 비례 계산
+                    const tierRange = tierEnd - tierStart;
+                    const tierTotalRar = (tierRange / defaultIncrement) * tier.rarPerUpgrade;
+                    
+                    if (remainingRar >= tierTotalRar) {
+                        // 전체 tier를 다 올릴 수 있는 경우
+                        gainInTier = tierRange;
+                        rarUsedInTier = tierTotalRar;
+                    } else {
+                        // 일부만 올릴 수 있는 경우
+                        gainInTier = Math.floor((remainingRar / tierTotalRar) * tierRange);
+                        rarUsedInTier = remainingRar;
+                    }
+                }
+
+                if (gainInTier > 0) {
+                    currentValue += gainInTier;
+                    totalGain += gainInTier;
+                    remainingRar -= rarUsedInTier;
+                    
+                    breakdown.push({
+                        label: tier.label,
+                        gain: gainInTier,
+                        rar: rarUsedInTier,
+                        finalValue: currentValue
+                    });
+                }
+            }
+
+            return {
+                finalValue: currentValue,
+                totalGain: totalGain,
+                breakdown: breakdown,
+                remainingRar: remainingRar
+            };
+        }
+
         function calculate() {
             // Clear error message
             document.getElementById('errorMessage').classList.add('hidden');
@@ -1532,6 +1691,16 @@
             input.value = currentValue;
         }
 
+        // 목걸이 강화수치 조절 함수 (1 단위)
+        function adjustEnhanceLevel(amount) {
+            const input = document.getElementById('enhanceLevel');
+            let currentValue = parseInt(input.value) || 5;
+            currentValue += amount;
+            // 0~30 범위로 제한
+            currentValue = Math.max(0, Math.min(30, currentValue));
+            input.value = currentValue;
+        }
+
         // 할인율 입력 검증 (0-99 범위)
         document.getElementById('discountRate').addEventListener('input', function(e) {
             let value = parseInt(e.target.value) || 0;
@@ -1559,16 +1728,32 @@
             // 탭 버튼 스타일 업데이트
             document.getElementById('tabRar').classList.toggle('active', mode === 'rar');
             document.getElementById('tabDansu').classList.toggle('active', mode === 'dansu');
+            document.getElementById('tabReverse').classList.toggle('active', mode === 'reverse');
 
             // 섹션 표시/숨김
-            document.getElementById('targetHPSection').classList.toggle('hidden', mode === 'dansu');
-            document.getElementById('targetMPSection').classList.toggle('hidden', mode === 'dansu');
-            document.getElementById('currentDansuSection').classList.toggle('hidden', mode === 'rar');
+            const isRarMode = mode === 'rar';
+            const isDansuMode = mode === 'dansu';
+            const isReverseMode = mode === 'reverse';
+
+            document.getElementById('targetHPSection').classList.toggle('hidden', !isRarMode);
+            document.getElementById('targetMPSection').classList.toggle('hidden', !isRarMode);
+            document.getElementById('currentDansuSection').classList.toggle('hidden', !isDansuMode);
+            document.getElementById('reverseRarSection').classList.toggle('hidden', !isReverseMode);
+
+            // HP/MP 레이블 업데이트 (역산 모드일 때 "순수 체력/마력"으로 변경)
+            const hpLabel = document.getElementById('currentHPLabel');
+            const mpLabel = document.getElementById('currentMPLabel');
+            if (isReverseMode) {
+                hpLabel.textContent = '순수 체력';
+                mpLabel.textContent = '순수 마력';
+            } else {
+                hpLabel.textContent = '현재 HP';
+                mpLabel.textContent = '현재 MP';
+            }
 
             // 단수 모드일 때 현재 단수 업데이트
             if (mode === 'dansu') {
                 updateCurrentDansu();
-                populateTargetDansuOptions();
             }
 
             // 결과 섹션 숨기기
@@ -1797,8 +1982,10 @@
         calculate = function() {
             if (currentMode === 'rar') {
                 originalCalculate();
-            } else {
+            } else if (currentMode === 'dansu') {
                 calculateDansuMode();
+            } else if (currentMode === 'reverse') {
+                calculateReverseMode();
             }
         };
 
@@ -1920,6 +2107,281 @@
             dansuCard.id = 'dansuResultCard';
             dansuCard.innerHTML = dansuInfoHtml;
             resultSection.insertBefore(dansuCard.firstElementChild, resultSection.firstChild);
+        }
+
+        // 목걸이 강화수치에 따른 증가율 계산 함수
+        // 1-5랩: 0.1%씩, 6-10랩: 0.2%씩, 11-15랩: 0.3%씩, 16-20랩: 0.4%씩, 21-25랩: 0.5%씩, 26-30랩: 0.6%씩
+        function calculateEnhanceBonus(level) {
+            if (level <= 0) return 0;
+            
+            let totalBonus = 0;
+            const ranges = [
+                { min: 1, max: 5, increment: 0.1 },
+                { min: 6, max: 10, increment: 0.2 },
+                { min: 11, max: 15, increment: 0.3 },
+                { min: 16, max: 20, increment: 0.4 },
+                { min: 21, max: 25, increment: 0.5 },
+                { min: 26, max: 30, increment: 0.6 }
+            ];
+
+            for (let range of ranges) {
+                if (level >= range.min) {
+                    const levelsInRange = Math.min(level, range.max) - range.min + 1;
+                    totalBonus += levelsInRange * range.increment;
+                }
+            }
+
+            return totalBonus; // 30렙이면 3.6% 반환
+        }
+
+        // 추가 데미지 계산 함수
+        function calculateAdditionalDamage(hp, mp, enhanceLevel) {
+            const basePercent = 0.1; // 기본 0.1%
+            const enhanceBonus = calculateEnhanceBonus(enhanceLevel);
+            const totalPercent = (basePercent + enhanceBonus) / 100; // 퍼센트를 소수로 변환
+            
+            const additionalDamage = (hp + (mp * 2)) * totalPercent;
+            return {
+                additionalDamage: additionalDamage,
+                totalPercent: (basePercent + enhanceBonus),
+                enhanceBonus: enhanceBonus
+            };
+        }
+
+        // 라르 역산 모드 계산
+        function calculateReverseMode() {
+            document.getElementById('errorMessage').classList.add('hidden');
+
+            const currentHP = parseNumber(document.getElementById('currentHP').value) || 0;
+            const currentMP = parseNumber(document.getElementById('currentMP').value) || 0;
+            const availableRar = parseNumber(document.getElementById('availableRar').value) || 0;
+            const statChoice = document.querySelector('input[name="reverseStatChoice"]:checked').value;
+            const enhanceLevel = parseInt(document.getElementById('enhanceLevel').value) || 5;
+
+            // Validation
+            let errors = [];
+            if (availableRar <= 0) {
+                errors.push('보유 라르를 입력해주세요.');
+            }
+            if (statChoice === 'hp' && !currentHP) {
+                errors.push('현재 HP를 입력해주세요.');
+            }
+            if (statChoice === 'mp' && !currentMP) {
+                errors.push('현재 MP를 입력해주세요.');
+            }
+
+            if (errors.length > 0) {
+                document.getElementById('errorMessage').textContent = errors.join(' ');
+                document.getElementById('errorMessage').classList.remove('hidden');
+                return;
+            }
+
+            let result;
+            let statName;
+            let currentValue;
+            let tiers;
+            let defaultIncrement;
+            let finalHP = currentHP;
+            let finalMP = currentMP;
+
+            if (statChoice === 'hp') {
+                currentValue = currentHP;
+                tiers = hpTiers;
+                defaultIncrement = 50;
+                statName = 'HP';
+                finalHP = currentHP;
+            } else {
+                currentValue = currentMP;
+                tiers = mpTiers;
+                defaultIncrement = 25;
+                statName = 'MP';
+                finalMP = currentMP;
+            }
+
+            result = calculateReverseRar(currentValue, availableRar, tiers, defaultIncrement);
+
+            // 최종 HP/MP 업데이트
+            if (statChoice === 'hp') {
+                finalHP = result.finalValue;
+            } else {
+                finalMP = result.finalValue;
+            }
+
+            // 추가 데미지 계산 (목걸이 강화수치가 입력된 경우)
+            let additionalDamageInfo = null;
+            let currentAdditionalDamageInfo = null;
+            if (enhanceLevel > 0) {
+                // 현재 추가 데미지 계산
+                currentAdditionalDamageInfo = calculateAdditionalDamage(currentHP, currentMP, enhanceLevel);
+                // 최종 추가 데미지 계산
+                additionalDamageInfo = calculateAdditionalDamage(finalHP, finalMP, enhanceLevel);
+            }
+
+            // 결과 표시
+            displayReverseResults(result, statName, currentValue, availableRar, currentHP, currentMP, finalHP, finalMP, additionalDamageInfo, currentAdditionalDamageInfo, enhanceLevel);
+        }
+
+        // 역산 결과 표시 함수
+        function displayReverseResults(result, statName, currentValue, availableRar, currentHP, currentMP, finalHP, finalMP, additionalDamageInfo, currentAdditionalDamageInfo, enhanceLevel) {
+            const finalValue = result.finalValue;
+            const totalGain = result.totalGain;
+            const remainingRar = result.remainingRar;
+            const breakdown = result.breakdown;
+
+            // 결과 섹션 생성
+            let resultHtml = `
+                <div class="glass-card p-6 mb-6 result-card">
+                    <h3 class="text-xl font-bold text-white mb-6 text-center border-b-2 border-cyan-500 border-opacity-30 pb-3">
+                        <i class="fas fa-arrow-up mr-2 text-cyan-400"></i>라르 역산 계산 결과
+                    </h3>
+                    
+                    <!-- 주요 결과 카드 -->
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <!-- 현재 상태 -->
+                        <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-5 border-2 border-slate-600">
+                            <div class="text-sm font-medium text-gray-400 mb-3 flex items-center">
+                                <i class="fas fa-info-circle mr-2"></i>현재 상태
+                            </div>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="text-xs text-gray-500 mb-1">현재 ${statName === 'HP' ? '순수 체력' : '순수 마력'}</div>
+                                    <div class="text-2xl font-bold text-gray-100">${formatNumber(currentValue)}</div>
+                                </div>
+                                <div class="pt-2 border-t border-slate-600">
+                                    <div class="text-xs text-gray-500 mb-1">보유 라르</div>
+                                    <div class="text-xl font-bold text-blue-400">${formatNumber(availableRar)} 개</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 최종 결과 -->
+                        <div class="bg-gradient-to-br from-emerald-900 to-emerald-800 rounded-xl p-5 border-2 border-emerald-500 border-opacity-50">
+                            <div class="text-sm font-medium text-emerald-300 mb-3 flex items-center">
+                                <i class="fas fa-check-circle mr-2"></i>최종 결과
+                            </div>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="text-xs text-emerald-200 mb-1">최종 ${statName === 'HP' ? '순수 체력' : '순수 마력'}</div>
+                                    <div class="text-3xl font-bold text-emerald-300">${formatNumber(finalValue)}</div>
+                                </div>
+                                <div class="pt-2 border-t border-emerald-600 border-opacity-30">
+                                    <div class="text-xs text-emerald-200 mb-1">올릴 수 있는 ${statName === 'HP' ? '순수 체력' : '순수 마력'}</div>
+                                    <div class="text-2xl font-bold text-emerald-400">+${formatNumber(totalGain)}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 라르 사용 정보 -->
+                    <div class="bg-gradient-to-r from-cyan-900 to-blue-900 rounded-xl p-5 mb-6 border-2 border-cyan-500 border-opacity-30">
+                        <div class="text-sm font-medium text-cyan-300 mb-4 flex items-center">
+                            <i class="fas fa-coins mr-2"></i>라르 사용 정보
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-slate-800 bg-opacity-50 rounded-lg p-3">
+                                <div class="text-xs text-gray-400 mb-1">사용한 라르</div>
+                                <div class="text-2xl font-bold text-cyan-400">${formatNumber(availableRar - remainingRar)} 개</div>
+                            </div>
+                            ${remainingRar > 0 ? `
+                                <div class="bg-slate-800 bg-opacity-50 rounded-lg p-3">
+                                    <div class="text-xs text-gray-400 mb-1">남은 라르</div>
+                                    <div class="text-2xl font-bold text-yellow-400">${formatNumber(remainingRar)} 개</div>
+                                </div>
+                            ` : `
+                                <div class="bg-slate-800 bg-opacity-50 rounded-lg p-3">
+                                    <div class="text-xs text-gray-400 mb-1">사용률</div>
+                                    <div class="text-2xl font-bold text-emerald-400">100%</div>
+                                </div>
+                            `}
+                        </div>
+                    </div>
+            `;
+
+            // 추가 데미지 정보 표시
+            if (additionalDamageInfo && currentAdditionalDamageInfo && enhanceLevel > 0) {
+                const damageIncrease = additionalDamageInfo.additionalDamage - currentAdditionalDamageInfo.additionalDamage;
+                resultHtml += `
+                    <div class="bg-gradient-to-br from-orange-900 via-orange-800 to-orange-900 rounded-xl p-5 mb-6 border-2 border-orange-500 border-opacity-60 shadow-lg">
+                        <h4 class="text-base font-bold text-orange-200 mb-4 flex items-center justify-center">
+                            <i class="fas fa-sword mr-2 text-orange-300"></i>추가 데미지 계산 (목걸이 강화 ${enhanceLevel}렙)
+                        </h4>
+                        <div class="space-y-4">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-slate-900 bg-opacity-70 rounded-lg p-4 border border-orange-600 border-opacity-30">
+                                    <div class="text-xs text-orange-200 mb-2 font-medium">현재 추가 데미지</div>
+                                    <div class="mb-2">
+                                        <div class="text-2xl font-bold text-orange-300 mb-1">${formatNumber(Math.round(currentAdditionalDamageInfo.additionalDamage))}</div>
+                                        <div class="text-xs text-orange-200 opacity-80">(${formatNumber(currentHP)} + ${formatNumber(currentMP)}×2) × ${currentAdditionalDamageInfo.totalPercent.toFixed(1)}%</div>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-900 bg-opacity-70 rounded-lg p-4 border border-orange-500 border-opacity-50">
+                                    <div class="text-xs text-orange-200 mb-2 font-medium">최종 추가 데미지</div>
+                                    <div class="mb-2">
+                                        <div class="text-2xl font-bold text-orange-400 mb-1">${formatNumber(Math.round(additionalDamageInfo.additionalDamage))}</div>
+                                        <div class="text-xs text-orange-200 opacity-80">(${formatNumber(finalHP)} + ${formatNumber(finalMP)}×2) × ${additionalDamageInfo.totalPercent.toFixed(1)}%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-emerald-900 bg-opacity-60 rounded-lg p-4 border-2 border-emerald-500 border-opacity-50">
+                                <div class="text-center">
+                                    <div class="text-xs text-emerald-200 mb-2 font-medium">추가 데미지 증가량</div>
+                                    <div class="text-3xl font-bold text-emerald-300">+${formatNumber(Math.round(damageIncrease))}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (breakdown.length > 0) {
+                resultHtml += `
+                    <div class="bg-slate-800 bg-opacity-50 rounded-xl p-5 border border-slate-600">
+                        <h4 class="text-sm font-bold text-gray-200 mb-4 flex items-center">
+                            <i class="fas fa-list-ul mr-2 text-cyan-400"></i>구간별 상세
+                        </h4>
+                        <div class="space-y-2 max-h-64 overflow-y-auto">
+                `;
+                breakdown.forEach((item, index) => {
+                    resultHtml += `
+                        <div class="flex justify-between items-center text-sm py-2.5 px-3 rounded-lg ${index % 2 === 0 ? 'bg-slate-700 bg-opacity-30' : 'bg-slate-700 bg-opacity-20'} border-l-2 border-cyan-500 border-opacity-50">
+                            <span class="text-gray-300 font-medium">${item.label}</span>
+                            <div class="flex gap-4 items-center">
+                                <div class="text-right">
+                                    <div class="text-xs text-gray-400">증가량</div>
+                                    <span class="text-cyan-400 font-bold">+${formatNumber(item.gain)}</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xs text-gray-400">사용 라르</div>
+                                    <span class="text-yellow-400 font-bold">${formatNumber(item.rar)}개</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                resultHtml += `
+                        </div>
+                    </div>
+                `;
+            }
+
+            resultHtml += `</div>`;
+
+            // 기존 역산 결과 카드가 있으면 제거
+            const existingReverseCard = document.getElementById('reverseResultCard');
+            if (existingReverseCard) existingReverseCard.remove();
+
+            // 새 카드 추가
+            const reverseCard = document.createElement('div');
+            reverseCard.id = 'reverseResultCard';
+            reverseCard.innerHTML = resultHtml;
+            
+            const resultSection = document.getElementById('resultsSection');
+            resultSection.innerHTML = '';
+            resultSection.appendChild(reverseCard.firstElementChild);
+
+            // 모달 표시
+            resultSection.classList.remove('hidden');
+            openModal();
         }
     </script>
 </body>
