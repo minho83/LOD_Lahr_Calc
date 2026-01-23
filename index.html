@@ -935,7 +935,7 @@
                     <div class="bg-slate-600 bg-opacity-30 rounded-lg p-3">
                         <p class="text-xs text-gray-400 text-center">
                             <i class="fas fa-info-circle mr-1"></i>
-                            추가 데미지 공식: (순수체력 + 순수마력×2) × (0.1% + 강화수치%)
+                            추가 데미지 공식: (순수체력 + 순수마력×2) × 강화보너스%
                         </p>
                     </div>
                 </div>
@@ -2467,40 +2467,25 @@
         }
 
         // 목걸이 강화수치에 따른 증가율 계산 함수
-        // 1-5랩: 0.1%씩, 6-10랩: 0.2%씩, 11-15랩: 0.3%씩, 16-20랩: 0.4%씩, 21-25랩: 0.5%씩, 26-30랩: 0.6%씩
+        // 기본: 레벨당 0.1%, 5의 배수(5,10,15,20,25,30)에서는 0.2%
+        // 예: 1=0.1, 5=0.6, 10=1.2, 15=1.8, 20=2.4, 25=3.0, 30=3.6
         function calculateEnhanceBonus(level) {
             if (level <= 0) return 0;
-            
-            let totalBonus = 0;
-            const ranges = [
-                { min: 1, max: 5, increment: 0.1 },
-                { min: 6, max: 10, increment: 0.2 },
-                { min: 11, max: 15, increment: 0.3 },
-                { min: 16, max: 20, increment: 0.4 },
-                { min: 21, max: 25, increment: 0.5 },
-                { min: 26, max: 30, increment: 0.6 }
-            ];
-
-            for (let range of ranges) {
-                if (level >= range.min) {
-                    const levelsInRange = Math.min(level, range.max) - range.min + 1;
-                    totalBonus += levelsInRange * range.increment;
-                }
-            }
-
-            return totalBonus; // 30렙이면 3.6% 반환
+            const fiveMultiples = Math.floor(level / 5);  // 5의 배수 개수
+            const others = level - fiveMultiples;          // 나머지 레벨
+            return (fiveMultiples * 0.2) + (others * 0.1);
         }
 
         // 추가 데미지 계산 함수
+        // 공식: (순수체력 + 순수마력 * 2) * 강화보너스%
         function calculateAdditionalDamage(hp, mp, enhanceLevel) {
-            const basePercent = 0.1; // 기본 0.1%
             const enhanceBonus = calculateEnhanceBonus(enhanceLevel);
-            const totalPercent = (basePercent + enhanceBonus) / 100; // 퍼센트를 소수로 변환
-            
+            const totalPercent = enhanceBonus / 100; // 퍼센트를 소수로 변환
+
             const additionalDamage = (hp + (mp * 2)) * totalPercent;
             return {
                 additionalDamage: additionalDamage,
-                totalPercent: (basePercent + enhanceBonus),
+                totalPercent: enhanceBonus,
                 enhanceBonus: enhanceBonus
             };
         }
