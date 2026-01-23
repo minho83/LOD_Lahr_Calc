@@ -1575,16 +1575,14 @@
         // 계산 수식 보호를 위한 난독화
         (function() {
             'use strict';
-            const _0x1a2b = [300000, 50, 5, 150000, 25, 10];
+            // HP: hp * (hp - 50) * 5, MP: mp * (mp - 25) * 10 (기준점 0)
             window._calcHp = function(hp) {
-                const _b = _0x1a2b[0];
-                if (hp <= _b) return 0;
-                return (hp + _b - _0x1a2b[1]) * (hp - _b) * _0x1a2b[2];
+                if (hp <= 0) return 0;
+                return hp * (hp - 50) * 5;
             };
             window._calcMp = function(mp) {
-                const _b = _0x1a2b[3];
-                if (mp <= _b) return 0;
-                return (mp + _b - _0x1a2b[4]) * (mp - _b) * _0x1a2b[5];
+                if (mp <= 0) return 0;
+                return mp * (mp - 25) * 10;
             };
         })();
 
