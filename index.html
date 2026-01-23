@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
-        
+
         body {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 100%);
             background-attachment: fixed;
@@ -42,14 +42,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 60%),
                 radial-gradient(circle at 80% 80%, rgba(96, 165, 250, 0.06) 0%, transparent 60%);
             pointer-events: none;
             z-index: 0;
         }
 
-        body > * {
+        body>* {
             position: relative;
             z-index: 1;
         }
@@ -58,7 +58,7 @@
             background: rgba(30, 41, 59, 0.8);
             backdrop-filter: blur(15px);
             border-radius: 16px;
-            box-shadow: 
+            box-shadow:
                 0 8px 32px 0 rgba(0, 0, 0, 0.5),
                 inset 0 1px 0 rgba(148, 163, 184, 0.1);
             border: 1px solid rgba(100, 116, 139, 0.2);
@@ -96,7 +96,7 @@
         .calc-button {
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
             border: 1px solid rgba(59, 130, 246, 0.3);
-            box-shadow: 
+            box-shadow:
                 0 4px 15px rgba(59, 130, 246, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
@@ -105,7 +105,7 @@
         .calc-button:hover {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
             transform: translateY(-2px);
-            box-shadow: 
+            box-shadow:
                 0 8px 25px rgba(59, 130, 246, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
@@ -189,7 +189,9 @@
             background-color: rgba(59, 130, 246, 0.1);
         }
 
-        h1, h2, h3 {
+        h1,
+        h2,
+        h3 {
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(59, 130, 246, 0.2);
         }
 
@@ -239,18 +241,20 @@
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
+            pointer-events: none;
         }
 
         .modal-overlay.show {
             opacity: 1;
             visibility: visible;
+            pointer-events: auto;
         }
 
         .modal-container {
             background: rgba(30, 41, 59, 0.95);
             backdrop-filter: blur(20px);
             border-radius: 20px;
-            box-shadow: 
+            box-shadow:
                 0 20px 60px 0 rgba(0, 0, 0, 0.7),
                 inset 0 1px 0 rgba(148, 163, 184, 0.1);
             border: 1px solid rgba(100, 116, 139, 0.3);
@@ -308,89 +312,90 @@
         }
 
         @media (max-width: 768px) {
+
             /* 모달 최적화 */
             .modal-container {
                 max-width: 95vw;
                 max-height: 95vh;
             }
-            
+
             .modal-content {
                 padding: 16px;
             }
-            
+
             .modal-header {
                 padding: 12px 16px;
             }
-            
+
             .modal-header h3 {
                 font-size: 18px !important;
             }
-            
+
             .modal-header p {
                 font-size: 12px !important;
             }
-            
+
             .modal-close {
                 width: 36px;
                 height: 36px;
                 font-size: 18px;
             }
-            
+
             /* 결과 카드 간격 조정 */
             .result-card {
                 margin-bottom: 16px !important;
             }
-            
+
             .result-card .grid {
                 gap: 12px !important;
             }
-            
+
             /* 전체 레이아웃 */
             body {
                 padding: 12px !important;
                 font-size: 16px;
             }
-            
+
             /* 제목 크기 조정 */
             h1 {
                 font-size: 2rem !important;
                 line-height: 1.2;
             }
-            
+
             h2 {
                 font-size: 1.5rem !important;
             }
-            
+
             h3 {
                 font-size: 1.25rem !important;
             }
-            
+
             /* 카드 패딩 조정 */
             .glass-card {
                 padding: 16px !important;
                 border-radius: 12px;
             }
-            
+
             /* 입력 필드 크기 조정 */
             .input-field {
                 padding: 14px 16px !important;
                 font-size: 16px !important;
                 min-height: 48px;
             }
-            
+
             /* 라벨 크기 조정 */
             label {
                 font-size: 15px !important;
                 margin-bottom: 8px !important;
             }
-            
+
             /* 버튼 크기 조정 */
             .calc-button {
                 padding: 14px 20px !important;
                 font-size: 16px !important;
                 min-height: 48px;
             }
-            
+
             /* 탭 버튼 최적화 */
             .tab-button {
                 padding: 12px 8px !important;
@@ -399,12 +404,12 @@
                 flex: 1;
                 min-width: 0;
             }
-            
+
             .tab-button .text-xs {
                 font-size: 11px !important;
                 margin-top: 4px;
             }
-            
+
             /* 탭 컨테이너 모바일 최적화 */
             .inline-flex.rounded-lg {
                 flex-direction: row;
@@ -412,29 +417,29 @@
                 width: 100%;
                 max-width: 100%;
             }
-            
+
             .inline-flex.rounded-lg .tab-button {
                 flex: 1 1 calc(33.333% - 4px);
                 min-width: 100px;
             }
-            
+
             /* 테이블 최적화 */
             table {
                 font-size: 13px;
                 min-width: 600px;
             }
-            
+
             th {
                 padding: 10px 6px !important;
                 font-size: 12px;
                 white-space: nowrap;
             }
-            
+
             td {
                 padding: 10px 6px !important;
                 font-size: 12px;
             }
-            
+
             /* 테이블 컨테이너 스크롤 개선 */
             .overflow-x-auto {
                 -webkit-overflow-scrolling: touch;
@@ -445,219 +450,220 @@
                 border-radius: 8px;
                 background: rgba(15, 23, 42, 0.3);
             }
-            
+
             /* 테이블 스크롤 인디케이터 */
             .overflow-x-auto::-webkit-scrollbar {
                 height: 8px;
             }
-            
+
             .overflow-x-auto::-webkit-scrollbar-track {
                 background: rgba(30, 41, 59, 0.5);
                 border-radius: 4px;
             }
-            
+
             .overflow-x-auto::-webkit-scrollbar-thumb {
                 background: rgba(59, 130, 246, 0.5);
                 border-radius: 4px;
             }
-            
+
             .overflow-x-auto::-webkit-scrollbar-thumb:hover {
                 background: rgba(59, 130, 246, 0.7);
             }
-            
+
             /* 결과 카드 텍스트 크기 */
             .result-card .text-3xl {
                 font-size: 1.75rem !important;
             }
-            
+
             .result-card .text-2xl {
                 font-size: 1.5rem !important;
             }
-            
+
             .result-card .text-xl {
                 font-size: 1.25rem !important;
             }
-            
+
             .result-card .text-base {
                 font-size: 14px !important;
             }
-            
+
             /* 그리드 간격 조정 */
             .grid {
                 gap: 12px !important;
             }
-            
+
             /* 아이콘 크기 조정 */
             .hp-theme,
             .mp-theme {
                 width: 40px !important;
                 height: 40px !important;
             }
-            
+
             .hp-theme i,
             .mp-theme i {
                 font-size: 18px !important;
             }
-            
+
             /* 간격 조정 */
             .mb-8 {
                 margin-bottom: 24px !important;
             }
-            
+
             .mb-6 {
                 margin-bottom: 20px !important;
             }
-            
+
             .mb-4 {
                 margin-bottom: 16px !important;
             }
-            
-            .space-y-4 > * + * {
+
+            .space-y-4>*+* {
                 margin-top: 16px !important;
             }
-            
+
             /* 텍스트 크기 조정 */
             .text-xl {
                 font-size: 18px !important;
             }
-            
+
             .text-lg {
                 font-size: 16px !important;
             }
-            
+
             .text-sm {
                 font-size: 14px !important;
             }
-            
+
             .text-xs {
                 font-size: 12px !important;
             }
-            
+
             /* 설명 텍스트 */
             p {
                 font-size: 14px;
                 line-height: 1.6;
             }
-            
+
             /* 헤더 섹션 최적화 */
             .text-center.mb-8 p {
                 font-size: 16px !important;
                 padding: 0 8px;
             }
-            
+
             /* Quick Links 섹션 최적화 */
             .glass-card .text-sm {
                 font-size: 13px !important;
             }
-            
+
             .glass-card .text-lg {
                 font-size: 16px !important;
             }
-            
+
             /* 간격 최적화 */
             .gap-8 {
                 gap: 16px !important;
             }
-            
+
             .gap-4 {
                 gap: 12px !important;
             }
-            
+
             .gap-3 {
                 gap: 10px !important;
             }
-            
+
             .gap-2 {
                 gap: 8px !important;
             }
-            
+
             /* 조절 버튼 크기 */
             button[onclick*="adjust"] {
                 min-width: 44px !important;
                 min-height: 44px !important;
                 font-size: 20px !important;
             }
-            
+
             /* 모든 버튼 터치 타겟 크기 확보 */
             button {
                 min-height: 44px;
                 touch-action: manipulation;
             }
-            
+
             /* 입력 필드 터치 타겟 크기 확보 */
             input[type="text"],
             input[type="number"] {
                 min-height: 48px;
                 touch-action: manipulation;
             }
-            
+
             /* 선택 요소 터치 타겟 크기 확보 */
             select {
                 min-height: 48px;
                 touch-action: manipulation;
             }
         }
-        
+
         /* 작은 모바일 (480px 이하) */
         @media (max-width: 480px) {
             body {
                 padding: 8px !important;
             }
-            
+
             h1 {
                 font-size: 1.75rem !important;
             }
-            
+
             .glass-card {
                 padding: 12px !important;
             }
-            
+
             .input-field {
                 padding: 12px 14px !important;
                 font-size: 16px !important;
             }
-            
+
             .calc-button {
                 padding: 12px 16px !important;
                 font-size: 15px !important;
             }
-            
+
             table {
                 font-size: 11px;
                 min-width: 500px;
             }
-            
-            th, td {
+
+            th,
+            td {
                 padding: 8px 4px !important;
                 font-size: 11px;
             }
-            
+
             .tab-button {
                 padding: 10px 6px !important;
                 font-size: 12px !important;
             }
-            
+
             .tab-button .text-xs {
                 font-size: 10px !important;
             }
-            
+
             /* 작은 화면에서 탭 버튼 세로 배치 */
             .inline-flex.rounded-lg {
                 flex-direction: column;
                 gap: 8px;
             }
-            
+
             .inline-flex.rounded-lg .tab-button {
                 flex: 1 1 auto;
                 width: 100%;
             }
-            
+
             /* 텍스트 줄바꿈 개선 */
             * {
                 word-wrap: break-word;
                 overflow-wrap: break-word;
             }
-            
+
             /* 긴 숫자 표시 개선 */
             .text-3xl,
             .text-2xl,
@@ -665,11 +671,12 @@
                 word-break: break-all;
                 line-height: 1.3;
             }
-            
+
             /* 입력 필드 숫자 표시 개선 */
             input[type="text"],
             input[type="number"] {
-                font-size: 16px !important; /* iOS 줌 방지 */
+                font-size: 16px !important;
+                /* iOS 줌 방지 */
             }
         }
     </style>
@@ -697,14 +704,12 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                    <a href="https://minho83.github.io/lod_Spirit/"
-                        target="_blank" rel="noopener noreferrer"
+                    <a href="https://minho83.github.io/lod_Spirit/" target="_blank" rel="noopener noreferrer"
                         class="calc-button px-5 py-3 rounded-lg font-bold text-white flex items-center justify-center gap-2 w-full md:w-auto">
                         <i class="fas fa-wand-magic-sparkles"></i>
                         정령 레벨업 비용 계산기
                     </a>
-                    <a href="https://minho83.github.io/horn_calculator/"
-                        target="_blank" rel="noopener noreferrer"
+                    <a href="https://minho83.github.io/horn_calculator/" target="_blank" rel="noopener noreferrer"
                         class="calc-button px-5 py-3 rounded-lg font-bold text-white flex items-center justify-center gap-2 w-full md:w-auto">
                         <i class="fas fa-hat-wizard"></i>
                         혼 계산기
@@ -798,11 +803,14 @@
                         <label class="block text-sm font-medium text-gray-300 mb-3 text-center">
                             <i class="fas fa-user mr-2 text-purple-400"></i>현재 단수
                         </label>
-                        <div class="input-field w-full px-3 py-2 border-2 border-purple-400 border-opacity-50 rounded-lg text-center text-2xl font-bold text-purple-400 mb-2" id="currentDansuDisplay">-</div>
+                        <div class="input-field w-full px-3 py-2 border-2 border-purple-400 border-opacity-50 rounded-lg text-center text-2xl font-bold text-purple-400 mb-2"
+                            id="currentDansuDisplay">-</div>
                         <div class="text-xs text-gray-400 text-center" id="currentExpDisplay">-</div>
                         <div class="mt-3">
                             <div class="w-full bg-slate-600 rounded-full h-2">
-                                <div id="dansuProgressBar" class="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                <div id="dansuProgressBar"
+                                    class="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-500"
+                                    style="width: 0%"></div>
                             </div>
                             <div class="text-xs text-gray-400 text-center mt-1" id="nextDansuInfo">-</div>
                         </div>
@@ -819,7 +827,8 @@
                                 −
                             </button>
                             <div class="relative flex-1">
-                                <div class="input-field w-full px-3 py-2 border-2 border-yellow-400 border-opacity-50 rounded-lg text-center text-2xl font-bold text-yellow-400" id="targetDansuDisplay">-</div>
+                                <div class="input-field w-full px-3 py-2 border-2 border-yellow-400 border-opacity-50 rounded-lg text-center text-2xl font-bold text-yellow-400"
+                                    id="targetDansuDisplay">-</div>
                             </div>
                             <button type="button" onclick="adjustTargetDansu(1)"
                                 class="w-10 h-10 rounded-lg bg-yellow-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
@@ -960,7 +969,8 @@
                                 <div class="relative flex-1">
                                     <input type="number" id="discountRate" placeholder="0" value="0" min="0" max="99"
                                         class="input-field w-full px-3 py-2 border-2 border-purple-400 border-opacity-50 rounded-lg focus:outline-none focus:border-purple-500 text-center text-lg font-semibold">
-                                    <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-300 font-medium">%</span>
+                                    <span
+                                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-300 font-medium">%</span>
                                 </div>
                                 <button type="button" onclick="adjustDiscountRate(10)"
                                     class="w-10 h-10 rounded-lg bg-purple-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
@@ -982,7 +992,8 @@
                                 <div class="relative flex-1">
                                     <input type="text" id="exchangeRate" placeholder="6,000" value="6,000"
                                         class="input-field w-full px-3 py-2 border-2 border-blue-400 border-opacity-50 rounded-lg focus:outline-none focus:border-blue-500 text-center text-lg font-semibold">
-                                    <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-300 font-medium">원</span>
+                                    <span
+                                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-300 font-medium">원</span>
                                 </div>
                                 <button type="button" onclick="adjustExchangeRate(100)"
                                     class="w-10 h-10 rounded-lg bg-blue-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
@@ -1048,944 +1059,970 @@
                 <div class="modal-content">
                     <!-- Results Section -->
                     <div id="resultsSection">
-            <!-- Total Summary -->
-            <div class="glass-card p-6 mb-6 text-center result-card">
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div>
-                        <div class="text-3xl font-bold text-blue-400 mb-3" id="totalRar"></div>
-                        <div class="text-base font-medium text-gray-200">총 필요 라르</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-bold text-blue-300 mb-3" id="totalCost"></div>
-                        <div class="text-base font-medium text-gray-200">총 비용 (골드)</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-bold text-sky-300 mb-3" id="totalCash"></div>
-                        <div class="text-base font-medium text-gray-200">예상 현금 비용</div>
-                    </div>
-                </div>
-            </div>
+                        <!-- Total Summary -->
+                        <div class="glass-card p-6 mb-6 text-center result-card">
+                            <div class="grid md:grid-cols-3 gap-6">
+                                <div>
+                                    <div class="text-3xl font-bold text-blue-400 mb-3" id="totalRar"></div>
+                                    <div class="text-base font-medium text-gray-200">총 필요 라르</div>
+                                </div>
+                                <div>
+                                    <div class="text-3xl font-bold text-blue-300 mb-3" id="totalCost"></div>
+                                    <div class="text-base font-medium text-gray-200">총 비용 (골드)</div>
+                                </div>
+                                <div>
+                                    <div class="text-3xl font-bold text-sky-300 mb-3" id="totalCash"></div>
+                                    <div class="text-base font-medium text-gray-200">예상 현금 비용</div>
+                                </div>
+                            </div>
+                        </div>
 
-            <!-- 무료 라르로 목표 달성 기간 -->
-            <div id="freeRarSection" class="glass-card p-6 mb-6 text-center result-card hidden">
-                <h3 class="text-lg font-bold text-white mb-4">
-                    <i class="fas fa-calendar-alt mr-2" style="color: #10b981;"></i>무료 라르로 목표 달성 예상 기간
-                </h3>
-                <div class="grid md:grid-cols-3 gap-6 mb-5">
-                    <div>
-                        <div class="text-2xl font-bold text-emerald-400 mb-3" id="weeklyRarTotal"></div>
-                        <div class="text-base font-medium text-gray-200 mb-1">주간 획득 라르</div>
-                        <div class="text-sm text-gray-300" id="weeklyRarBreakdown"></div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-bold text-emerald-300 mb-3" id="weeksNeeded"></div>
-                        <div class="text-base font-medium text-gray-200">예상 소요 기간</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold text-teal-300 mb-3" id="targetDate"></div>
-                        <div class="text-base font-medium text-gray-200">예상 달성일</div>
-                    </div>
-                </div>
-                <div class="bg-slate-700 bg-opacity-50 rounded-lg p-4 max-w-xl mx-auto">
-                    <p class="text-gray-200 text-base">
-                        <i class="fas fa-info-circle mr-2 text-emerald-400"></i>
-                        무료 라르만으로 목표 달성 시 예상 기간입니다.
-                    </p>
-                </div>
-            </div>
+                        <!-- 무료 라르로 목표 달성 기간 -->
+                        <div id="freeRarSection" class="glass-card p-6 mb-6 text-center result-card hidden">
+                            <h3 class="text-lg font-bold text-white mb-4">
+                                <i class="fas fa-calendar-alt mr-2" style="color: #10b981;"></i>무료 라르로 목표 달성 예상 기간
+                            </h3>
+                            <div class="grid md:grid-cols-3 gap-6 mb-5">
+                                <div>
+                                    <div class="text-2xl font-bold text-emerald-400 mb-3" id="weeklyRarTotal"></div>
+                                    <div class="text-base font-medium text-gray-200 mb-1">주간 획득 라르</div>
+                                    <div class="text-sm text-gray-300" id="weeklyRarBreakdown"></div>
+                                </div>
+                                <div>
+                                    <div class="text-3xl font-bold text-emerald-300 mb-3" id="weeksNeeded"></div>
+                                    <div class="text-base font-medium text-gray-200">예상 소요 기간</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-teal-300 mb-3" id="targetDate"></div>
+                                    <div class="text-base font-medium text-gray-200">예상 달성일</div>
+                                </div>
+                            </div>
+                            <div class="bg-slate-700 bg-opacity-50 rounded-lg p-4 max-w-xl mx-auto">
+                                <p class="text-gray-200 text-base">
+                                    <i class="fas fa-info-circle mr-2 text-emerald-400"></i>
+                                    무료 라르만으로 목표 달성 시 예상 기간입니다.
+                                </p>
+                            </div>
+                        </div>
 
-            <!-- 목표 기간 내 필요 라르 계산 -->
-            <div id="targetDaysSection" class="glass-card p-6 mb-6 text-center result-card hidden">
-                <h3 class="text-lg font-bold text-white mb-4">
-                    <i class="fas fa-crosshairs mr-2" style="color: #f59e0b;"></i>목표 기간 내 달성 분석
-                </h3>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
-                    <div>
-                        <div class="text-2xl font-bold text-amber-400 mb-3" id="targetDaysDisplay"></div>
-                        <div class="text-base font-medium text-gray-200">목표 기간</div>
+                        <!-- 목표 기간 내 필요 라르 계산 -->
+                        <div id="targetDaysSection" class="glass-card p-6 mb-6 text-center result-card hidden">
+                            <h3 class="text-lg font-bold text-white mb-4">
+                                <i class="fas fa-crosshairs mr-2" style="color: #f59e0b;"></i>목표 기간 내 달성 분석
+                            </h3>
+                            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
+                                <div>
+                                    <div class="text-2xl font-bold text-amber-400 mb-3" id="targetDaysDisplay"></div>
+                                    <div class="text-base font-medium text-gray-200">목표 기간</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-emerald-400 mb-3" id="freeRarInPeriod"></div>
+                                    <div class="text-base font-medium text-gray-200 mb-1">기간 내 무료 라르</div>
+                                    <div class="text-sm text-gray-300" id="freeRarInPeriodBreakdown"></div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold mb-3" id="shortfallRar"></div>
+                                    <div class="text-base font-medium text-gray-200">부족한 라르</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-blue-300 mb-3" id="shortfallCost"></div>
+                                    <div class="text-base font-medium text-gray-200">추가 필요 비용</div>
+                                </div>
+                            </div>
+                            <div id="targetDaysMessage"
+                                class="bg-slate-700 bg-opacity-50 rounded-lg p-4 max-w-2xl mx-auto">
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <div class="text-2xl font-bold text-emerald-400 mb-3" id="freeRarInPeriod"></div>
-                        <div class="text-base font-medium text-gray-200 mb-1">기간 내 무료 라르</div>
-                        <div class="text-sm text-gray-300" id="freeRarInPeriodBreakdown"></div>
+
+                    <!-- Data Tables Section -->
+                    <div class="glass-card p-6 mb-8">
+                        <div class="collapsible flex items-center justify-between p-4 rounded-lg"
+                            onclick="toggleTable('hpTable')">
+                            <h3 class="text-xl font-bold text-white">
+                                <i class="fas fa-table mr-2"></i>순수 HP 데이터 테이블
+                            </h3>
+                            <i class="fas fa-chevron-down transition-transform" id="hpTableIcon"></i>
+                        </div>
+                        <div id="hpTable" class="mt-4 overflow-x-auto hidden">
+                            <table class="w-full text-sm">
+                                <thead class="table-hp">
+                                    <tr>
+                                        <th>순수 HP</th>
+                                        <th>1회상승</th>
+                                        <th>필요 라르</th>
+                                        <th>경렬횟수</th>
+                                        <th>필요 라르갯수</th>
+                                        <th>라르 금액환산</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>30만 이상 ~ 40만 미만</td>
+                                        <td></td>
+                                        <td style="text-align:right">10</td>
+                                        <td style="text-align:right">2,000</td>
+                                        <td style="text-align:right">20,000</td>
+                                        <td style="text-align:right">200,000,000</td>
+                                        <td>2억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>40만 이상 ~ 50만 미만</td>
+                                        <td></td>
+                                        <td style="text-align:right">20</td>
+                                        <td style="text-align:right">2,000</td>
+                                        <td style="text-align:right">40,000</td>
+                                        <td style="text-align:right">400,000,000</td>
+                                        <td>4억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>50만 이상 ~ 100만 미만</td>
+                                        <td style="text-align:right">50</td>
+                                        <td style="text-align:right">30</td>
+                                        <td style="text-align:right">10,000</td>
+                                        <td style="text-align:right">300,000</td>
+                                        <td style="text-align:right">3,000,000,000</td>
+                                        <td>30억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>100만 이상 ~ 250만 미만</td>
+                                        <td></td>
+                                        <td style="text-align:right">50</td>
+                                        <td style="text-align:right">30,000</td>
+                                        <td style="text-align:right">1,500,000</td>
+                                        <td style="text-align:right">15,000,000,000</td>
+                                        <td>150억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>250만 이상 ~ 555만 미만</td>
+                                        <td></td>
+                                        <td style="text-align:right">100</td>
+                                        <td style="text-align:right">61,000</td>
+                                        <td style="text-align:right">6,100,000</td>
+                                        <td style="text-align:right">61,000,000,000</td>
+                                        <td>610억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>555만 이상 ~ 560만 미만</td>
+                                        <td style="text-align:right">45</td>
+                                        <td style="text-align:right">200</td>
+                                        <td style="text-align:right">1,112</td>
+                                        <td style="text-align:right">222,400</td>
+                                        <td style="text-align:right">2,224,000,000</td>
+                                        <td>22.24억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>560만 이상 ~ 565만 미만</td>
+                                        <td style="text-align:right">40</td>
+                                        <td style="text-align:right">200</td>
+                                        <td style="text-align:right">1,250</td>
+                                        <td style="text-align:right">250,000</td>
+                                        <td style="text-align:right">2,500,000,000</td>
+                                        <td>25억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>565만 이상 ~ 570만 미만</td>
+                                        <td style="text-align:right">35</td>
+                                        <td style="text-align:right">200</td>
+                                        <td style="text-align:right">1,428</td>
+                                        <td style="text-align:right">285,600</td>
+                                        <td style="text-align:right">2,856,000,000</td>
+                                        <td>28.56억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>570만 이상 ~ 575만 미만</td>
+                                        <td style="text-align:right">30</td>
+                                        <td style="text-align:right">200</td>
+                                        <td style="text-align:right">1,666</td>
+                                        <td style="text-align:right">333,200</td>
+                                        <td style="text-align:right">3,332,000,000</td>
+                                        <td>33.32억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>575만 이상 ~ 580만 미만</td>
+                                        <td style="text-align:right">25</td>
+                                        <td style="text-align:right">200</td>
+                                        <td style="text-align:right">2,000</td>
+                                        <td style="text-align:right">400,000</td>
+                                        <td style="text-align:right">4,000,000,000</td>
+                                        <td>40억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>580만 이상 ~ 585만 미만</td>
+                                        <td style="text-align:right">20</td>
+                                        <td style="text-align:right">200</td>
+                                        <td style="text-align:right">2,500</td>
+                                        <td style="text-align:right">500,000</td>
+                                        <td style="text-align:right">5,000,000,000</td>
+                                        <td>50억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>585만 이상 ~ 590만 미만</td>
+                                        <td style="text-align:right">15</td>
+                                        <td style="text-align:right">200</td>
+                                        <td style="text-align:right">3,334</td>
+                                        <td style="text-align:right">666,800</td>
+                                        <td style="text-align:right">6,668,000,000</td>
+                                        <td>66.68억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>590만 이상 ~ 595만 미만</td>
+                                        <td style="text-align:right">10</td>
+                                        <td style="text-align:right">200</td>
+                                        <td style="text-align:right">5,000</td>
+                                        <td style="text-align:right">1,000,000</td>
+                                        <td style="text-align:right">10,000,000,000</td>
+                                        <td>100억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>595만 이상 ~ 600만 미만</td>
+                                        <td style="text-align:right">5</td>
+                                        <td style="text-align:right">200</td>
+                                        <td style="text-align:right">10,000</td>
+                                        <td style="text-align:right">2,000,000</td>
+                                        <td style="text-align:right">20,000,000,000</td>
+                                        <td>200억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>600만 이상</td>
+                                        <td style="text-align:right">1</td>
+                                        <td style="text-align:right">200</td>
+                                        <td class="table-black"></td>
+                                        <td class="table-black"></td>
+                                        <td class="table-black"></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="table-total">
+                                        <td>합계</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align:right">13,618,000</td>
+                                        <td style="text-align:right">136,180,000,000</td>
+                                        <td></td>
+                                        <td>1361.8억</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="collapsible flex items-center justify-between p-4 rounded-lg mt-4"
+                            onclick="toggleTable('mpTable')">
+                            <h3 class="text-xl font-bold text-white">
+                                <i class="fas fa-table mr-2"></i>순수 MP 데이터 테이블
+                            </h3>
+                            <i class="fas fa-chevron-down transition-transform" id="mpTableIcon"></i>
+                        </div>
+                        <div id="mpTable" class="mt-4 overflow-x-auto hidden">
+                            <table class="w-full text-sm">
+                                <thead class="table-mp">
+                                    <tr>
+                                        <th>순수 MP</th>
+                                        <th>1회상승</th>
+                                        <th>필요 라르</th>
+                                        <th>경렬횟수</th>
+                                        <th>필요 라르갯수</th>
+                                        <th>라르 금액환산</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>15만 이상 ~ 20만 미만</td>
+                                        <td></td>
+                                        <td style="text-align:right">10</td>
+                                        <td style="text-align:right">2,000</td>
+                                        <td style="text-align:right">20,000</td>
+                                        <td style="text-align:right">200,000,000</td>
+                                        <td>2억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20만 이상 ~ 25만 미만</td>
+                                        <td></td>
+                                        <td style="text-align:right">20</td>
+                                        <td style="text-align:right">2,000</td>
+                                        <td style="text-align:right">40,000</td>
+                                        <td style="text-align:right">400,000,000</td>
+                                        <td>4억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>25만 이상 ~ 50만 미만</td>
+                                        <td></td>
+                                        <td style="text-align:right">30</td>
+                                        <td style="text-align:right">10,000</td>
+                                        <td style="text-align:right">300,000</td>
+                                        <td style="text-align:right">3,000,000,000</td>
+                                        <td>30억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>50만 이상 ~ 100만 미만</td>
+                                        <td style="text-align:right">25</td>
+                                        <td style="text-align:right">50</td>
+                                        <td style="text-align:right">20,000</td>
+                                        <td style="text-align:right">1,000,000</td>
+                                        <td style="text-align:right">10,000,000,000</td>
+                                        <td>100억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>100만 이상 ~ 125만 미만</td>
+                                        <td></td>
+                                        <td style="text-align:right">50</td>
+                                        <td style="text-align:right">10,000</td>
+                                        <td style="text-align:right">500,000</td>
+                                        <td style="text-align:right">5,000,000,000</td>
+                                        <td>50억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>125만 이상 ~ 275만 미만</td>
+                                        <td></td>
+                                        <td style="text-align:right">100</td>
+                                        <td style="text-align:right">60,000</td>
+                                        <td style="text-align:right">6,000,000</td>
+                                        <td style="text-align:right">60,000,000,000</td>
+                                        <td>600억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>275만 이상 ~ 280만 미만</td>
+                                        <td></td>
+                                        <td style="text-align:right">200</td>
+                                        <td style="text-align:right">2,000</td>
+                                        <td style="text-align:right">400,000</td>
+                                        <td style="text-align:right">4,000,000,000</td>
+                                        <td>40억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>280만 이상 ~ 285만 미만</td>
+                                        <td style="text-align:right">20</td>
+                                        <td style="text-align:right">200</td>
+                                        <td style="text-align:right">2,500</td>
+                                        <td style="text-align:right">500,000</td>
+                                        <td style="text-align:right">5,000,000,000</td>
+                                        <td>50억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>285만 이상 ~ 290만 미만</td>
+                                        <td style="text-align:right">15</td>
+                                        <td style="text-align:right">200</td>
+                                        <td style="text-align:right">3,334</td>
+                                        <td style="text-align:right">666,800</td>
+                                        <td style="text-align:right">6,668,000,000</td>
+                                        <td>66.68억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>290만 이상 ~ 295만 미만</td>
+                                        <td style="text-align:right">10</td>
+                                        <td style="text-align:right">200</td>
+                                        <td style="text-align:right">5,000</td>
+                                        <td style="text-align:right">1,000,000</td>
+                                        <td style="text-align:right">10,000,000,000</td>
+                                        <td>100억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>295만 이상 ~ 300만 미만</td>
+                                        <td style="text-align:right">5</td>
+                                        <td style="text-align:right">200</td>
+                                        <td style="text-align:right">10,000</td>
+                                        <td style="text-align:right">2,000,000</td>
+                                        <td style="text-align:right">20,000,000,000</td>
+                                        <td>200억</td>
+                                    </tr>
+                                    <tr>
+                                        <td>300만 이상</td>
+                                        <td style="text-align:right">1</td>
+                                        <td style="text-align:right">200</td>
+                                        <td class="table-black"></td>
+                                        <td class="table-black"></td>
+                                        <td class="table-black"></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="table-total">
+                                        <td>합계</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align:right">12,426,800</td>
+                                        <td style="text-align:right">124,268,000,000</td>
+                                        <td></td>
+                                        <td>1242.68억</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div>
-                        <div class="text-2xl font-bold mb-3" id="shortfallRar"></div>
-                        <div class="text-base font-medium text-gray-200">부족한 라르</div>
-                    </div>
-                    <div>
-                        <div class="text-2xl font-bold text-blue-300 mb-3" id="shortfallCost"></div>
-                        <div class="text-base font-medium text-gray-200">추가 필요 비용</div>
-                    </div>
-                </div>
-                <div id="targetDaysMessage" class="bg-slate-700 bg-opacity-50 rounded-lg p-4 max-w-2xl mx-auto">
                 </div>
             </div>
         </div>
 
-        <!-- Data Tables Section -->
-        <div class="glass-card p-6 mb-8">
-            <div class="collapsible flex items-center justify-between p-4 rounded-lg" onclick="toggleTable('hpTable')">
-                <h3 class="text-xl font-bold text-white">
-                    <i class="fas fa-table mr-2"></i>순수 HP 데이터 테이블
-                </h3>
-                <i class="fas fa-chevron-down transition-transform" id="hpTableIcon"></i>
-            </div>
-            <div id="hpTable" class="mt-4 overflow-x-auto hidden">
-                <table class="w-full text-sm">
-                    <thead class="table-hp">
-                        <tr>
-                            <th>순수 HP</th>
-                            <th>1회상승</th>
-                            <th>필요 라르</th>
-                            <th>경렬횟수</th>
-                            <th>필요 라르갯수</th>
-                            <th>라르 금액환산</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>30만 이상 ~ 40만 미만</td>
-                            <td></td>
-                            <td style="text-align:right">10</td>
-                            <td style="text-align:right">2,000</td>
-                            <td style="text-align:right">20,000</td>
-                            <td style="text-align:right">200,000,000</td>
-                            <td>2억</td>
-                        </tr>
-                        <tr>
-                            <td>40만 이상 ~ 50만 미만</td>
-                            <td></td>
-                            <td style="text-align:right">20</td>
-                            <td style="text-align:right">2,000</td>
-                            <td style="text-align:right">40,000</td>
-                            <td style="text-align:right">400,000,000</td>
-                            <td>4억</td>
-                        </tr>
-                        <tr>
-                            <td>50만 이상 ~ 100만 미만</td>
-                            <td style="text-align:right">50</td>
-                            <td style="text-align:right">30</td>
-                            <td style="text-align:right">10,000</td>
-                            <td style="text-align:right">300,000</td>
-                            <td style="text-align:right">3,000,000,000</td>
-                            <td>30억</td>
-                        </tr>
-                        <tr>
-                            <td>100만 이상 ~ 250만 미만</td>
-                            <td></td>
-                            <td style="text-align:right">50</td>
-                            <td style="text-align:right">30,000</td>
-                            <td style="text-align:right">1,500,000</td>
-                            <td style="text-align:right">15,000,000,000</td>
-                            <td>150억</td>
-                        </tr>
-                        <tr>
-                            <td>250만 이상 ~ 555만 미만</td>
-                            <td></td>
-                            <td style="text-align:right">100</td>
-                            <td style="text-align:right">61,000</td>
-                            <td style="text-align:right">6,100,000</td>
-                            <td style="text-align:right">61,000,000,000</td>
-                            <td>610억</td>
-                        </tr>
-                        <tr>
-                            <td>555만 이상 ~ 560만 미만</td>
-                            <td style="text-align:right">45</td>
-                            <td style="text-align:right">200</td>
-                            <td style="text-align:right">1,112</td>
-                            <td style="text-align:right">222,400</td>
-                            <td style="text-align:right">2,224,000,000</td>
-                            <td>22.24억</td>
-                        </tr>
-                        <tr>
-                            <td>560만 이상 ~ 565만 미만</td>
-                            <td style="text-align:right">40</td>
-                            <td style="text-align:right">200</td>
-                            <td style="text-align:right">1,250</td>
-                            <td style="text-align:right">250,000</td>
-                            <td style="text-align:right">2,500,000,000</td>
-                            <td>25억</td>
-                        </tr>
-                        <tr>
-                            <td>565만 이상 ~ 570만 미만</td>
-                            <td style="text-align:right">35</td>
-                            <td style="text-align:right">200</td>
-                            <td style="text-align:right">1,428</td>
-                            <td style="text-align:right">285,600</td>
-                            <td style="text-align:right">2,856,000,000</td>
-                            <td>28.56억</td>
-                        </tr>
-                        <tr>
-                            <td>570만 이상 ~ 575만 미만</td>
-                            <td style="text-align:right">30</td>
-                            <td style="text-align:right">200</td>
-                            <td style="text-align:right">1,666</td>
-                            <td style="text-align:right">333,200</td>
-                            <td style="text-align:right">3,332,000,000</td>
-                            <td>33.32억</td>
-                        </tr>
-                        <tr>
-                            <td>575만 이상 ~ 580만 미만</td>
-                            <td style="text-align:right">25</td>
-                            <td style="text-align:right">200</td>
-                            <td style="text-align:right">2,000</td>
-                            <td style="text-align:right">400,000</td>
-                            <td style="text-align:right">4,000,000,000</td>
-                            <td>40억</td>
-                        </tr>
-                        <tr>
-                            <td>580만 이상 ~ 585만 미만</td>
-                            <td style="text-align:right">20</td>
-                            <td style="text-align:right">200</td>
-                            <td style="text-align:right">2,500</td>
-                            <td style="text-align:right">500,000</td>
-                            <td style="text-align:right">5,000,000,000</td>
-                            <td>50억</td>
-                        </tr>
-                        <tr>
-                            <td>585만 이상 ~ 590만 미만</td>
-                            <td style="text-align:right">15</td>
-                            <td style="text-align:right">200</td>
-                            <td style="text-align:right">3,334</td>
-                            <td style="text-align:right">666,800</td>
-                            <td style="text-align:right">6,668,000,000</td>
-                            <td>66.68억</td>
-                        </tr>
-                        <tr>
-                            <td>590만 이상 ~ 595만 미만</td>
-                            <td style="text-align:right">10</td>
-                            <td style="text-align:right">200</td>
-                            <td style="text-align:right">5,000</td>
-                            <td style="text-align:right">1,000,000</td>
-                            <td style="text-align:right">10,000,000,000</td>
-                            <td>100억</td>
-                        </tr>
-                        <tr>
-                            <td>595만 이상 ~ 600만 미만</td>
-                            <td style="text-align:right">5</td>
-                            <td style="text-align:right">200</td>
-                            <td style="text-align:right">10,000</td>
-                            <td style="text-align:right">2,000,000</td>
-                            <td style="text-align:right">20,000,000,000</td>
-                            <td>200억</td>
-                        </tr>
-                        <tr>
-                            <td>600만 이상</td>
-                            <td style="text-align:right">1</td>
-                            <td style="text-align:right">200</td>
-                            <td class="table-black"></td>
-                            <td class="table-black"></td>
-                            <td class="table-black"></td>
-                            <td></td>
-                        </tr>
-                        <tr class="table-total">
-                            <td>합계</td>
-                            <td></td>
-                            <td></td>
-                            <td style="text-align:right">13,618,000</td>
-                            <td style="text-align:right">136,180,000,000</td>
-                            <td></td>
-                            <td>1361.8억</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="collapsible flex items-center justify-between p-4 rounded-lg mt-4"
-                onclick="toggleTable('mpTable')">
-                <h3 class="text-xl font-bold text-white">
-                    <i class="fas fa-table mr-2"></i>순수 MP 데이터 테이블
-                </h3>
-                <i class="fas fa-chevron-down transition-transform" id="mpTableIcon"></i>
-            </div>
-            <div id="mpTable" class="mt-4 overflow-x-auto hidden">
-                <table class="w-full text-sm">
-                    <thead class="table-mp">
-                        <tr>
-                            <th>순수 MP</th>
-                            <th>1회상승</th>
-                            <th>필요 라르</th>
-                            <th>경렬횟수</th>
-                            <th>필요 라르갯수</th>
-                            <th>라르 금액환산</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>15만 이상 ~ 20만 미만</td>
-                            <td></td>
-                            <td style="text-align:right">10</td>
-                            <td style="text-align:right">2,000</td>
-                            <td style="text-align:right">20,000</td>
-                            <td style="text-align:right">200,000,000</td>
-                            <td>2억</td>
-                        </tr>
-                        <tr>
-                            <td>20만 이상 ~ 25만 미만</td>
-                            <td></td>
-                            <td style="text-align:right">20</td>
-                            <td style="text-align:right">2,000</td>
-                            <td style="text-align:right">40,000</td>
-                            <td style="text-align:right">400,000,000</td>
-                            <td>4억</td>
-                        </tr>
-                        <tr>
-                            <td>25만 이상 ~ 50만 미만</td>
-                            <td></td>
-                            <td style="text-align:right">30</td>
-                            <td style="text-align:right">10,000</td>
-                            <td style="text-align:right">300,000</td>
-                            <td style="text-align:right">3,000,000,000</td>
-                            <td>30억</td>
-                        </tr>
-                        <tr>
-                            <td>50만 이상 ~ 100만 미만</td>
-                            <td style="text-align:right">25</td>
-                            <td style="text-align:right">50</td>
-                            <td style="text-align:right">20,000</td>
-                            <td style="text-align:right">1,000,000</td>
-                            <td style="text-align:right">10,000,000,000</td>
-                            <td>100억</td>
-                        </tr>
-                        <tr>
-                            <td>100만 이상 ~ 125만 미만</td>
-                            <td></td>
-                            <td style="text-align:right">50</td>
-                            <td style="text-align:right">10,000</td>
-                            <td style="text-align:right">500,000</td>
-                            <td style="text-align:right">5,000,000,000</td>
-                            <td>50억</td>
-                        </tr>
-                        <tr>
-                            <td>125만 이상 ~ 275만 미만</td>
-                            <td></td>
-                            <td style="text-align:right">100</td>
-                            <td style="text-align:right">60,000</td>
-                            <td style="text-align:right">6,000,000</td>
-                            <td style="text-align:right">60,000,000,000</td>
-                            <td>600억</td>
-                        </tr>
-                        <tr>
-                            <td>275만 이상 ~ 280만 미만</td>
-                            <td></td>
-                            <td style="text-align:right">200</td>
-                            <td style="text-align:right">2,000</td>
-                            <td style="text-align:right">400,000</td>
-                            <td style="text-align:right">4,000,000,000</td>
-                            <td>40억</td>
-                        </tr>
-                        <tr>
-                            <td>280만 이상 ~ 285만 미만</td>
-                            <td style="text-align:right">20</td>
-                            <td style="text-align:right">200</td>
-                            <td style="text-align:right">2,500</td>
-                            <td style="text-align:right">500,000</td>
-                            <td style="text-align:right">5,000,000,000</td>
-                            <td>50억</td>
-                        </tr>
-                        <tr>
-                            <td>285만 이상 ~ 290만 미만</td>
-                            <td style="text-align:right">15</td>
-                            <td style="text-align:right">200</td>
-                            <td style="text-align:right">3,334</td>
-                            <td style="text-align:right">666,800</td>
-                            <td style="text-align:right">6,668,000,000</td>
-                            <td>66.68억</td>
-                        </tr>
-                        <tr>
-                            <td>290만 이상 ~ 295만 미만</td>
-                            <td style="text-align:right">10</td>
-                            <td style="text-align:right">200</td>
-                            <td style="text-align:right">5,000</td>
-                            <td style="text-align:right">1,000,000</td>
-                            <td style="text-align:right">10,000,000,000</td>
-                            <td>100억</td>
-                        </tr>
-                        <tr>
-                            <td>295만 이상 ~ 300만 미만</td>
-                            <td style="text-align:right">5</td>
-                            <td style="text-align:right">200</td>
-                            <td style="text-align:right">10,000</td>
-                            <td style="text-align:right">2,000,000</td>
-                            <td style="text-align:right">20,000,000,000</td>
-                            <td>200억</td>
-                        </tr>
-                        <tr>
-                            <td>300만 이상</td>
-                            <td style="text-align:right">1</td>
-                            <td style="text-align:right">200</td>
-                            <td class="table-black"></td>
-                            <td class="table-black"></td>
-                            <td class="table-black"></td>
-                            <td></td>
-                        </tr>
-                        <tr class="table-total">
-                            <td>합계</td>
-                            <td></td>
-                            <td></td>
-                            <td style="text-align:right">12,426,800</td>
-                            <td style="text-align:right">124,268,000,000</td>
-                            <td></td>
-                            <td>1242.68억</td>
-                        </tr>
-                    </tbody>
-                </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // 소스 코드 보호
-        (function() {
-            'use strict';
-            // 개발자 도구 접근 방지 (기본 보호)
-            const devtools = {
-                open: false,
-                orientation: null
-            };
-            const threshold = 160;
-            setInterval(function() {
-                if (window.outerHeight - window.innerHeight > threshold || 
-                    window.outerWidth - window.innerWidth > threshold) {
-                    if (!devtools.open) {
-                        devtools.open = true;
-                        console.clear();
-                        console.log('%c경고', 'color: red; font-size: 50px; font-weight: bold;');
-                        console.log('%c이 페이지의 소스 코드는 보호되어 있습니다.', 'color: red; font-size: 20px;');
+        <script>
+            // 소스 코드 보호
+            (function () {
+                'use strict';
+                // 개발자 도구 접근 방지 (기본 보호)
+                const devtools = {
+                    open: false,
+                    orientation: null
+                };
+                const threshold = 160;
+                setInterval(function () {
+                    if (window.outerHeight - window.innerHeight > threshold ||
+                        window.outerWidth - window.innerWidth > threshold) {
+                        if (!devtools.open) {
+                            devtools.open = true;
+                            console.clear();
+                            console.log('%c경고', 'color: red; font-size: 50px; font-weight: bold;');
+                            console.log('%c이 페이지의 소스 코드는 보호되어 있습니다.', 'color: red; font-size: 20px;');
+                        }
+                    } else {
+                        devtools.open = false;
                     }
-                } else {
-                    devtools.open = false;
-                }
-            }, 500);
-            
-            // 우클릭 방지
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                return false;
-            });
-            
-            // F12, Ctrl+Shift+I 등 단축키 방지
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'F12' || 
-                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) ||
-                    (e.ctrlKey && e.key === 'U')) {
+                }, 500);
+
+                // 우클릭 방지
+                document.addEventListener('contextmenu', function (e) {
                     e.preventDefault();
                     return false;
+                });
+
+                // F12, Ctrl+Shift+I 등 단축키 방지
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'F12' ||
+                        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) ||
+                        (e.ctrlKey && e.key === 'U')) {
+                        e.preventDefault();
+                        return false;
+                    }
+                });
+            })();
+
+            // Modal functions
+            function openModal() {
+                const modal = document.getElementById('modalOverlay');
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal(event) {
+                // X 버튼 클릭 시 바로 닫기
+                if (!event || event.target.closest('.modal-close') || event.target.id === 'modalOverlay') {
+                    const modal = document.getElementById('modalOverlay');
+                    modal.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+            }
+
+            // ESC 키로 모달 닫기
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    const modal = document.getElementById('modalOverlay');
+                    if (modal.classList.contains('show')) {
+                        closeModal();
+                    }
                 }
             });
-        })();
+            // 단수 테이블 (7단~71단) - 필요 누적 경험치
+            const dansuTable = [
+                { dansu: 7, exp: 2000000000 },           // 20억
+                { dansu: 8, exp: 107000000000 },         // 1,070억
+                { dansu: 9, exp: 212000000000 },         // 2,120억
+                { dansu: 10, exp: 315000000000 },        // 3,150억
+                { dansu: 11, exp: 420000000000 },        // 4,200억
+                { dansu: 12, exp: 530000000000 },        // 5,300억
+                { dansu: 13, exp: 631000000000 },        // 6,310억
+                { dansu: 14, exp: 1250000000000 },       // 1조 2,500억
+                { dansu: 15, exp: 1900000000000 },       // 1조 9,000억
+                { dansu: 16, exp: 2500000000000 },       // 2조 5,000억
+                { dansu: 17, exp: 3150000000000 },       // 3조 1,500억
+                { dansu: 18, exp: 3750000000000 },       // 3조 7,500억
+                { dansu: 19, exp: 4400000000000 },       // 4조 4,000억
+                { dansu: 20, exp: 5000000000000 },       // 5조
+                { dansu: 21, exp: 6000000000000 },       // 6조
+                { dansu: 22, exp: 7100000000000 },       // 7조 1,000억
+                { dansu: 23, exp: 8200000000000 },       // 8조 2,000억
+                { dansu: 24, exp: 9300000000000 },       // 9조 3,000억
+                { dansu: 25, exp: 10300000000000 },      // 10조 3,000억
+                { dansu: 26, exp: 11500000000000 },      // 11조 5,000억
+                { dansu: 27, exp: 12600000000000 },      // 12조 6,000억
+                { dansu: 28, exp: 13500000000000 },      // 13조 5,000억
+                { dansu: 29, exp: 14500000000000 },      // 14조 5,000억
+                { dansu: 30, exp: 15600000000000 },      // 15조 6,000억
+                { dansu: 31, exp: 17600000000000 },      // 17조 6,000억
+                { dansu: 32, exp: 20700000000000 },      // 20조 7,000억
+                { dansu: 33, exp: 24820000000000 },      // 24조 8,200억
+                { dansu: 34, exp: 29900000000000 },      // 29조 9,000억
+                { dansu: 35, exp: 36000000000000 },      // 36조
+                { dansu: 36, exp: 40000000000000 },      // 40조
+                { dansu: 37, exp: 51000000000000 },      // 51조
+                { dansu: 38, exp: 60000000000000 },      // 60조
+                { dansu: 39, exp: 70000000000000 },      // 70조
+                { dansu: 40, exp: 81000000000000 },      // 81조
+                { dansu: 41, exp: 93500000000000 },      // 93조 5,000억
+                { dansu: 42, exp: 108000000000000 },     // 108조
+                { dansu: 43, exp: 122500000000000 },     // 122조 5,000억
+                { dansu: 44, exp: 137000000000000 },     // 137조
+                { dansu: 45, exp: 151500000000000 },     // 151조 5,000억
+                { dansu: 46, exp: 169500000000000 },     // 169조 5,000억
+                { dansu: 47, exp: 187500000000000 },     // 187조 5,000억
+                { dansu: 48, exp: 206000000000000 },     // 206조
+                { dansu: 49, exp: 224500000000000 },     // 224조 5,000억
+                { dansu: 50, exp: 248000000000000 },     // 248조
+                { dansu: 51, exp: 271500000000000 },     // 271조 5,000억
+                { dansu: 52, exp: 292000000000000 },     // 292조
+                { dansu: 53, exp: 318500000000000 },     // 318조 5,000억
+                { dansu: 54, exp: 342000000000000 },     // 342조
+                { dansu: 55, exp: 367150000000000 },     // 367조 1,500억
+                { dansu: 56, exp: 394200000000000 },     // 394조 2,000억
+                { dansu: 57, exp: 422250000000000 },     // 422조 2,500억
+                { dansu: 58, exp: 451350000000000 },     // 451조 3,500억
+                { dansu: 59, exp: 482500000000000 },     // 482조 5,000억
+                { dansu: 60, exp: 512400000000000 },     // 512조 4,000억
+                { dansu: 61, exp: 545000000000000 },     // 545조
+                { dansu: 62, exp: 577000000000000 },     // 577조
+                { dansu: 63, exp: 611000000000000 },     // 611조
+                { dansu: 64, exp: 646500000000000 },     // 646조 5,000억
+                { dansu: 65, exp: 682500000000000 },     // 682조 5,000억
+                { dansu: 66, exp: 719500000000000 },     // 719조 5,000억
+                { dansu: 67, exp: 758500000000000 },     // 758조 5,000억
+                { dansu: 68, exp: 798000000000000 },     // 798조
+                { dansu: 69, exp: 837000000000000 },     // 837조
+                { dansu: 70, exp: 878000000000000 },     // 878조
+                { dansu: 71, exp: 921000000000000 },     // 921조
+            ];
 
-        // Modal functions
-        function openModal() {
-            const modal = document.getElementById('modalOverlay');
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        }
+            // 계산 수식 보호를 위한 난독화
+            (function () {
+                'use strict';
+                // HP: hp * (hp - 50) * 5, MP: mp * (mp - 25) * 10 (기준점 0)
+                window._calcHp = function (hp) {
+                    if (hp <= 0) return 0;
+                    return hp * (hp - 50) * 5;
+                };
+                window._calcMp = function (mp) {
+                    if (mp <= 0) return 0;
+                    return mp * (mp - 25) * 10;
+                };
+            })();
 
-        function closeModal(event) {
-            // X 버튼 클릭 시 바로 닫기
-            if (!event || event.target.closest('.modal-close') || event.target.id === 'modalOverlay') {
-                const modal = document.getElementById('modalOverlay');
-                modal.classList.remove('show');
-                document.body.style.overflow = '';
+            // HP -> 경험치 변환 함수 (보호됨)
+            function calculateHpExp(hp) {
+                return window._calcHp(hp);
             }
-        }
 
-        // ESC 키로 모달 닫기
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const modal = document.getElementById('modalOverlay');
-                if (modal.classList.contains('show')) {
-                    closeModal();
+            // MP -> 경험치 변환 함수 (보호됨)
+            function calculateMpExp(mp) {
+                return window._calcMp(mp);
+            }
+
+            // 총 경험치 계산
+            function calculateTotalExp(hp, mp) {
+                return calculateHpExp(hp) + calculateMpExp(mp);
+            }
+
+            // 경험치로 단수 계산
+            function calculateDansu(totalExp) {
+                if (totalExp < dansuTable[0].exp) {
+                    return { dansu: 6, nextExp: dansuTable[0].exp, currentExp: 0, progress: (totalExp / dansuTable[0].exp) * 100 };
                 }
-            }
-        });
-        // 단수 테이블 (7단~71단) - 필요 누적 경험치
-        const dansuTable = [
-            { dansu: 7, exp: 2000000000 },           // 20억
-            { dansu: 8, exp: 107000000000 },         // 1,070억
-            { dansu: 9, exp: 212000000000 },         // 2,120억
-            { dansu: 10, exp: 315000000000 },        // 3,150억
-            { dansu: 11, exp: 420000000000 },        // 4,200억
-            { dansu: 12, exp: 530000000000 },        // 5,300억
-            { dansu: 13, exp: 631000000000 },        // 6,310억
-            { dansu: 14, exp: 1250000000000 },       // 1조 2,500억
-            { dansu: 15, exp: 1900000000000 },       // 1조 9,000억
-            { dansu: 16, exp: 2500000000000 },       // 2조 5,000억
-            { dansu: 17, exp: 3150000000000 },       // 3조 1,500억
-            { dansu: 18, exp: 3750000000000 },       // 3조 7,500억
-            { dansu: 19, exp: 4400000000000 },       // 4조 4,000억
-            { dansu: 20, exp: 5000000000000 },       // 5조
-            { dansu: 21, exp: 6000000000000 },       // 6조
-            { dansu: 22, exp: 7100000000000 },       // 7조 1,000억
-            { dansu: 23, exp: 8200000000000 },       // 8조 2,000억
-            { dansu: 24, exp: 9300000000000 },       // 9조 3,000억
-            { dansu: 25, exp: 10300000000000 },      // 10조 3,000억
-            { dansu: 26, exp: 11500000000000 },      // 11조 5,000억
-            { dansu: 27, exp: 12600000000000 },      // 12조 6,000억
-            { dansu: 28, exp: 13500000000000 },      // 13조 5,000억
-            { dansu: 29, exp: 14500000000000 },      // 14조 5,000억
-            { dansu: 30, exp: 15600000000000 },      // 15조 6,000억
-            { dansu: 31, exp: 17600000000000 },      // 17조 6,000억
-            { dansu: 32, exp: 20700000000000 },      // 20조 7,000억
-            { dansu: 33, exp: 24820000000000 },      // 24조 8,200억
-            { dansu: 34, exp: 29900000000000 },      // 29조 9,000억
-            { dansu: 35, exp: 36000000000000 },      // 36조
-            { dansu: 36, exp: 40000000000000 },      // 40조
-            { dansu: 37, exp: 51000000000000 },      // 51조
-            { dansu: 38, exp: 60000000000000 },      // 60조
-            { dansu: 39, exp: 70000000000000 },      // 70조
-            { dansu: 40, exp: 81000000000000 },      // 81조
-            { dansu: 41, exp: 93500000000000 },      // 93조 5,000억
-            { dansu: 42, exp: 108000000000000 },     // 108조
-            { dansu: 43, exp: 122500000000000 },     // 122조 5,000억
-            { dansu: 44, exp: 137000000000000 },     // 137조
-            { dansu: 45, exp: 151500000000000 },     // 151조 5,000억
-            { dansu: 46, exp: 169500000000000 },     // 169조 5,000억
-            { dansu: 47, exp: 187500000000000 },     // 187조 5,000억
-            { dansu: 48, exp: 206000000000000 },     // 206조
-            { dansu: 49, exp: 224500000000000 },     // 224조 5,000억
-            { dansu: 50, exp: 248000000000000 },     // 248조
-            { dansu: 51, exp: 271500000000000 },     // 271조 5,000억
-            { dansu: 52, exp: 292000000000000 },     // 292조
-            { dansu: 53, exp: 318500000000000 },     // 318조 5,000억
-            { dansu: 54, exp: 342000000000000 },     // 342조
-            { dansu: 55, exp: 367150000000000 },     // 367조 1,500억
-            { dansu: 56, exp: 394200000000000 },     // 394조 2,000억
-            { dansu: 57, exp: 422250000000000 },     // 422조 2,500억
-            { dansu: 58, exp: 451350000000000 },     // 451조 3,500억
-            { dansu: 59, exp: 482500000000000 },     // 482조 5,000억
-            { dansu: 60, exp: 512400000000000 },     // 512조 4,000억
-            { dansu: 61, exp: 545000000000000 },     // 545조
-            { dansu: 62, exp: 577000000000000 },     // 577조
-            { dansu: 63, exp: 611000000000000 },     // 611조
-            { dansu: 64, exp: 646500000000000 },     // 646조 5,000억
-            { dansu: 65, exp: 682500000000000 },     // 682조 5,000억
-            { dansu: 66, exp: 719500000000000 },     // 719조 5,000억
-            { dansu: 67, exp: 758500000000000 },     // 758조 5,000억
-            { dansu: 68, exp: 798000000000000 },     // 798조
-            { dansu: 69, exp: 837000000000000 },     // 837조
-            { dansu: 70, exp: 878000000000000 },     // 878조
-            { dansu: 71, exp: 921000000000000 },     // 921조
-        ];
 
-        // 계산 수식 보호를 위한 난독화
-        (function() {
-            'use strict';
-            // HP: hp * (hp - 50) * 5, MP: mp * (mp - 25) * 10 (기준점 0)
-            window._calcHp = function(hp) {
-                if (hp <= 0) return 0;
-                return hp * (hp - 50) * 5;
-            };
-            window._calcMp = function(mp) {
-                if (mp <= 0) return 0;
-                return mp * (mp - 25) * 10;
-            };
-        })();
-
-        // HP -> 경험치 변환 함수 (보호됨)
-        function calculateHpExp(hp) {
-            return window._calcHp(hp);
-        }
-
-        // MP -> 경험치 변환 함수 (보호됨)
-        function calculateMpExp(mp) {
-            return window._calcMp(mp);
-        }
-
-        // 총 경험치 계산
-        function calculateTotalExp(hp, mp) {
-            return calculateHpExp(hp) + calculateMpExp(mp);
-        }
-
-        // 경험치로 단수 계산
-        function calculateDansu(totalExp) {
-            if (totalExp < dansuTable[0].exp) {
-                return { dansu: 6, nextExp: dansuTable[0].exp, currentExp: 0, progress: (totalExp / dansuTable[0].exp) * 100 };
-            }
-
-            for (let i = dansuTable.length - 1; i >= 0; i--) {
-                if (totalExp >= dansuTable[i].exp) {
-                    const currentDansu = dansuTable[i].dansu;
-                    const nextDansu = i < dansuTable.length - 1 ? dansuTable[i + 1] : null;
-                    const progress = nextDansu
-                        ? ((totalExp - dansuTable[i].exp) / (nextDansu.exp - dansuTable[i].exp)) * 100
-                        : 100;
-                    return {
-                        dansu: currentDansu,
-                        nextExp: nextDansu ? nextDansu.exp : null,
-                        currentExp: dansuTable[i].exp,
-                        progress: Math.min(progress, 100)
-                    };
+                for (let i = dansuTable.length - 1; i >= 0; i--) {
+                    if (totalExp >= dansuTable[i].exp) {
+                        const currentDansu = dansuTable[i].dansu;
+                        const nextDansu = i < dansuTable.length - 1 ? dansuTable[i + 1] : null;
+                        const progress = nextDansu
+                            ? ((totalExp - dansuTable[i].exp) / (nextDansu.exp - dansuTable[i].exp)) * 100
+                            : 100;
+                        return {
+                            dansu: currentDansu,
+                            nextExp: nextDansu ? nextDansu.exp : null,
+                            currentExp: dansuTable[i].exp,
+                            progress: Math.min(progress, 100)
+                        };
+                    }
                 }
+                return { dansu: 6, nextExp: dansuTable[0].exp, currentExp: 0, progress: 0 };
             }
-            return { dansu: 6, nextExp: dansuTable[0].exp, currentExp: 0, progress: 0 };
-        }
 
-        // 경험치 포맷팅 (조/억 단위)
-        function formatExp(exp) {
-            if (exp >= 1000000000000) {
-                const jo = Math.floor(exp / 1000000000000);
-                const eok = Math.floor((exp % 1000000000000) / 100000000);
-                if (eok > 0) {
-                    return `${jo}조 ${eok.toLocaleString()}억`;
+            // 경험치 포맷팅 (조/억 단위)
+            function formatExp(exp) {
+                if (exp >= 1000000000000) {
+                    const jo = Math.floor(exp / 1000000000000);
+                    const eok = Math.floor((exp % 1000000000000) / 100000000);
+                    if (eok > 0) {
+                        return `${jo}조 ${eok.toLocaleString()}억`;
+                    }
+                    return `${jo}조`;
+                } else if (exp >= 100000000) {
+                    return `${Math.floor(exp / 100000000).toLocaleString()}억`;
                 }
-                return `${jo}조`;
-            } else if (exp >= 100000000) {
-                return `${Math.floor(exp / 100000000).toLocaleString()}억`;
+                return exp.toLocaleString();
             }
-            return exp.toLocaleString();
-        }
 
-        // Tier data from spreadsheet
-        // HP 구간별 증가량: 30만~555만=50, 555만~560만=45, 560만~565만=40, ... 600만+=1
-        const hpTiers = [
-            { min: 300000, max: 400000, increment: 50, rarPerUpgrade: 10, label: "30만 이상 ~ 40만 미만" },
-            { min: 400000, max: 500000, increment: 50, rarPerUpgrade: 20, label: "40만 이상 ~ 50만 미만" },
-            { min: 500000, max: 1000000, increment: 50, rarPerUpgrade: 30, label: "50만 이상 ~ 100만 미만" },
-            { min: 1000000, max: 2500000, increment: 50, rarPerUpgrade: 50, label: "100만 이상 ~ 250만 미만" },
-            { min: 2500000, max: 5550000, increment: 50, rarPerUpgrade: 100, label: "250만 이상 ~ 555만 미만" },
-            { min: 5550000, max: 5600000, increment: 45, rarPerUpgrade: 200, label: "555만 이상 ~ 560만 미만" },
-            { min: 5600000, max: 5650000, increment: 40, rarPerUpgrade: 200, label: "560만 이상 ~ 565만 미만" },
-            { min: 5650000, max: 5700000, increment: 35, rarPerUpgrade: 200, label: "565만 이상 ~ 570만 미만" },
-            { min: 5700000, max: 5750000, increment: 30, rarPerUpgrade: 200, label: "570만 이상 ~ 575만 미만" },
-            { min: 5750000, max: 5800000, increment: 25, rarPerUpgrade: 200, label: "575만 이상 ~ 580만 미만" },
-            { min: 5800000, max: 5850000, increment: 20, rarPerUpgrade: 200, label: "580만 이상 ~ 585만 미만" },
-            { min: 5850000, max: 5900000, increment: 15, rarPerUpgrade: 200, label: "585만 이상 ~ 590만 미만" },
-            { min: 5900000, max: 5950000, increment: 10, rarPerUpgrade: 200, label: "590만 이상 ~ 595만 미만" },
-            { min: 5950000, max: 6000000, increment: 5, rarPerUpgrade: 200, label: "595만 이상 ~ 600만 미만" },
-            { min: 6000000, max: Infinity, increment: 1, rarPerUpgrade: 200, label: "600만 이상" }
-        ];
+            // Tier data from spreadsheet
+            // HP 구간별 증가량: 30만~555만=50, 555만~560만=45, 560만~565만=40, ... 600만+=1
+            const hpTiers = [
+                { min: 300000, max: 400000, increment: 50, rarPerUpgrade: 10, label: "30만 이상 ~ 40만 미만" },
+                { min: 400000, max: 500000, increment: 50, rarPerUpgrade: 20, label: "40만 이상 ~ 50만 미만" },
+                { min: 500000, max: 1000000, increment: 50, rarPerUpgrade: 30, label: "50만 이상 ~ 100만 미만" },
+                { min: 1000000, max: 2500000, increment: 50, rarPerUpgrade: 50, label: "100만 이상 ~ 250만 미만" },
+                { min: 2500000, max: 5550000, increment: 50, rarPerUpgrade: 100, label: "250만 이상 ~ 555만 미만" },
+                { min: 5550000, max: 5600000, increment: 45, rarPerUpgrade: 200, label: "555만 이상 ~ 560만 미만" },
+                { min: 5600000, max: 5650000, increment: 40, rarPerUpgrade: 200, label: "560만 이상 ~ 565만 미만" },
+                { min: 5650000, max: 5700000, increment: 35, rarPerUpgrade: 200, label: "565만 이상 ~ 570만 미만" },
+                { min: 5700000, max: 5750000, increment: 30, rarPerUpgrade: 200, label: "570만 이상 ~ 575만 미만" },
+                { min: 5750000, max: 5800000, increment: 25, rarPerUpgrade: 200, label: "575만 이상 ~ 580만 미만" },
+                { min: 5800000, max: 5850000, increment: 20, rarPerUpgrade: 200, label: "580만 이상 ~ 585만 미만" },
+                { min: 5850000, max: 5900000, increment: 15, rarPerUpgrade: 200, label: "585만 이상 ~ 590만 미만" },
+                { min: 5900000, max: 5950000, increment: 10, rarPerUpgrade: 200, label: "590만 이상 ~ 595만 미만" },
+                { min: 5950000, max: 6000000, increment: 5, rarPerUpgrade: 200, label: "595만 이상 ~ 600만 미만" },
+                { min: 6000000, max: Infinity, increment: 1, rarPerUpgrade: 200, label: "600만 이상" }
+            ];
 
-        // MP 구간별 증가량: 15만~280만=25, 280만~285만=20, 285만~290만=15, 290만~295만=10, 295만~300만=5, 300만+=1
-        const mpTiers = [
-            { min: 150000, max: 200000, increment: 25, rarPerUpgrade: 10, label: "15만 이상 ~ 20만 미만" },
-            { min: 200000, max: 250000, increment: 25, rarPerUpgrade: 20, label: "20만 이상 ~ 25만 미만" },
-            { min: 250000, max: 500000, increment: 25, rarPerUpgrade: 30, label: "25만 이상 ~ 50만 미만" },
-            { min: 500000, max: 1000000, increment: 25, rarPerUpgrade: 50, label: "50만 이상 ~ 100만 미만" },
-            { min: 1000000, max: 1250000, increment: 25, rarPerUpgrade: 50, label: "100만 이상 ~ 125만 미만" },
-            { min: 1250000, max: 2750000, increment: 25, rarPerUpgrade: 100, label: "125만 이상 ~ 275만 미만" },
-            { min: 2750000, max: 2800000, increment: 25, rarPerUpgrade: 200, label: "275만 이상 ~ 280만 미만" },
-            { min: 2800000, max: 2850000, increment: 20, rarPerUpgrade: 200, label: "280만 이상 ~ 285만 미만" },
-            { min: 2850000, max: 2900000, increment: 15, rarPerUpgrade: 200, label: "285만 이상 ~ 290만 미만" },
-            { min: 2900000, max: 2950000, increment: 10, rarPerUpgrade: 200, label: "290만 이상 ~ 295만 미만" },
-            { min: 2950000, max: 3000000, increment: 5, rarPerUpgrade: 200, label: "295만 이상 ~ 300만 미만" },
-            { min: 3000000, max: Infinity, increment: 1, rarPerUpgrade: 200, label: "300만 이상" }
-        ];
+            // MP 구간별 증가량: 15만~280만=25, 280만~285만=20, 285만~290만=15, 290만~295만=10, 295만~300만=5, 300만+=1
+            const mpTiers = [
+                { min: 150000, max: 200000, increment: 25, rarPerUpgrade: 10, label: "15만 이상 ~ 20만 미만" },
+                { min: 200000, max: 250000, increment: 25, rarPerUpgrade: 20, label: "20만 이상 ~ 25만 미만" },
+                { min: 250000, max: 500000, increment: 25, rarPerUpgrade: 30, label: "25만 이상 ~ 50만 미만" },
+                { min: 500000, max: 1000000, increment: 25, rarPerUpgrade: 50, label: "50만 이상 ~ 100만 미만" },
+                { min: 1000000, max: 1250000, increment: 25, rarPerUpgrade: 50, label: "100만 이상 ~ 125만 미만" },
+                { min: 1250000, max: 2750000, increment: 25, rarPerUpgrade: 100, label: "125만 이상 ~ 275만 미만" },
+                { min: 2750000, max: 2800000, increment: 25, rarPerUpgrade: 200, label: "275만 이상 ~ 280만 미만" },
+                { min: 2800000, max: 2850000, increment: 20, rarPerUpgrade: 200, label: "280만 이상 ~ 285만 미만" },
+                { min: 2850000, max: 2900000, increment: 15, rarPerUpgrade: 200, label: "285만 이상 ~ 290만 미만" },
+                { min: 2900000, max: 2950000, increment: 10, rarPerUpgrade: 200, label: "290만 이상 ~ 295만 미만" },
+                { min: 2950000, max: 3000000, increment: 5, rarPerUpgrade: 200, label: "295만 이상 ~ 300만 미만" },
+                { min: 3000000, max: Infinity, increment: 1, rarPerUpgrade: 200, label: "300만 이상" }
+            ];
 
-        function parseNumber(str) {
-            return parseInt(str.replace(/,/g, '')) || 0;
-        }
-
-        function formatNumber(num) {
-            return num.toLocaleString('ko-KR');
-        }
-
-        function formatCurrency(num) {
-            const billions = num / 100000000;
-            if (billions >= 1) {
-                return billions.toFixed(2) + '억';
+            function parseNumber(str) {
+                return parseInt(str.replace(/,/g, '')) || 0;
             }
-            const tenThousands = num / 10000;
-            return formatNumber(Math.round(tenThousands)) + '만';
-        }
 
-        // 라르 계산 함수 (보호됨)
-        (function() {
-            'use strict';
-            window._calcTier = function(current, target, tiers, defaultIncrement) {
-                let totalRar = 0;
-                let breakdown = [];
-                const firstTierMin = tiers[0].min;
-                let currentValue = Math.max(current, firstTierMin);
-                if (target < firstTierMin) {
-                    return { totalRar, breakdown };
+            function formatNumber(num) {
+                return num.toLocaleString('ko-KR');
+            }
+
+            function formatCurrency(num) {
+                const billions = num / 100000000;
+                if (billions >= 1) {
+                    return billions.toFixed(2) + '억';
                 }
-                for (let tier of tiers) {
-                    if (currentValue >= target) break;
-                    if (currentValue >= tier.max) continue;
-                    if (target <= tier.min) continue;
-                    let tierStart = Math.max(currentValue, tier.min);
-                    let tierEnd = Math.min(target, tier.max);
-                    let gainInTier = tierEnd - tierStart;
-                    if (gainInTier > 0) {
-                        let rarNeeded = 0;
-                        let upgrades = 0;
-                        if (tier.increment) {
-                            upgrades = Math.ceil(gainInTier / tier.increment);
-                            rarNeeded = upgrades * tier.rarPerUpgrade;
-                        } else {
-                            const tierRange = tier.max - tier.min;
-                            const tierTotalRar = (tierRange / defaultIncrement) * tier.rarPerUpgrade;
-                            rarNeeded = Math.round((gainInTier / tierRange) * tierTotalRar);
-                            upgrades = Math.ceil(gainInTier / defaultIncrement);
+                const tenThousands = num / 10000;
+                return formatNumber(Math.round(tenThousands)) + '만';
+            }
+
+            // 라르 계산 함수 (보호됨)
+            (function () {
+                'use strict';
+                window._calcTier = function (current, target, tiers, defaultIncrement, discountRate = 0) {
+                    let totalRar = 0;
+                    let breakdown = [];
+                    const firstTierMin = tiers[0].min;
+                    let currentValue = Math.max(current, firstTierMin);
+
+                    // 할인율 적용 계수 (예: 20% 할인 -> 0.8)
+                    const discountFactor = 1 - (Math.max(0, Math.min(99, discountRate)) / 100);
+
+                    if (target < firstTierMin) {
+                        return { totalRar, breakdown };
+                    }
+                    for (let tier of tiers) {
+                        if (currentValue >= target) break;
+                        if (currentValue >= tier.max) continue;
+                        if (target <= tier.min) continue;
+                        let tierStart = Math.max(currentValue, tier.min);
+                        let tierEnd = Math.min(target, tier.max);
+                        let gainInTier = tierEnd - tierStart;
+                        if (gainInTier > 0) {
+                            let rarNeeded = 0;
+                            let upgrades = 0;
+                            if (tier.increment) {
+                                upgrades = Math.ceil(gainInTier / tier.increment);
+                                // 할인 적용된 라르 개수
+                                rarNeeded = Math.floor(upgrades * tier.rarPerUpgrade * discountFactor);
+                            } else {
+                                const tierRange = tier.max - tier.min;
+                                const tierTotalRar = (tierRange / defaultIncrement) * tier.rarPerUpgrade;
+                                // 할인 적용된 라르 개수
+                                rarNeeded = Math.floor(Math.round((gainInTier / tierRange) * tierTotalRar) * discountFactor);
+                                upgrades = Math.ceil(gainInTier / defaultIncrement);
+                            }
+                            totalRar += rarNeeded;
+                            breakdown.push({
+                                label: tier.label,
+                                upgrades: upgrades,
+                                rar: rarNeeded,
+                                gain: gainInTier
+                            });
+                            currentValue = tierEnd;
                         }
-                        totalRar += rarNeeded;
+                    }
+                    return { totalRar, breakdown };
+                };
+            })();
+
+            function calculateTierRar(current, target, tiers, defaultIncrement, discountRate = 0) {
+                return window._calcTier(current, target, tiers, defaultIncrement, discountRate);
+            }
+
+            // 라르 역산 계산 함수 (라르로부터 최대 올릴 수 있는 HP/MP 계산)
+            function calculateReverseRar(current, availableRar, tiers, defaultIncrement, discountRate = 0) {
+                let remainingRar = availableRar;
+                let currentValue = Math.max(current, tiers[0].min);
+                let totalGain = 0;
+                let breakdown = [];
+
+                // 할인율 적용 계수 (예: 20% 할인 -> 0.8)
+                const discountFactor = 1 - (Math.max(0, Math.min(99, discountRate)) / 100);
+
+                if (currentValue < tiers[0].min) {
+                    return { finalValue: currentValue, totalGain: 0, breakdown: [] };
+                }
+
+                for (let tier of tiers) {
+                    if (remainingRar <= 0) break;
+                    if (currentValue >= tier.max) continue;
+                    if (currentValue < tier.min) continue;
+
+                    let tierStart = currentValue;
+                    let tierEnd = tier.max;
+                    let gainInTier = 0;
+                    let rarUsedInTier = 0;
+
+                    if (tier.increment) {
+                        // 할인 적용된 1회 업그레이드당 라르 개수
+                        const rarPerUpgrade = Math.floor(tier.rarPerUpgrade * discountFactor);
+                        if (rarPerUpgrade === 0) {
+                            // 할인율이 너무 높아 소모량이 0인 경우 해당 티어 최대까지 상승
+                            gainInTier = tierEnd - tierStart;
+                            rarUsedInTier = 0;
+                        } else {
+                            const maxUpgrades = Math.ceil((tierEnd - tierStart) / tier.increment);
+                            const possibleUpgrades = Math.floor(remainingRar / rarPerUpgrade);
+                            const actualUpgrades = Math.min(possibleUpgrades, maxUpgrades);
+
+                            gainInTier = actualUpgrades * tier.increment;
+                            rarUsedInTier = actualUpgrades * rarPerUpgrade;
+
+                            // 정확히 0이 되는 지점이 tier boundary를 약간 넘을 수 있으므로 보정
+                            if (currentValue + gainInTier > tier.max) {
+                                gainInTier = tier.max - currentValue;
+                            }
+                        }
+                    } else {
+                        const tierRange = tierEnd - tierStart;
+                        const tierTotalRar = Math.floor((tierRange / defaultIncrement) * tier.rarPerUpgrade * discountFactor);
+
+                        if (tierTotalRar === 0) {
+                            gainInTier = tierRange;
+                            rarUsedInTier = 0;
+                        } else if (remainingRar >= tierTotalRar) {
+                            gainInTier = tierRange;
+                            rarUsedInTier = tierTotalRar;
+                        } else {
+                            gainInTier = Math.floor((remainingRar / tierTotalRar) * tierRange);
+                            rarUsedInTier = remainingRar;
+                        }
+                    }
+
+                    if (gainInTier > 0) {
+                        currentValue += gainInTier;
+                        totalGain += gainInTier;
+                        remainingRar -= rarUsedInTier;
+
                         breakdown.push({
                             label: tier.label,
-                            upgrades: upgrades,
-                            rar: rarNeeded,
-                            gain: gainInTier
+                            gain: gainInTier,
+                            rar: rarUsedInTier,
+                            finalValue: currentValue
                         });
-                        currentValue = tierEnd;
+                    } else if (remainingRar > 0) {
+                        // 한 번의 업그레이드도 못하는 경우 종료
+                        break;
                     }
                 }
-                return { totalRar, breakdown };
-            };
-        })();
 
-        function calculateTierRar(current, target, tiers, defaultIncrement) {
-            return window._calcTier(current, target, tiers, defaultIncrement);
-        }
-
-        // 라르 역산 계산 함수 (라르로부터 최대 올릴 수 있는 HP/MP 계산)
-        function calculateReverseRar(current, availableRar, tiers, defaultIncrement) {
-            let remainingRar = availableRar;
-            let currentValue = Math.max(current, tiers[0].min);
-            let totalGain = 0;
-            let breakdown = [];
-
-            if (currentValue < tiers[0].min) {
-                return { finalValue: currentValue, totalGain: 0, breakdown: [] };
+                return {
+                    finalValue: currentValue,
+                    totalGain: totalGain,
+                    breakdown: breakdown,
+                    remainingRar: remainingRar
+                };
             }
 
-            for (let tier of tiers) {
-                if (remainingRar <= 0) break;
-                if (currentValue >= tier.max) continue;
-                if (currentValue < tier.min) currentValue = tier.min;
+            function calculate() {
+                // Clear error message
+                document.getElementById('errorMessage').classList.add('hidden');
 
-                let tierStart = currentValue;
-                let tierEnd = tier.max;
-                let gainInTier = 0;
-                let rarUsedInTier = 0;
+                // Parse inputs
+                const currentHP = parseNumber(document.getElementById('currentHP').value);
+                const targetHP = parseNumber(document.getElementById('targetHP').value);
+                const currentMP = parseNumber(document.getElementById('currentMP').value);
+                const targetMP = parseNumber(document.getElementById('targetMP').value);
 
-                if (tier.increment) {
-                    // increment가 있는 경우: 정확히 계산
-                    const maxUpgrades = Math.floor((tierEnd - tierStart) / tier.increment);
-                    const rarPerUpgrade = tier.rarPerUpgrade;
-                    const possibleUpgrades = Math.floor(remainingRar / rarPerUpgrade);
-                    const actualUpgrades = Math.min(possibleUpgrades, maxUpgrades);
-                    
-                    gainInTier = actualUpgrades * tier.increment;
-                    rarUsedInTier = actualUpgrades * rarPerUpgrade;
-                } else {
-                    // increment가 없는 경우: 비례 계산
-                    const tierRange = tierEnd - tierStart;
-                    const tierTotalRar = (tierRange / defaultIncrement) * tier.rarPerUpgrade;
-                    
-                    if (remainingRar >= tierTotalRar) {
-                        // 전체 tier를 다 올릴 수 있는 경우
-                        gainInTier = tierRange;
-                        rarUsedInTier = tierTotalRar;
+                // Validation
+                let errors = [];
+                if (targetHP && currentHP && targetHP <= currentHP) {
+                    errors.push('목표 HP는 순수 체력보다 커야 합니다.');
+                }
+                if (targetMP && currentMP && targetMP <= currentMP) {
+                    errors.push('목표 MP는 순수 마력보다 커야 합니다.');
+                }
+                if (!targetHP && !targetMP) {
+                    errors.push('최소한 하나의 목표값을 입력해주세요.');
+                }
+
+                if (errors.length > 0) {
+                    document.getElementById('errorMessage').textContent = errors.join(' ');
+                    document.getElementById('errorMessage').classList.remove('hidden');
+                    return;
+                }
+
+                // 할인율 가져오기
+                const discountRate = parseInt(document.getElementById('discountRate').value) || 0;
+
+                // Calculate HP (체력: 50씩 증가)
+                let hpResult = { totalRar: 0, breakdown: [] };
+                if (targetHP && currentHP && targetHP > currentHP) {
+                    hpResult = calculateTierRar(currentHP, targetHP, hpTiers, 50, discountRate);
+                }
+
+                // Calculate MP (마력: 25씩 증가)
+                let mpResult = { totalRar: 0, breakdown: [] };
+                if (targetMP && currentMP && targetMP > currentMP) {
+                    mpResult = calculateTierRar(currentMP, targetMP, mpTiers, 25, discountRate);
+                }
+
+                // Display results
+                displayResults(hpResult, mpResult);
+            }
+
+            function formatCash(num) {
+                if (num >= 100000000) {
+                    const billions = num / 100000000;
+                    return billions.toFixed(2) + '억원';
+                } else if (num >= 10000) {
+                    const tenThousands = num / 10000;
+                    return tenThousands.toFixed(2) + '만원';
+                }
+                return formatNumber(Math.round(num)) + '원';
+            }
+
+            function displayResults(hpResult, mpResult) {
+                // Total Summary
+                const totalRar = hpResult.totalRar + mpResult.totalRar;
+
+                // 할인율은 이미 라르 개수 계산 시 적용되었으므로 비용은 정가(10,000골드)로 계산
+                const rarPricePerUnit = 10000;
+                const totalCost = totalRar * rarPricePerUnit; // 골드 비용
+
+                // 어둠돈 환산 계산
+                const exchangeRate = parseNumber(document.getElementById('exchangeRate').value) || 6000;
+                const totalCostInBillions = totalCost / 100000000; // 골드를 억 단위로 변환
+                const totalCash = totalCostInBillions * exchangeRate; // 억 × 환율 = 현금
+
+                document.getElementById('totalRar').textContent = formatNumber(totalRar) + ' 개';
+                document.getElementById('totalCost').textContent = formatCurrency(totalCost);
+                document.getElementById('totalCash').textContent = formatCash(totalCash);
+
+                // 무료 라르 계산
+                const dailyFreeRar = parseNumber(document.getElementById('dailyFreeRar').value) || 0;
+                const weeklyFreeRar = parseNumber(document.getElementById('weeklyFreeRar').value) || 0;
+                const weeklyRarFromDaily = dailyFreeRar * 7; // 일주일 = 7일
+                const totalWeeklyRar = weeklyRarFromDaily + weeklyFreeRar;
+
+                const freeRarSection = document.getElementById('freeRarSection');
+
+                if (totalWeeklyRar > 0 && totalRar > 0) {
+                    // 주간 획득 라르 표시
+                    document.getElementById('weeklyRarTotal').textContent = formatNumber(totalWeeklyRar) + ' 개';
+                    document.getElementById('weeklyRarBreakdown').textContent =
+                        `(매일 ${formatNumber(dailyFreeRar)} × 7일 = ${formatNumber(weeklyRarFromDaily)}) + (주간 ${formatNumber(weeklyFreeRar)})`;
+
+                    // 필요 주수 계산
+                    const weeksNeeded = Math.ceil(totalRar / totalWeeklyRar);
+                    const daysNeeded = weeksNeeded * 7;
+
+                    // 기간 표시 (주 + 개월 + 년)
+                    let periodText = '';
+                    if (weeksNeeded < 4) {
+                        periodText = `${weeksNeeded}주`;
+                    } else if (weeksNeeded < 52) {
+                        const months = Math.floor(weeksNeeded / 4.33);
+                        const remainingWeeks = Math.round(weeksNeeded % 4.33);
+                        periodText = months + '개월';
+                        if (remainingWeeks > 0) {
+                            periodText += ` ${remainingWeeks}주`;
+                        }
                     } else {
-                        // 일부만 올릴 수 있는 경우
-                        gainInTier = Math.floor((remainingRar / tierTotalRar) * tierRange);
-                        rarUsedInTier = remainingRar;
+                        const years = Math.floor(weeksNeeded / 52);
+                        const remainingMonths = Math.floor((weeksNeeded % 52) / 4.33);
+                        periodText = years + '년';
+                        if (remainingMonths > 0) {
+                            periodText += ` ${remainingMonths}개월`;
+                        }
                     }
-                }
+                    periodText += ` (${formatNumber(weeksNeeded)}주)`;
 
-                if (gainInTier > 0) {
-                    currentValue += gainInTier;
-                    totalGain += gainInTier;
-                    remainingRar -= rarUsedInTier;
-                    
-                    breakdown.push({
-                        label: tier.label,
-                        gain: gainInTier,
-                        rar: rarUsedInTier,
-                        finalValue: currentValue
-                    });
-                }
-            }
+                    document.getElementById('weeksNeeded').textContent = periodText;
 
-            return {
-                finalValue: currentValue,
-                totalGain: totalGain,
-                breakdown: breakdown,
-                remainingRar: remainingRar
-            };
-        }
+                    // 예상 달성일 계산
+                    const targetDateCalc = new Date();
+                    targetDateCalc.setDate(targetDateCalc.getDate() + daysNeeded);
+                    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+                    document.getElementById('targetDate').textContent = targetDateCalc.toLocaleDateString('ko-KR', dateOptions);
 
-        function calculate() {
-            // Clear error message
-            document.getElementById('errorMessage').classList.add('hidden');
-
-            // Parse inputs
-            const currentHP = parseNumber(document.getElementById('currentHP').value);
-            const targetHP = parseNumber(document.getElementById('targetHP').value);
-            const currentMP = parseNumber(document.getElementById('currentMP').value);
-            const targetMP = parseNumber(document.getElementById('targetMP').value);
-
-            // Validation
-            let errors = [];
-            if (targetHP && currentHP && targetHP <= currentHP) {
-                errors.push('목표 HP는 순수 체력보다 커야 합니다.');
-            }
-            if (targetMP && currentMP && targetMP <= currentMP) {
-                errors.push('목표 MP는 순수 마력보다 커야 합니다.');
-            }
-            if (!targetHP && !targetMP) {
-                errors.push('최소한 하나의 목표값을 입력해주세요.');
-            }
-
-            if (errors.length > 0) {
-                document.getElementById('errorMessage').textContent = errors.join(' ');
-                document.getElementById('errorMessage').classList.remove('hidden');
-                return;
-            }
-
-            // Calculate HP (체력: 50씩 증가)
-            let hpResult = { totalRar: 0, breakdown: [] };
-            if (targetHP && currentHP && targetHP > currentHP) {
-                hpResult = calculateTierRar(currentHP, targetHP, hpTiers, 50);
-            }
-
-            // Calculate MP (마력: 25씩 증가)
-            let mpResult = { totalRar: 0, breakdown: [] };
-            if (targetMP && currentMP && targetMP > currentMP) {
-                mpResult = calculateTierRar(currentMP, targetMP, mpTiers, 25);
-            }
-
-            // Display results
-            displayResults(hpResult, mpResult);
-        }
-
-        function formatCash(num) {
-            if (num >= 100000000) {
-                const billions = num / 100000000;
-                return billions.toFixed(2) + '억원';
-            } else if (num >= 10000) {
-                const tenThousands = num / 10000;
-                return tenThousands.toFixed(2) + '만원';
-            }
-            return formatNumber(Math.round(num)) + '원';
-        }
-
-        function displayResults(hpResult, mpResult) {
-            // Total Summary
-            const totalRar = hpResult.totalRar + mpResult.totalRar;
-
-            // 할인율 계산 (0-99 범위로 제한)
-            let discountRate = parseInt(document.getElementById('discountRate').value) || 0;
-            discountRate = Math.max(0, Math.min(99, discountRate));
-            const rarPricePerUnit = 10000 * (1 - discountRate / 100); // 할인된 라르 가격
-            const totalCost = totalRar * rarPricePerUnit; // 골드 비용
-
-            // 어둠돈 환산 계산
-            const exchangeRate = parseNumber(document.getElementById('exchangeRate').value) || 6000;
-            const totalCostInBillions = totalCost / 100000000; // 골드를 억 단위로 변환
-            const totalCash = totalCostInBillions * exchangeRate; // 억 × 환율 = 현금
-
-            document.getElementById('totalRar').textContent = formatNumber(totalRar) + ' 개';
-            document.getElementById('totalCost').textContent = formatCurrency(totalCost);
-            document.getElementById('totalCash').textContent = formatCash(totalCash);
-
-            // 무료 라르 계산
-            const dailyFreeRar = parseNumber(document.getElementById('dailyFreeRar').value) || 0;
-            const weeklyFreeRar = parseNumber(document.getElementById('weeklyFreeRar').value) || 0;
-            const weeklyRarFromDaily = dailyFreeRar * 7; // 일주일 = 7일
-            const totalWeeklyRar = weeklyRarFromDaily + weeklyFreeRar;
-
-            const freeRarSection = document.getElementById('freeRarSection');
-
-            if (totalWeeklyRar > 0 && totalRar > 0) {
-                // 주간 획득 라르 표시
-                document.getElementById('weeklyRarTotal').textContent = formatNumber(totalWeeklyRar) + ' 개';
-                document.getElementById('weeklyRarBreakdown').textContent =
-                    `(매일 ${formatNumber(dailyFreeRar)} × 7일 = ${formatNumber(weeklyRarFromDaily)}) + (주간 ${formatNumber(weeklyFreeRar)})`;
-
-                // 필요 주수 계산
-                const weeksNeeded = Math.ceil(totalRar / totalWeeklyRar);
-                const daysNeeded = weeksNeeded * 7;
-
-                // 기간 표시 (주 + 개월 + 년)
-                let periodText = '';
-                if (weeksNeeded < 4) {
-                    periodText = `${weeksNeeded}주`;
-                } else if (weeksNeeded < 52) {
-                    const months = Math.floor(weeksNeeded / 4.33);
-                    const remainingWeeks = Math.round(weeksNeeded % 4.33);
-                    periodText = months + '개월';
-                    if (remainingWeeks > 0) {
-                        periodText += ` ${remainingWeeks}주`;
-                    }
+                    freeRarSection.classList.remove('hidden');
                 } else {
-                    const years = Math.floor(weeksNeeded / 52);
-                    const remainingMonths = Math.floor((weeksNeeded % 52) / 4.33);
-                    periodText = years + '년';
-                    if (remainingMonths > 0) {
-                        periodText += ` ${remainingMonths}개월`;
+                    freeRarSection.classList.add('hidden');
+                }
+
+                // 목표 기간 계산
+                const targetDays = parseNumber(document.getElementById('targetDays').value) || 0;
+                const targetDaysSection = document.getElementById('targetDaysSection');
+
+                if (targetDays > 0 && totalRar > 0) {
+                    // 목표 기간 내 획득 가능한 무료 라르 계산
+                    const weeksInPeriod = Math.floor(targetDays / 7);
+                    const remainingDays = targetDays % 7;
+                    const freeRarFromDaily = dailyFreeRar * targetDays;
+                    const freeRarFromWeekly = weeklyFreeRar * weeksInPeriod;
+                    const totalFreeRarInPeriod = freeRarFromDaily + freeRarFromWeekly;
+
+                    // 부족한 라르 계산
+                    const shortfall = Math.max(0, totalRar - totalFreeRarInPeriod);
+                    const shortfallCost = shortfall * rarPricePerUnit;
+                    const shortfallCostInBillions = shortfallCost / 100000000;
+                    const shortfallCash = shortfallCostInBillions * exchangeRate;
+
+                    // 목표 기간 표시
+                    let targetDaysText = '';
+                    if (targetDays < 7) {
+                        targetDaysText = `${targetDays}일`;
+                    } else if (targetDays < 30) {
+                        const weeks = Math.floor(targetDays / 7);
+                        const days = targetDays % 7;
+                        targetDaysText = `${weeks}주`;
+                        if (days > 0) targetDaysText += ` ${days}일`;
+                    } else {
+                        const months = Math.floor(targetDays / 30);
+                        const days = targetDays % 30;
+                        targetDaysText = `${months}개월`;
+                        if (days > 0) targetDaysText += ` ${days}일`;
                     }
-                }
-                periodText += ` (${formatNumber(weeksNeeded)}주)`;
+                    targetDaysText += ` (${formatNumber(targetDays)}일)`;
 
-                document.getElementById('weeksNeeded').textContent = periodText;
+                    document.getElementById('targetDaysDisplay').textContent = targetDaysText;
+                    document.getElementById('freeRarInPeriod').textContent = formatNumber(totalFreeRarInPeriod) + ' 개';
+                    document.getElementById('freeRarInPeriodBreakdown').textContent =
+                        `(매일 ${formatNumber(dailyFreeRar)} × ${targetDays}일) + (주간 ${formatNumber(weeklyFreeRar)} × ${weeksInPeriod}주)`;
 
-                // 예상 달성일 계산
-                const targetDateCalc = new Date();
-                targetDateCalc.setDate(targetDateCalc.getDate() + daysNeeded);
-                const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-                document.getElementById('targetDate').textContent = targetDateCalc.toLocaleDateString('ko-KR', dateOptions);
+                    const shortfallElement = document.getElementById('shortfallRar');
+                    const messageElement = document.getElementById('targetDaysMessage');
 
-                freeRarSection.classList.remove('hidden');
-            } else {
-                freeRarSection.classList.add('hidden');
-            }
+                    if (shortfall > 0) {
+                        shortfallElement.textContent = formatNumber(shortfall) + ' 개';
+                        shortfallElement.className = 'text-2xl font-bold text-red-400 mb-3';
+                        document.getElementById('shortfallCost').textContent = formatCurrency(shortfallCost);
 
-            // 목표 기간 계산
-            const targetDays = parseNumber(document.getElementById('targetDays').value) || 0;
-            const targetDaysSection = document.getElementById('targetDaysSection');
-
-            if (targetDays > 0 && totalRar > 0) {
-                // 목표 기간 내 획득 가능한 무료 라르 계산
-                const weeksInPeriod = Math.floor(targetDays / 7);
-                const remainingDays = targetDays % 7;
-                const freeRarFromDaily = dailyFreeRar * targetDays;
-                const freeRarFromWeekly = weeklyFreeRar * weeksInPeriod;
-                const totalFreeRarInPeriod = freeRarFromDaily + freeRarFromWeekly;
-
-                // 부족한 라르 계산
-                const shortfall = Math.max(0, totalRar - totalFreeRarInPeriod);
-                const shortfallCost = shortfall * rarPricePerUnit;
-                const shortfallCostInBillions = shortfallCost / 100000000;
-                const shortfallCash = shortfallCostInBillions * exchangeRate;
-
-                // 목표 기간 표시
-                let targetDaysText = '';
-                if (targetDays < 7) {
-                    targetDaysText = `${targetDays}일`;
-                } else if (targetDays < 30) {
-                    const weeks = Math.floor(targetDays / 7);
-                    const days = targetDays % 7;
-                    targetDaysText = `${weeks}주`;
-                    if (days > 0) targetDaysText += ` ${days}일`;
-                } else {
-                    const months = Math.floor(targetDays / 30);
-                    const days = targetDays % 30;
-                    targetDaysText = `${months}개월`;
-                    if (days > 0) targetDaysText += ` ${days}일`;
-                }
-                targetDaysText += ` (${formatNumber(targetDays)}일)`;
-
-                document.getElementById('targetDaysDisplay').textContent = targetDaysText;
-                document.getElementById('freeRarInPeriod').textContent = formatNumber(totalFreeRarInPeriod) + ' 개';
-                document.getElementById('freeRarInPeriodBreakdown').textContent =
-                    `(매일 ${formatNumber(dailyFreeRar)} × ${targetDays}일) + (주간 ${formatNumber(weeklyFreeRar)} × ${weeksInPeriod}주)`;
-
-                const shortfallElement = document.getElementById('shortfallRar');
-                const messageElement = document.getElementById('targetDaysMessage');
-
-                if (shortfall > 0) {
-                    shortfallElement.textContent = formatNumber(shortfall) + ' 개';
-                    shortfallElement.className = 'text-2xl font-bold text-red-400 mb-3';
-                    document.getElementById('shortfallCost').textContent = formatCurrency(shortfallCost);
-
-                    messageElement.innerHTML = `
+                        messageElement.innerHTML = `
                         <p class="text-gray-200 text-base mb-2 font-medium">
                             <i class="fas fa-exclamation-triangle mr-2 text-amber-400"></i>
                             목표 기간 내 달성을 위해 <span class="text-red-400 font-bold">${formatNumber(shortfall)}개</span>의 라르를 추가 구매해야 합니다.
@@ -1994,447 +2031,450 @@
                             추가 비용: ${formatCurrency(shortfallCost)} (약 ${formatCash(shortfallCash)})
                         </p>
                     `;
-                } else {
-                    shortfallElement.textContent = '0 개';
-                    shortfallElement.className = 'text-2xl font-bold text-emerald-400 mb-3';
-                    document.getElementById('shortfallCost').textContent = '0원';
+                    } else {
+                        shortfallElement.textContent = '0 개';
+                        shortfallElement.className = 'text-2xl font-bold text-emerald-400 mb-3';
+                        document.getElementById('shortfallCost').textContent = '0원';
 
-                    const surplus = totalFreeRarInPeriod - totalRar;
-                    messageElement.innerHTML = `
+                        const surplus = totalFreeRarInPeriod - totalRar;
+                        messageElement.innerHTML = `
                         <p class="text-gray-200 text-base font-medium">
                             <i class="fas fa-check-circle mr-2 text-emerald-400"></i>
                             무료 라르만으로 목표 기간 내 달성 가능합니다!
                             <span class="text-emerald-400 font-bold">${formatNumber(surplus)}개</span>의 라르가 남습니다.
                         </p>
                     `;
+                    }
+
+                    targetDaysSection.classList.remove('hidden');
+                } else {
+                    targetDaysSection.classList.add('hidden');
                 }
 
-                targetDaysSection.classList.remove('hidden');
-            } else {
-                targetDaysSection.classList.add('hidden');
+                // Show results in modal
+                document.getElementById('resultsSection').classList.remove('hidden');
+                openModal();
             }
 
-            // Show results in modal
-            document.getElementById('resultsSection').classList.remove('hidden');
-            openModal();
-        }
+            function toggleTable(tableId) {
+                const table = document.getElementById(tableId);
+                const icon = document.getElementById(tableId + 'Icon');
 
-        function toggleTable(tableId) {
-            const table = document.getElementById(tableId);
-            const icon = document.getElementById(tableId + 'Icon');
-
-            if (table.classList.contains('hidden')) {
-                table.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                table.classList.add('hidden');
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-
-        // 환율 조절 함수 (100원 단위)
-        function adjustExchangeRate(amount) {
-            const input = document.getElementById('exchangeRate');
-            let currentValue = parseNumber(input.value) || 6000;
-            currentValue += amount;
-            // 최소값 100원으로 제한
-            currentValue = Math.max(100, currentValue);
-            input.value = formatNumber(currentValue);
-        }
-
-        // 할인율 조절 함수 (10% 단위)
-        function adjustDiscountRate(amount) {
-            const input = document.getElementById('discountRate');
-            let currentValue = parseInt(input.value) || 0;
-            currentValue += amount;
-            // 0~99 범위로 제한
-            currentValue = Math.max(0, Math.min(99, currentValue));
-            input.value = currentValue;
-        }
-
-        // 목걸이 강화수치 조절 함수 (1 단위)
-        function adjustEnhanceLevel(amount) {
-            const input = document.getElementById('enhanceLevel');
-            let currentValue = parseInt(input.value) || 5;
-            currentValue += amount;
-            // 0~30 범위로 제한
-            currentValue = Math.max(0, Math.min(30, currentValue));
-            input.value = currentValue;
-        }
-
-        // 할인율 입력 검증 (0-99 범위)
-        document.getElementById('discountRate').addEventListener('input', function(e) {
-            let value = parseInt(e.target.value) || 0;
-            if (value < 0) e.target.value = 0;
-            if (value > 99) e.target.value = 99;
-        });
-
-        // Allow comma input formatting
-        document.querySelectorAll('input[type="text"]').forEach(input => {
-            input.addEventListener('input', function (e) {
-                let value = e.target.value.replace(/,/g, '');
-                if (!isNaN(value) && value !== '') {
-                    e.target.value = formatNumber(parseInt(value));
+                if (table.classList.contains('hidden')) {
+                    table.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    table.classList.add('hidden');
+                    icon.style.transform = 'rotate(0deg)';
                 }
+            }
+
+            // 환율 조절 함수 (100원 단위)
+            function adjustExchangeRate(amount) {
+                const input = document.getElementById('exchangeRate');
+                let currentValue = parseNumber(input.value) || 6000;
+                currentValue += amount;
+                // 최소값 100원으로 제한
+                currentValue = Math.max(100, currentValue);
+                input.value = formatNumber(currentValue);
+            }
+
+            // 할인율 조절 함수 (10% 단위)
+            function adjustDiscountRate(amount) {
+                const input = document.getElementById('discountRate');
+                let currentValue = parseInt(input.value) || 0;
+                currentValue += amount;
+                // 0~99 범위로 제한
+                currentValue = Math.max(0, Math.min(99, currentValue));
+                input.value = currentValue;
+            }
+
+            // 목걸이 강화수치 조절 함수 (1 단위)
+            function adjustEnhanceLevel(amount) {
+                const input = document.getElementById('enhanceLevel');
+                let currentValue = parseInt(input.value) || 5;
+                currentValue += amount;
+                // 0~30 범위로 제한
+                currentValue = Math.max(0, Math.min(30, currentValue));
+                input.value = currentValue;
+            }
+
+            // 할인율 입력 검증 (0-99 범위)
+            document.getElementById('discountRate').addEventListener('input', function (e) {
+                let value = parseInt(e.target.value) || 0;
+                if (value < 0) e.target.value = 0;
+                if (value > 99) e.target.value = 99;
             });
-        });
 
-        // 현재 모드 (rar 또는 dansu)
-        let currentMode = 'rar';
+            // Allow comma input formatting
+            document.querySelectorAll('input[type="text"]').forEach(input => {
+                input.addEventListener('input', function (e) {
+                    let value = e.target.value.replace(/,/g, '');
+                    if (!isNaN(value) && value !== '') {
+                        e.target.value = formatNumber(parseInt(value));
+                    }
+                });
+            });
 
-        // 탭 전환 함수
-        function switchTab(mode) {
-            currentMode = mode;
+            // 현재 모드 (rar 또는 dansu)
+            let currentMode = 'rar';
 
-            // 탭 버튼 스타일 업데이트
-            document.getElementById('tabRar').classList.toggle('active', mode === 'rar');
-            document.getElementById('tabDansu').classList.toggle('active', mode === 'dansu');
-            document.getElementById('tabReverse').classList.toggle('active', mode === 'reverse');
+            // 탭 전환 함수
+            function switchTab(mode) {
+                currentMode = mode;
 
-            // 섹션 표시/숨김
-            const isRarMode = mode === 'rar';
-            const isDansuMode = mode === 'dansu';
-            const isReverseMode = mode === 'reverse';
+                // 탭 버튼 스타일 업데이트
+                document.getElementById('tabRar').classList.toggle('active', mode === 'rar');
+                document.getElementById('tabDansu').classList.toggle('active', mode === 'dansu');
+                document.getElementById('tabReverse').classList.toggle('active', mode === 'reverse');
 
-            document.getElementById('targetHPSection').classList.toggle('hidden', !isRarMode);
-            document.getElementById('targetMPSection').classList.toggle('hidden', !isRarMode);
-            document.getElementById('currentDansuSection').classList.toggle('hidden', !isDansuMode);
-            document.getElementById('reverseRarSection').classList.toggle('hidden', !isReverseMode);
+                // 섹션 표시/숨김
+                const isRarMode = mode === 'rar';
+                const isDansuMode = mode === 'dansu';
+                const isReverseMode = mode === 'reverse';
 
-            // HP/MP 레이블 업데이트 (역산 모드일 때 "순수 체력/마력"으로 변경)
-            const hpLabel = document.getElementById('currentHPLabel');
-            const mpLabel = document.getElementById('currentMPLabel');
-            if (isReverseMode) {
-                hpLabel.textContent = '순수 체력';
-                mpLabel.textContent = '순수 마력';
-            } else {
-                hpLabel.textContent = '순수 체력';
-                mpLabel.textContent = '순수 마력';
+                document.getElementById('targetHPSection').classList.toggle('hidden', !isRarMode);
+                document.getElementById('targetMPSection').classList.toggle('hidden', !isRarMode);
+                document.getElementById('currentDansuSection').classList.toggle('hidden', !isDansuMode);
+                document.getElementById('reverseRarSection').classList.toggle('hidden', !isReverseMode);
+
+                // HP/MP 레이블 업데이트 (역산 모드일 때 "순수 체력/마력"으로 변경)
+                const hpLabel = document.getElementById('currentHPLabel');
+                const mpLabel = document.getElementById('currentMPLabel');
+                if (isReverseMode) {
+                    hpLabel.textContent = '순수 체력';
+                    mpLabel.textContent = '순수 마력';
+                } else {
+                    hpLabel.textContent = '순수 체력';
+                    mpLabel.textContent = '순수 마력';
+                }
+
+                // 단수 모드일 때 현재 단수 업데이트
+                if (mode === 'dansu') {
+                    updateCurrentDansu();
+                }
+
+                // 결과 섹션 숨기기
+                document.getElementById('resultsSection').classList.add('hidden');
             }
 
-            // 단수 모드일 때 현재 단수 업데이트
-            if (mode === 'dansu') {
-                updateCurrentDansu();
+            // 현재 단수 업데이트
+            function updateCurrentDansu() {
+                const currentHP = parseNumber(document.getElementById('currentHP').value) || 0;
+                const currentMP = parseNumber(document.getElementById('currentMP').value) || 0;
+
+                const hpExp = calculateHpExp(currentHP);
+                const mpExp = calculateMpExp(currentMP);
+                const totalExp = hpExp + mpExp;
+
+                const dansuInfo = calculateDansu(totalExp);
+
+                document.getElementById('currentDansuDisplay').textContent = dansuInfo.dansu + '단';
+                document.getElementById('currentExpDisplay').textContent = `총 경험치: ${formatExp(totalExp)}`;
+                document.getElementById('dansuProgressBar').style.width = `${dansuInfo.progress}%`;
+
+                if (dansuInfo.nextExp) {
+                    const neededForNext = dansuInfo.nextExp - totalExp;
+                    document.getElementById('nextDansuInfo').textContent =
+                        `다음 단수(${dansuInfo.dansu + 1}단)까지: ${formatExp(neededForNext)}`;
+                } else {
+                    document.getElementById('nextDansuInfo').textContent = '최대 단수 도달!';
+                }
+
+                // 목표 단수 기본값 설정 (현재 단수 + 1)
+                initTargetDansu(dansuInfo.dansu);
+
+                // 목표 단수 필요 경험치 업데이트
+                updateNeededExp();
             }
 
-            // 결과 섹션 숨기기
-            document.getElementById('resultsSection').classList.add('hidden');
-        }
+            // 목표 단수 초기화 (현재 단수 기준)
+            function initTargetDansu(currentDansu) {
+                const currentTarget = parseInt(document.getElementById('targetDansu').value);
+                const defaultTarget = currentDansu + 1;
+                const maxDansu = dansuTable[dansuTable.length - 1].dansu;
 
-        // 현재 단수 업데이트
-        function updateCurrentDansu() {
-            const currentHP = parseNumber(document.getElementById('currentHP').value) || 0;
-            const currentMP = parseNumber(document.getElementById('currentMP').value) || 0;
+                // 현재 설정된 목표가 없거나 현재 단수 이하면 기본값으로 설정
+                if (!currentTarget || currentTarget <= currentDansu) {
+                    const newTarget = Math.min(defaultTarget, maxDansu);
+                    document.getElementById('targetDansu').value = newTarget;
+                    document.getElementById('targetDansuDisplay').textContent = newTarget + '단';
 
-            const hpExp = calculateHpExp(currentHP);
-            const mpExp = calculateMpExp(currentMP);
-            const totalExp = hpExp + mpExp;
-
-            const dansuInfo = calculateDansu(totalExp);
-
-            document.getElementById('currentDansuDisplay').textContent = dansuInfo.dansu + '단';
-            document.getElementById('currentExpDisplay').textContent = `총 경험치: ${formatExp(totalExp)}`;
-            document.getElementById('dansuProgressBar').style.width = `${dansuInfo.progress}%`;
-
-            if (dansuInfo.nextExp) {
-                const neededForNext = dansuInfo.nextExp - totalExp;
-                document.getElementById('nextDansuInfo').textContent =
-                    `다음 단수(${dansuInfo.dansu + 1}단)까지: ${formatExp(neededForNext)}`;
-            } else {
-                document.getElementById('nextDansuInfo').textContent = '최대 단수 도달!';
+                    const targetData = dansuTable.find(d => d.dansu === newTarget);
+                    if (targetData) {
+                        document.getElementById('targetDansuExpInfo').textContent = `필요 경험치: ${formatExp(targetData.exp)}`;
+                    }
+                }
             }
 
-            // 목표 단수 기본값 설정 (현재 단수 + 1)
-            initTargetDansu(dansuInfo.dansu);
+            // 목표 단수까지 필요한 경험치 업데이트
+            function updateNeededExp() {
+                const targetDansu = parseInt(document.getElementById('targetDansu').value);
+                if (!targetDansu) {
+                    document.getElementById('neededExpDisplay').textContent = '-';
+                    document.getElementById('neededExpDetail').textContent = '목표 단수를 선택하세요';
+                    return;
+                }
 
-            // 목표 단수 필요 경험치 업데이트
-            updateNeededExp();
-        }
+                const currentHP = parseNumber(document.getElementById('currentHP').value) || 0;
+                const currentMP = parseNumber(document.getElementById('currentMP').value) || 0;
+                const totalExp = calculateTotalExp(currentHP, currentMP);
 
-        // 목표 단수 초기화 (현재 단수 기준)
-        function initTargetDansu(currentDansu) {
-            const currentTarget = parseInt(document.getElementById('targetDansu').value);
-            const defaultTarget = currentDansu + 1;
-            const maxDansu = dansuTable[dansuTable.length - 1].dansu;
+                const targetDansuData = dansuTable.find(d => d.dansu === targetDansu);
+                if (targetDansuData) {
+                    const neededExp = targetDansuData.exp - totalExp;
+                    document.getElementById('neededExpDisplay').textContent = formatExp(Math.max(0, neededExp));
+                    document.getElementById('neededExpDetail').textContent =
+                        neededExp > 0 ? `현재 ${formatExp(totalExp)} → 목표 ${formatExp(targetDansuData.exp)}` : '이미 달성!';
+                }
+            }
 
-            // 현재 설정된 목표가 없거나 현재 단수 이하면 기본값으로 설정
-            if (!currentTarget || currentTarget <= currentDansu) {
-                const newTarget = Math.min(defaultTarget, maxDansu);
+            // 목표 단수 +/- 조절 함수
+            function adjustTargetDansu(delta) {
+                const currentHP = parseNumber(document.getElementById('currentHP').value) || 0;
+                const currentMP = parseNumber(document.getElementById('currentMP').value) || 0;
+                const totalExp = calculateTotalExp(currentHP, currentMP);
+                const currentDansuInfo = calculateDansu(totalExp);
+
+                let currentTarget = parseInt(document.getElementById('targetDansu').value) || currentDansuInfo.dansu + 1;
+                let newTarget = currentTarget + delta;
+
+                // 범위 제한: 현재 단수+1 ~ 최대 단수
+                const minDansu = currentDansuInfo.dansu + 1;
+                const maxDansu = dansuTable[dansuTable.length - 1].dansu;
+                newTarget = Math.max(minDansu, Math.min(maxDansu, newTarget));
+
                 document.getElementById('targetDansu').value = newTarget;
                 document.getElementById('targetDansuDisplay').textContent = newTarget + '단';
 
+                // 목표 단수 경험치 정보 표시
                 const targetData = dansuTable.find(d => d.dansu === newTarget);
                 if (targetData) {
                     document.getElementById('targetDansuExpInfo').textContent = `필요 경험치: ${formatExp(targetData.exp)}`;
                 }
-            }
-        }
 
-        // 목표 단수까지 필요한 경험치 업데이트
-        function updateNeededExp() {
-            const targetDansu = parseInt(document.getElementById('targetDansu').value);
-            if (!targetDansu) {
-                document.getElementById('neededExpDisplay').textContent = '-';
-                document.getElementById('neededExpDetail').textContent = '목표 단수를 선택하세요';
-                return;
+                updateNeededExp();
             }
 
-            const currentHP = parseNumber(document.getElementById('currentHP').value) || 0;
-            const currentMP = parseNumber(document.getElementById('currentMP').value) || 0;
-            const totalExp = calculateTotalExp(currentHP, currentMP);
+            // 스탯 선택 가져오기 (체크박스 기반)
+            function getStatChoice() {
+                const hpChecked = document.getElementById('statChoiceHP').checked;
+                const mpChecked = document.getElementById('statChoiceMP').checked;
 
-            const targetDansuData = dansuTable.find(d => d.dansu === targetDansu);
-            if (targetDansuData) {
-                const neededExp = targetDansuData.exp - totalExp;
-                document.getElementById('neededExpDisplay').textContent = formatExp(Math.max(0, neededExp));
-                document.getElementById('neededExpDetail').textContent =
-                    neededExp > 0 ? `현재 ${formatExp(totalExp)} → 목표 ${formatExp(targetDansuData.exp)}` : '이미 달성!';
-            }
-        }
-
-        // 목표 단수 +/- 조절 함수
-        function adjustTargetDansu(delta) {
-            const currentHP = parseNumber(document.getElementById('currentHP').value) || 0;
-            const currentMP = parseNumber(document.getElementById('currentMP').value) || 0;
-            const totalExp = calculateTotalExp(currentHP, currentMP);
-            const currentDansuInfo = calculateDansu(totalExp);
-
-            let currentTarget = parseInt(document.getElementById('targetDansu').value) || currentDansuInfo.dansu + 1;
-            let newTarget = currentTarget + delta;
-
-            // 범위 제한: 현재 단수+1 ~ 최대 단수
-            const minDansu = currentDansuInfo.dansu + 1;
-            const maxDansu = dansuTable[dansuTable.length - 1].dansu;
-            newTarget = Math.max(minDansu, Math.min(maxDansu, newTarget));
-
-            document.getElementById('targetDansu').value = newTarget;
-            document.getElementById('targetDansuDisplay').textContent = newTarget + '단';
-
-            // 목표 단수 경험치 정보 표시
-            const targetData = dansuTable.find(d => d.dansu === newTarget);
-            if (targetData) {
-                document.getElementById('targetDansuExpInfo').textContent = `필요 경험치: ${formatExp(targetData.exp)}`;
+                if (hpChecked && mpChecked) return 'both';
+                if (hpChecked) return 'hp';
+                if (mpChecked) return 'mp';
+                return 'none';
             }
 
-            updateNeededExp();
-        }
+            // 체크박스 변경 이벤트
+            document.getElementById('statChoiceHP').addEventListener('change', function () {
+                // 최소 하나는 선택되어야 함
+                if (!this.checked && !document.getElementById('statChoiceMP').checked) {
+                    this.checked = true;
+                }
+                updateNeededExp();
+            });
+            document.getElementById('statChoiceMP').addEventListener('change', function () {
+                // 최소 하나는 선택되어야 함
+                if (!this.checked && !document.getElementById('statChoiceHP').checked) {
+                    this.checked = true;
+                }
+                updateNeededExp();
+            });
 
-        // 스탯 선택 가져오기 (체크박스 기반)
-        function getStatChoice() {
-            const hpChecked = document.getElementById('statChoiceHP').checked;
-            const mpChecked = document.getElementById('statChoiceMP').checked;
+            // HP/MP 입력 변경 시 단수 업데이트
+            document.getElementById('currentHP').addEventListener('input', function () {
+                if (currentMode === 'dansu') {
+                    updateCurrentDansu();
+                }
+            });
+            document.getElementById('currentMP').addEventListener('input', function () {
+                if (currentMode === 'dansu') {
+                    updateCurrentDansu();
+                }
+            });
 
-            if (hpChecked && mpChecked) return 'both';
-            if (hpChecked) return 'hp';
-            if (mpChecked) return 'mp';
-            return 'none';
-        }
+            // 목표 단수에서 필요한 HP/MP 찾기 (경험치 역산)
+            function findRequiredStats(targetExp, currentHP, currentMP, statChoice) {
+                const currentTotalExp = calculateTotalExp(currentHP, currentMP);
+                const neededExp = targetExp - currentTotalExp;
 
-        // 체크박스 변경 이벤트
-        document.getElementById('statChoiceHP').addEventListener('change', function() {
-            // 최소 하나는 선택되어야 함
-            if (!this.checked && !document.getElementById('statChoiceMP').checked) {
-                this.checked = true;
-            }
-            updateNeededExp();
-        });
-        document.getElementById('statChoiceMP').addEventListener('change', function() {
-            // 최소 하나는 선택되어야 함
-            if (!this.checked && !document.getElementById('statChoiceHP').checked) {
-                this.checked = true;
-            }
-            updateNeededExp();
-        });
+                if (neededExp <= 0) return { hp: currentHP, mp: currentMP, hpGain: 0, mpGain: 0 };
 
-        // HP/MP 입력 변경 시 단수 업데이트
-        document.getElementById('currentHP').addEventListener('input', function() {
-            if (currentMode === 'dansu') {
-                updateCurrentDansu();
-            }
-        });
-        document.getElementById('currentMP').addEventListener('input', function() {
-            if (currentMode === 'dansu') {
-                updateCurrentDansu();
-            }
-        });
+                if (statChoice === 'hp') {
+                    // HP만 올리기
+                    let low = currentHP;
+                    let high = 20000000; // 2000만
 
-        // 목표 단수에서 필요한 HP/MP 찾기 (경험치 역산)
-        function findRequiredStats(targetExp, currentHP, currentMP, statChoice) {
-            const currentTotalExp = calculateTotalExp(currentHP, currentMP);
-            const neededExp = targetExp - currentTotalExp;
-
-            if (neededExp <= 0) return { hp: currentHP, mp: currentMP, hpGain: 0, mpGain: 0 };
-
-            if (statChoice === 'hp') {
-                // HP만 올리기
-                let low = currentHP;
-                let high = 20000000; // 2000만
-
-                while (low < high) {
-                    const mid = Math.floor((low + high) / 2);
-                    const exp = calculateTotalExp(mid, currentMP);
-                    if (exp < targetExp) {
-                        low = mid + 1;
-                    } else {
-                        high = mid;
+                    while (low < high) {
+                        const mid = Math.floor((low + high) / 2);
+                        const exp = calculateTotalExp(mid, currentMP);
+                        if (exp < targetExp) {
+                            low = mid + 1;
+                        } else {
+                            high = mid;
+                        }
                     }
+
+                    return {
+                        hp: low,
+                        mp: currentMP,
+                        hpGain: low - currentHP,
+                        mpGain: 0
+                    };
+                } else if (statChoice === 'mp') {
+                    // MP만 올리기
+                    let low = currentMP;
+                    let high = 10000000; // 1000만
+
+                    while (low < high) {
+                        const mid = Math.floor((low + high) / 2);
+                        const exp = calculateTotalExp(currentHP, mid);
+                        if (exp < targetExp) {
+                            low = mid + 1;
+                        } else {
+                            high = mid;
+                        }
+                    }
+
+                    return {
+                        hp: currentHP,
+                        mp: low,
+                        hpGain: 0,
+                        mpGain: low - currentMP
+                    };
+                } else {
+                    // HP + MP 균등하게 올리기
+                    // HP:MP 대략 2:1 비율로 증가시키며 탐색
+                    let resultHP = currentHP;
+                    let resultMP = currentMP;
+
+                    // 반복적으로 HP와 MP를 번갈아 올리기
+                    let iterations = 0;
+                    while (calculateTotalExp(resultHP, resultMP) < targetExp && iterations < 100000) {
+                        // HP를 50씩 올렸을 때 vs MP를 25씩 올렸을 때 경험치 효율 비교
+                        const hpExpGain = calculateHpExp(resultHP + 50) - calculateHpExp(resultHP);
+                        const mpExpGain = calculateMpExp(resultMP + 25) - calculateMpExp(resultMP);
+
+                        // 더 효율적인 쪽을 올림 (같으면 HP 우선)
+                        if (hpExpGain >= mpExpGain) {
+                            resultHP += 50;
+                        } else {
+                            resultMP += 25;
+                        }
+                        iterations++;
+                    }
+
+                    return {
+                        hp: resultHP,
+                        mp: resultMP,
+                        hpGain: resultHP - currentHP,
+                        mpGain: resultMP - currentMP
+                    };
+                }
+            }
+
+            // 계산 함수 수정 (모드에 따라 다르게 동작)
+            const originalCalculate = calculate;
+            calculate = function () {
+                if (currentMode === 'rar') {
+                    originalCalculate();
+                } else if (currentMode === 'dansu') {
+                    calculateDansuMode();
+                } else if (currentMode === 'reverse') {
+                    calculateReverseMode();
+                }
+            };
+
+            // 목표 단수 모드 계산
+            function calculateDansuMode() {
+                document.getElementById('errorMessage').classList.add('hidden');
+
+                const currentHP = parseNumber(document.getElementById('currentHP').value);
+                const currentMP = parseNumber(document.getElementById('currentMP').value);
+                const targetDansu = parseInt(document.getElementById('targetDansu').value);
+                const statChoice = getStatChoice();
+
+                // Validation
+                let errors = [];
+                if (!currentHP && !currentMP) {
+                    errors.push('순수 체력 또는 MP를 입력해주세요.');
+                }
+                if (!targetDansu) {
+                    errors.push('목표 단수를 선택해주세요.');
+                }
+                if (statChoice === 'none') {
+                    errors.push('올릴 스탯을 최소 하나 선택해주세요.');
+                }
+                // HP만 올리려는데 HP 입력 안한 경우
+                if ((statChoice === 'hp' || statChoice === 'both') && !currentHP) {
+                    errors.push('HP를 올리려면 순수 체력를 입력해주세요.');
+                }
+                // MP만 올리려는데 MP 입력 안한 경우
+                if ((statChoice === 'mp' || statChoice === 'both') && !currentMP) {
+                    errors.push('MP를 올리려면 순수 마력를 입력해주세요.');
                 }
 
-                return {
-                    hp: low,
-                    mp: currentMP,
-                    hpGain: low - currentHP,
-                    mpGain: 0
-                };
-            } else if (statChoice === 'mp') {
-                // MP만 올리기
-                let low = currentMP;
-                let high = 10000000; // 1000만
-
-                while (low < high) {
-                    const mid = Math.floor((low + high) / 2);
-                    const exp = calculateTotalExp(currentHP, mid);
-                    if (exp < targetExp) {
-                        low = mid + 1;
-                    } else {
-                        high = mid;
-                    }
+                if (errors.length > 0) {
+                    document.getElementById('errorMessage').textContent = errors.join(' ');
+                    document.getElementById('errorMessage').classList.remove('hidden');
+                    return;
                 }
 
-                return {
-                    hp: currentHP,
-                    mp: low,
-                    hpGain: 0,
-                    mpGain: low - currentMP
-                };
-            } else {
-                // HP + MP 균등하게 올리기
-                // HP:MP 대략 2:1 비율로 증가시키며 탐색
-                let resultHP = currentHP;
-                let resultMP = currentMP;
+                const targetDansuData = dansuTable.find(d => d.dansu === targetDansu);
+                const currentTotalExp = calculateTotalExp(currentHP, currentMP);
 
-                // 반복적으로 HP와 MP를 번갈아 올리기
-                let iterations = 0;
-                while (calculateTotalExp(resultHP, resultMP) < targetExp && iterations < 100000) {
-                    // HP를 50씩 올렸을 때 vs MP를 25씩 올렸을 때 경험치 효율 비교
-                    const hpExpGain = calculateHpExp(resultHP + 50) - calculateHpExp(resultHP);
-                    const mpExpGain = calculateMpExp(resultMP + 25) - calculateMpExp(resultMP);
-
-                    // 더 효율적인 쪽을 올림 (같으면 HP 우선)
-                    if (hpExpGain >= mpExpGain) {
-                        resultHP += 50;
-                    } else {
-                        resultMP += 25;
-                    }
-                    iterations++;
+                if (currentTotalExp >= targetDansuData.exp) {
+                    document.getElementById('errorMessage').textContent = '이미 목표 단수에 도달했습니다!';
+                    document.getElementById('errorMessage').classList.remove('hidden');
+                    return;
                 }
 
-                return {
-                    hp: resultHP,
-                    mp: resultMP,
-                    hpGain: resultHP - currentHP,
-                    mpGain: resultMP - currentMP
-                };
-            }
-        }
+                // 할인율 가져오기
+                const discountRate = parseInt(document.getElementById('discountRate').value) || 0;
 
-        // 계산 함수 수정 (모드에 따라 다르게 동작)
-        const originalCalculate = calculate;
-        calculate = function() {
-            if (currentMode === 'rar') {
-                originalCalculate();
-            } else if (currentMode === 'dansu') {
-                calculateDansuMode();
-            } else if (currentMode === 'reverse') {
-                calculateReverseMode();
-            }
-        };
+                // 필요한 스탯 계산 (스탯 선택에 따라)
+                const required = findRequiredStats(targetDansuData.exp, currentHP, currentMP, statChoice);
 
-        // 목표 단수 모드 계산
-        function calculateDansuMode() {
-            document.getElementById('errorMessage').classList.add('hidden');
+                // 라르 계산 (HP 증가분에 대해)
+                let hpResult = { totalRar: 0, breakdown: [] };
+                if (required.hpGain > 0) {
+                    hpResult = calculateTierRar(currentHP, required.hp, hpTiers, 50, discountRate);
+                }
 
-            const currentHP = parseNumber(document.getElementById('currentHP').value);
-            const currentMP = parseNumber(document.getElementById('currentMP').value);
-            const targetDansu = parseInt(document.getElementById('targetDansu').value);
-            const statChoice = getStatChoice();
+                let mpResult = { totalRar: 0, breakdown: [] };
+                if (required.mpGain > 0) {
+                    mpResult = calculateTierRar(currentMP, required.mp, mpTiers, 25, discountRate);
+                }
 
-            // Validation
-            let errors = [];
-            if (!currentHP && !currentMP) {
-                errors.push('순수 체력 또는 MP를 입력해주세요.');
-            }
-            if (!targetDansu) {
-                errors.push('목표 단수를 선택해주세요.');
-            }
-            if (statChoice === 'none') {
-                errors.push('올릴 스탯을 최소 하나 선택해주세요.');
-            }
-            // HP만 올리려는데 HP 입력 안한 경우
-            if ((statChoice === 'hp' || statChoice === 'both') && !currentHP) {
-                errors.push('HP를 올리려면 순수 체력를 입력해주세요.');
-            }
-            // MP만 올리려는데 MP 입력 안한 경우
-            if ((statChoice === 'mp' || statChoice === 'both') && !currentMP) {
-                errors.push('MP를 올리려면 순수 마력를 입력해주세요.');
-            }
+                // 결과 표시
+                displayResults(hpResult, mpResult);
 
-            if (errors.length > 0) {
-                document.getElementById('errorMessage').textContent = errors.join(' ');
-                document.getElementById('errorMessage').classList.remove('hidden');
-                return;
-            }
+                // 추가 정보 표시
+                const resultSection = document.getElementById('resultsSection');
+                resultSection.classList.remove('hidden');
+                const statChoiceText = statChoice === 'hp' ? 'HP만 올리기' : (statChoice === 'mp' ? 'MP만 올리기' : 'HP + MP 균등');
 
-            const targetDansuData = dansuTable.find(d => d.dansu === targetDansu);
-            const currentTotalExp = calculateTotalExp(currentHP, currentMP);
-
-            if (currentTotalExp >= targetDansuData.exp) {
-                document.getElementById('errorMessage').textContent = '이미 목표 단수에 도달했습니다!';
-                document.getElementById('errorMessage').classList.remove('hidden');
-                return;
-            }
-
-            // 필요한 스탯 계산 (스탯 선택에 따라)
-            const required = findRequiredStats(targetDansuData.exp, currentHP, currentMP, statChoice);
-
-            // 라르 계산 (HP 증가분에 대해)
-            let hpResult = { totalRar: 0, breakdown: [] };
-            if (required.hpGain > 0) {
-                hpResult = calculateTierRar(currentHP, required.hp, hpTiers, 50);
-            }
-
-            let mpResult = { totalRar: 0, breakdown: [] };
-            if (required.mpGain > 0) {
-                mpResult = calculateTierRar(currentMP, required.mp, mpTiers, 25);
-            }
-
-            // 결과 표시
-            displayResults(hpResult, mpResult);
-
-            // 추가 정보 표시
-            const resultSection = document.getElementById('resultsSection');
-            resultSection.classList.remove('hidden');
-            const statChoiceText = statChoice === 'hp' ? 'HP만 올리기' : (statChoice === 'mp' ? 'MP만 올리기' : 'HP + MP 균등');
-
-            let hpDisplay, mpDisplay;
-            if (statChoice === 'hp') {
-                hpDisplay = `<div class="text-2xl font-bold text-red-400">${formatNumber(required.hp)}</div>
+                let hpDisplay, mpDisplay;
+                if (statChoice === 'hp') {
+                    hpDisplay = `<div class="text-2xl font-bold text-red-400">${formatNumber(required.hp)}</div>
                             <div class="text-sm text-gray-400">목표 HP (+${formatNumber(required.hpGain)})</div>`;
-                mpDisplay = `<div class="text-2xl font-bold text-gray-500">${formatNumber(currentMP)}</div>
+                    mpDisplay = `<div class="text-2xl font-bold text-gray-500">${formatNumber(currentMP)}</div>
                             <div class="text-sm text-gray-500">MP (변경 없음)</div>`;
-            } else if (statChoice === 'mp') {
-                hpDisplay = `<div class="text-2xl font-bold text-gray-500">${formatNumber(currentHP)}</div>
+                } else if (statChoice === 'mp') {
+                    hpDisplay = `<div class="text-2xl font-bold text-gray-500">${formatNumber(currentHP)}</div>
                             <div class="text-sm text-gray-500">HP (변경 없음)</div>`;
-                mpDisplay = `<div class="text-2xl font-bold text-blue-400">${formatNumber(required.mp)}</div>
+                    mpDisplay = `<div class="text-2xl font-bold text-blue-400">${formatNumber(required.mp)}</div>
                             <div class="text-sm text-gray-400">목표 MP (+${formatNumber(required.mpGain)})</div>`;
-            } else {
-                hpDisplay = `<div class="text-2xl font-bold text-red-400">${formatNumber(required.hp)}</div>
+                } else {
+                    hpDisplay = `<div class="text-2xl font-bold text-red-400">${formatNumber(required.hp)}</div>
                             <div class="text-sm text-gray-400">목표 HP (+${formatNumber(required.hpGain)})</div>`;
-                mpDisplay = `<div class="text-2xl font-bold text-blue-400">${formatNumber(required.mp)}</div>
+                    mpDisplay = `<div class="text-2xl font-bold text-blue-400">${formatNumber(required.mp)}</div>
                             <div class="text-sm text-gray-400">목표 MP (+${formatNumber(required.mpGain)})</div>`;
-            }
+                }
 
-            let dansuInfoHtml = `
+                let dansuInfoHtml = `
                 <div class="glass-card p-6 mb-6 result-card">
                     <h3 class="text-lg font-bold text-white mb-3 text-center">
                         <i class="fas fa-star mr-2 text-amber-400"></i>목표 단수 달성 정보
@@ -2459,123 +2499,126 @@
                 </div>
             `;
 
-            // 기존 단수 정보 카드가 있으면 제거
-            const existingDansuCard = document.getElementById('dansuResultCard');
-            if (existingDansuCard) existingDansuCard.remove();
+                // 기존 단수 정보 카드가 있으면 제거
+                const existingDansuCard = document.getElementById('dansuResultCard');
+                if (existingDansuCard) existingDansuCard.remove();
 
-            // 새 카드 추가
-            const dansuCard = document.createElement('div');
-            dansuCard.id = 'dansuResultCard';
-            dansuCard.innerHTML = dansuInfoHtml;
-            resultSection.insertBefore(dansuCard.firstElementChild, resultSection.firstChild);
-        }
-
-        // 목걸이 강화수치에 따른 증가율 계산 함수
-        // 기본: 레벨당 0.1%, 5의 배수(5,10,15,20,25,30)에서는 0.2%
-        // 예: 1=0.1, 5=0.6, 10=1.2, 15=1.8, 20=2.4, 25=3.0, 30=3.6
-        function calculateEnhanceBonus(level) {
-            if (level <= 0) return 0;
-            const fiveMultiples = Math.floor(level / 5);  // 5의 배수 개수
-            const others = level - fiveMultiples;          // 나머지 레벨
-            return (fiveMultiples * 0.2) + (others * 0.1);
-        }
-
-        // 추가 데미지 계산 함수
-        // 공식: (순수체력 + 순수마력 * 2) * 강화보너스%
-        function calculateAdditionalDamage(hp, mp, enhanceLevel) {
-            const enhanceBonus = calculateEnhanceBonus(enhanceLevel);
-            const totalPercent = enhanceBonus / 100; // 퍼센트를 소수로 변환
-
-            const additionalDamage = (hp + (mp * 2)) * totalPercent;
-            return {
-                additionalDamage: additionalDamage,
-                totalPercent: enhanceBonus,
-                enhanceBonus: enhanceBonus
-            };
-        }
-
-        // 라르 역산 모드 계산
-        function calculateReverseMode() {
-            document.getElementById('errorMessage').classList.add('hidden');
-
-            const currentHP = parseNumber(document.getElementById('currentHP').value) || 0;
-            const currentMP = parseNumber(document.getElementById('currentMP').value) || 0;
-            const availableRar = parseNumber(document.getElementById('availableRar').value) || 0;
-            const statChoice = document.querySelector('input[name="reverseStatChoice"]:checked').value;
-            const enhanceLevel = parseInt(document.getElementById('enhanceLevel').value) || 5;
-
-            // Validation
-            let errors = [];
-            if (availableRar <= 0) {
-                errors.push('보유 라르를 입력해주세요.');
-            }
-            if (statChoice === 'hp' && !currentHP) {
-                errors.push('순수 체력를 입력해주세요.');
-            }
-            if (statChoice === 'mp' && !currentMP) {
-                errors.push('순수 마력를 입력해주세요.');
+                // 새 카드 추가
+                const dansuCard = document.createElement('div');
+                dansuCard.id = 'dansuResultCard';
+                dansuCard.innerHTML = dansuInfoHtml;
+                resultSection.insertBefore(dansuCard.firstElementChild, resultSection.firstChild);
             }
 
-            if (errors.length > 0) {
-                document.getElementById('errorMessage').textContent = errors.join(' ');
-                document.getElementById('errorMessage').classList.remove('hidden');
-                return;
+            // 목걸이 강화수치에 따른 증가율 계산 함수
+            // 기본: 레벨당 0.1%, 5의 배수(5,10,15,20,25,30)에서는 0.2%
+            // 예: 1=0.1, 5=0.6, 10=1.2, 15=1.8, 20=2.4, 25=3.0, 30=3.6
+            function calculateEnhanceBonus(level) {
+                if (level <= 0) return 0;
+                const fiveMultiples = Math.floor(level / 5);  // 5의 배수 개수
+                const others = level - fiveMultiples;          // 나머지 레벨
+                return (fiveMultiples * 0.2) + (others * 0.1);
             }
 
-            let result;
-            let statName;
-            let currentValue;
-            let tiers;
-            let defaultIncrement;
-            let finalHP = currentHP;
-            let finalMP = currentMP;
+            // 추가 데미지 계산 함수
+            // 공식: (순수체력 + 순수마력 * 2) * 강화보너스%
+            function calculateAdditionalDamage(hp, mp, enhanceLevel) {
+                const enhanceBonus = calculateEnhanceBonus(enhanceLevel);
+                const totalPercent = enhanceBonus / 100; // 퍼센트를 소수로 변환
 
-            if (statChoice === 'hp') {
-                currentValue = currentHP;
-                tiers = hpTiers;
-                defaultIncrement = 50;
-                statName = 'HP';
-                finalHP = currentHP;
-            } else {
-                currentValue = currentMP;
-                tiers = mpTiers;
-                defaultIncrement = 25;
-                statName = 'MP';
-                finalMP = currentMP;
+                const additionalDamage = (hp + (mp * 2)) * totalPercent;
+                return {
+                    additionalDamage: additionalDamage,
+                    totalPercent: enhanceBonus,
+                    enhanceBonus: enhanceBonus
+                };
             }
 
-            result = calculateReverseRar(currentValue, availableRar, tiers, defaultIncrement);
+            // 라르 역산 모드 계산
+            function calculateReverseMode() {
+                document.getElementById('errorMessage').classList.add('hidden');
 
-            // 최종 HP/MP 업데이트
-            if (statChoice === 'hp') {
-                finalHP = result.finalValue;
-            } else {
-                finalMP = result.finalValue;
+                const currentHP = parseNumber(document.getElementById('currentHP').value) || 0;
+                const currentMP = parseNumber(document.getElementById('currentMP').value) || 0;
+                const availableRar = parseNumber(document.getElementById('availableRar').value) || 0;
+                const statChoice = document.querySelector('input[name="reverseStatChoice"]:checked').value;
+                const enhanceLevel = parseInt(document.getElementById('enhanceLevel').value) || 5;
+
+                // Validation
+                let errors = [];
+                if (availableRar <= 0) {
+                    errors.push('보유 라르를 입력해주세요.');
+                }
+                if (statChoice === 'hp' && !currentHP) {
+                    errors.push('순수 체력를 입력해주세요.');
+                }
+                if (statChoice === 'mp' && !currentMP) {
+                    errors.push('순수 마력를 입력해주세요.');
+                }
+
+                if (errors.length > 0) {
+                    document.getElementById('errorMessage').textContent = errors.join(' ');
+                    document.getElementById('errorMessage').classList.remove('hidden');
+                    return;
+                }
+
+                let result;
+                let statName;
+                let currentValue;
+                let tiers;
+                let defaultIncrement;
+                let finalHP = currentHP;
+                let finalMP = currentMP;
+
+                if (statChoice === 'hp') {
+                    currentValue = currentHP;
+                    tiers = hpTiers;
+                    defaultIncrement = 50;
+                    statName = 'HP';
+                    finalHP = currentHP;
+                } else {
+                    currentValue = currentMP;
+                    tiers = mpTiers;
+                    defaultIncrement = 25;
+                    statName = 'MP';
+                    finalMP = currentMP;
+                }
+
+                // 할인율 가져오기
+                const discountRate = parseInt(document.getElementById('discountRate').value) || 0;
+
+                result = calculateReverseRar(currentValue, availableRar, tiers, defaultIncrement, discountRate);
+
+                // 최종 HP/MP 업데이트
+                if (statChoice === 'hp') {
+                    finalHP = result.finalValue;
+                } else {
+                    finalMP = result.finalValue;
+                }
+
+                // 추가 데미지 계산 (목걸이 강화수치가 입력된 경우)
+                let additionalDamageInfo = null;
+                let currentAdditionalDamageInfo = null;
+                if (enhanceLevel > 0) {
+                    // 현재 추가 데미지 계산
+                    currentAdditionalDamageInfo = calculateAdditionalDamage(currentHP, currentMP, enhanceLevel);
+                    // 최종 추가 데미지 계산
+                    additionalDamageInfo = calculateAdditionalDamage(finalHP, finalMP, enhanceLevel);
+                }
+
+                // 결과 표시
+                displayReverseResults(result, statName, currentValue, availableRar, currentHP, currentMP, finalHP, finalMP, additionalDamageInfo, currentAdditionalDamageInfo, enhanceLevel);
             }
 
-            // 추가 데미지 계산 (목걸이 강화수치가 입력된 경우)
-            let additionalDamageInfo = null;
-            let currentAdditionalDamageInfo = null;
-            if (enhanceLevel > 0) {
-                // 현재 추가 데미지 계산
-                currentAdditionalDamageInfo = calculateAdditionalDamage(currentHP, currentMP, enhanceLevel);
-                // 최종 추가 데미지 계산
-                additionalDamageInfo = calculateAdditionalDamage(finalHP, finalMP, enhanceLevel);
-            }
+            // 역산 결과 표시 함수
+            function displayReverseResults(result, statName, currentValue, availableRar, currentHP, currentMP, finalHP, finalMP, additionalDamageInfo, currentAdditionalDamageInfo, enhanceLevel) {
+                const finalValue = result.finalValue;
+                const totalGain = result.totalGain;
+                const remainingRar = result.remainingRar;
+                const breakdown = result.breakdown;
 
-            // 결과 표시
-            displayReverseResults(result, statName, currentValue, availableRar, currentHP, currentMP, finalHP, finalMP, additionalDamageInfo, currentAdditionalDamageInfo, enhanceLevel);
-        }
-
-        // 역산 결과 표시 함수
-        function displayReverseResults(result, statName, currentValue, availableRar, currentHP, currentMP, finalHP, finalMP, additionalDamageInfo, currentAdditionalDamageInfo, enhanceLevel) {
-            const finalValue = result.finalValue;
-            const totalGain = result.totalGain;
-            const remainingRar = result.remainingRar;
-            const breakdown = result.breakdown;
-
-            // 결과 섹션 생성
-            let resultHtml = `
+                // 결과 섹션 생성
+                let resultHtml = `
                 <div class="glass-card p-6 mb-6 result-card">
                     <h3 class="text-xl font-bold text-white mb-6 text-center border-b-2 border-cyan-500 border-opacity-30 pb-3">
                         <i class="fas fa-arrow-up mr-2 text-cyan-400"></i>라르 역산 계산 결과
@@ -2643,10 +2686,10 @@
                     </div>
             `;
 
-            // 추가 데미지 정보 표시
-            if (additionalDamageInfo && currentAdditionalDamageInfo && enhanceLevel > 0) {
-                const damageIncrease = additionalDamageInfo.additionalDamage - currentAdditionalDamageInfo.additionalDamage;
-                resultHtml += `
+                // 추가 데미지 정보 표시
+                if (additionalDamageInfo && currentAdditionalDamageInfo && enhanceLevel > 0) {
+                    const damageIncrease = additionalDamageInfo.additionalDamage - currentAdditionalDamageInfo.additionalDamage;
+                    resultHtml += `
                     <div class="bg-gradient-to-br from-orange-900 via-orange-800 to-orange-900 rounded-xl p-5 mb-6 border-2 border-orange-500 border-opacity-60 shadow-lg">
                         <h4 class="text-base font-bold text-orange-200 mb-4 flex items-center justify-center">
                             <i class="fas fa-sword mr-2 text-orange-300"></i>추가 데미지 계산 (목걸이 강화 ${enhanceLevel}렙)
@@ -2677,18 +2720,18 @@
                         </div>
                     </div>
                 `;
-            }
+                }
 
-            if (breakdown.length > 0) {
-                resultHtml += `
+                if (breakdown.length > 0) {
+                    resultHtml += `
                     <div class="bg-slate-800 bg-opacity-50 rounded-xl p-5 border border-slate-600">
                         <h4 class="text-sm font-bold text-gray-200 mb-4 flex items-center">
                             <i class="fas fa-list-ul mr-2 text-cyan-400"></i>구간별 상세
                         </h4>
                         <div class="space-y-2 max-h-64 overflow-y-auto">
                 `;
-                breakdown.forEach((item, index) => {
-                    resultHtml += `
+                    breakdown.forEach((item, index) => {
+                        resultHtml += `
                         <div class="flex justify-between items-center text-sm py-2.5 px-3 rounded-lg ${index % 2 === 0 ? 'bg-slate-700 bg-opacity-30' : 'bg-slate-700 bg-opacity-20'} border-l-2 border-cyan-500 border-opacity-50">
                             <span class="text-gray-300 font-medium">${item.label}</span>
                             <div class="flex gap-4 items-center">
@@ -2703,58 +2746,57 @@
                             </div>
                         </div>
                     `;
-                });
-                resultHtml += `
+                    });
+                    resultHtml += `
                         </div>
                     </div>
                 `;
+                }
+
+                resultHtml += `</div>`;
+
+                // 기존 역산 결과 카드가 있으면 제거
+                const existingReverseCard = document.getElementById('reverseResultCard');
+                if (existingReverseCard) existingReverseCard.remove();
+
+                // 새 카드 추가
+                const reverseCard = document.createElement('div');
+                reverseCard.id = 'reverseResultCard';
+                reverseCard.innerHTML = resultHtml;
+
+                const resultSection = document.getElementById('resultsSection');
+                resultSection.innerHTML = '';
+                resultSection.appendChild(reverseCard.firstElementChild);
+
+                // 모달 표시
+                resultSection.classList.remove('hidden');
+                openModal();
             }
+        </script>
 
-            resultHtml += `</div>`;
-
-            // 기존 역산 결과 카드가 있으면 제거
-            const existingReverseCard = document.getElementById('reverseResultCard');
-            if (existingReverseCard) existingReverseCard.remove();
-
-            // 새 카드 추가
-            const reverseCard = document.createElement('div');
-            reverseCard.id = 'reverseResultCard';
-            reverseCard.innerHTML = resultHtml;
-            
-            const resultSection = document.getElementById('resultsSection');
-            resultSection.innerHTML = '';
-            resultSection.appendChild(reverseCard.firstElementChild);
-
-            // 모달 표시
-            resultSection.classList.remove('hidden');
-            openModal();
-        }
-    </script>
-
-    <!-- 푸터 -->
-    <footer class="bg-slate-900 bg-opacity-50 mt-8 py-6">
-        <div class="max-w-2xl mx-auto px-4 text-center">
-            <div class="flex flex-wrap justify-center gap-4 mb-4">
-                <a href="privacy.html" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors">
-                    개인정보처리방침
-                </a>
-                <span class="text-gray-600">|</span>
-                <a href="mailto:miltteok220@gmail.com" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors">
-                    문의: miltteok220@gmail.com
-                </a>
+        <!-- 푸터 -->
+        <footer class="bg-slate-900 bg-opacity-50 mt-8 py-6">
+            <div class="max-w-2xl mx-auto px-4 text-center">
+                <div class="flex flex-wrap justify-center gap-4 mb-4">
+                    <a href="privacy.html" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors">
+                        개인정보처리방침
+                    </a>
+                    <span class="text-gray-600">|</span>
+                    <a href="mailto:miltteok220@gmail.com"
+                        class="text-gray-400 hover:text-cyan-400 text-sm transition-colors">
+                        문의: miltteok220@gmail.com
+                    </a>
+                </div>
+                <p class="text-gray-500 text-xs mb-4">
+                    &copy; 2025 어둠의전설 종합 계산기. Made by 밀떡밀떡
+                </p>
+                <!-- 카카오 애드핏 광고 -->
+                <div class="flex justify-center">
+                    <ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-HZSl1WITmHno9Lir"
+                        data-ad-width="320" data-ad-height="50"></ins>
+                </div>
             </div>
-            <p class="text-gray-500 text-xs mb-4">
-                &copy; 2025 어둠의전설 종합 계산기. Made by 밀떡밀떡
-            </p>
-            <!-- 카카오 애드핏 광고 -->
-            <div class="flex justify-center">
-                <ins class="kakao_ad_area" style="display:none;"
-                    data-ad-unit="DAN-HZSl1WITmHno9Lir"
-                    data-ad-width="320"
-                    data-ad-height="50"></ins>
-            </div>
-        </div>
-    </footer>
+        </footer>
 </body>
 
 </html>
