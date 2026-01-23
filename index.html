@@ -221,6 +221,98 @@
             opacity: 0.8;
             background: rgba(59, 130, 246, 0.2);
         }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 
+                0 20px 60px 0 rgba(0, 0, 0, 0.7),
+                inset 0 1px 0 rgba(148, 163, 184, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            max-width: 90vw;
+            max-height: 90vh;
+            width: 100%;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            position: sticky;
+            top: 0;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-close {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 20px;
+        }
+
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.4);
+            border-color: rgba(239, 68, 68, 0.5);
+            color: #ffffff;
+            transform: rotate(90deg);
+        }
+
+        .modal-content {
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .modal-container {
+                max-width: 95vw;
+                max-height: 95vh;
+            }
+        }
     </style>
 </head>
 
@@ -323,77 +415,87 @@
 
             <!-- 현재 단수 표시 (목표 단수 모드에서만) -->
             <div id="currentDansuSection" class="hidden mb-6">
-                <div class="bg-gradient-to-r from-purple-900 to-indigo-900 rounded-xl p-6 border border-purple-500 border-opacity-30">
-                    <div class="text-center mb-4">
-                        <div class="text-lg text-purple-300 mb-2">현재 단수</div>
-                        <div class="text-6xl font-bold text-white mb-2" id="currentDansuDisplay">-</div>
-                        <div class="text-sm text-purple-200" id="currentExpDisplay">경험치: -</div>
-                    </div>
-                    <div class="w-full bg-slate-700 rounded-full h-3 mb-2">
-                        <div id="dansuProgressBar" class="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                    <div class="text-xs text-gray-400 text-center" id="nextDansuInfo">다음 단수까지: -</div>
-                </div>
-
-                <!-- 목표 단수 선택 -->
-                <div class="mt-6 grid md:grid-cols-2 gap-6">
-                    <!-- 목표 단수 +/- 버튼 -->
-                    <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
-                        <label class="block text-sm font-medium text-gray-300 mb-3">
-                            <i class="fas fa-bullseye mr-2 text-amber-400"></i>목표 단수
+                <div class="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+                    <!-- 현재 단수 -->
+                    <div class="bg-slate-700 bg-opacity-30 rounded-xl p-5">
+                        <label class="block text-sm font-medium text-gray-300 mb-3 text-center">
+                            <i class="fas fa-user mr-2 text-purple-400"></i>현재 단수
                         </label>
-                        <div class="flex items-center justify-center gap-3">
+                        <div class="input-field w-full px-3 py-2 border-2 border-purple-400 border-opacity-50 rounded-lg text-center text-2xl font-bold text-purple-400 mb-2" id="currentDansuDisplay">-</div>
+                        <div class="text-xs text-gray-400 text-center" id="currentExpDisplay">-</div>
+                        <div class="mt-3">
+                            <div class="w-full bg-slate-600 rounded-full h-2">
+                                <div id="dansuProgressBar" class="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                            <div class="text-xs text-gray-400 text-center mt-1" id="nextDansuInfo">-</div>
+                        </div>
+                    </div>
+
+                    <!-- 목표 단수 -->
+                    <div class="bg-slate-700 bg-opacity-30 rounded-xl p-5">
+                        <label class="block text-sm font-medium text-gray-300 mb-3 text-center">
+                            <i class="fas fa-bullseye mr-2 text-yellow-400"></i>목표 단수
+                        </label>
+                        <div class="flex items-center gap-2">
                             <button type="button" onclick="adjustTargetDansu(-1)"
-                                class="w-12 h-12 rounded-lg bg-amber-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-2xl transition-all active:scale-95 flex items-center justify-center">
+                                class="w-10 h-10 rounded-lg bg-yellow-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
                                 −
                             </button>
-                            <div class="text-5xl font-bold text-amber-400 w-24 text-center" id="targetDansuDisplay">-</div>
+                            <div class="relative flex-1">
+                                <div class="input-field w-full px-3 py-2 border-2 border-yellow-400 border-opacity-50 rounded-lg text-center text-2xl font-bold text-yellow-400" id="targetDansuDisplay">-</div>
+                            </div>
                             <button type="button" onclick="adjustTargetDansu(1)"
-                                class="w-12 h-12 rounded-lg bg-amber-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-2xl transition-all active:scale-95 flex items-center justify-center">
+                                class="w-10 h-10 rounded-lg bg-yellow-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
                                 +
                             </button>
                         </div>
                         <input type="hidden" id="targetDansu" value="">
-                        <div class="text-xs text-gray-400 text-center mt-2" id="targetDansuExpInfo">-</div>
-                    </div>
-
-                    <!-- 필요 추가 경험치 -->
-                    <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
-                        <label class="block text-sm font-medium text-gray-300 mb-3">
-                            <i class="fas fa-flask mr-2 text-cyan-400"></i>필요 추가 경험치
-                        </label>
-                        <div class="text-3xl font-bold text-cyan-400" id="neededExpDisplay">-</div>
-                        <div class="text-xs text-gray-400 mt-2" id="neededExpDetail">HP/MP를 입력하세요</div>
+                        <p class="text-xs text-gray-400 mt-2 text-center" id="targetDansuExpInfo">-</p>
                     </div>
                 </div>
 
-                <!-- 올릴 스탯 체크박스 -->
-                <div class="mt-6 bg-slate-700 bg-opacity-30 rounded-xl p-4">
-                    <label class="block text-sm font-medium text-gray-300 mb-3 text-center">
-                        <i class="fas fa-arrow-up mr-2 text-green-400"></i>올릴 스탯 선택
-                    </label>
-                    <div class="flex justify-center gap-6">
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" id="statChoiceHP" checked
-                                class="w-6 h-6 rounded accent-red-500 cursor-pointer">
-                            <span class="text-lg font-bold text-red-400 group-hover:text-red-300 transition-colors">
-                                <i class="fas fa-heart mr-1"></i>HP
-                            </span>
-                        </label>
-                        <label class="flex items-center gap-3 cursor-pointer group">
-                            <input type="checkbox" id="statChoiceMP"
-                                class="w-6 h-6 rounded accent-blue-500 cursor-pointer">
-                            <span class="text-lg font-bold text-blue-400 group-hover:text-blue-300 transition-colors">
-                                <i class="fas fa-bolt mr-1"></i>MP
-                            </span>
-                        </label>
+                <!-- 필요 경험치 + 올릴 스탯 -->
+                <div class="mt-4 max-w-3xl mx-auto">
+                    <div class="bg-slate-700 bg-opacity-40 rounded-xl p-4">
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                            <!-- 필요 경험치 -->
+                            <div class="flex items-center gap-3">
+                                <i class="fas fa-flask text-cyan-400 text-xl"></i>
+                                <div>
+                                    <div class="text-xs text-gray-400">필요 경험치</div>
+                                    <div class="text-xl font-bold text-cyan-400" id="neededExpDisplay">-</div>
+                                </div>
+                            </div>
+
+                            <!-- 구분선 -->
+                            <div class="hidden md:block w-px h-10 bg-slate-600"></div>
+
+                            <!-- 올릴 스탯 -->
+                            <div class="flex items-center gap-4">
+                                <span class="text-sm text-gray-400">올릴 스탯:</span>
+                                <label class="flex items-center gap-2 cursor-pointer group">
+                                    <input type="checkbox" id="statChoiceHP" checked
+                                        class="w-5 h-5 rounded accent-red-500 cursor-pointer">
+                                    <span class="text-sm font-bold text-red-400 group-hover:text-red-300">
+                                        <i class="fas fa-heart mr-1"></i>HP
+                                    </span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer group">
+                                    <input type="checkbox" id="statChoiceMP"
+                                        class="w-5 h-5 rounded accent-blue-500 cursor-pointer">
+                                    <span class="text-sm font-bold text-blue-400 group-hover:text-blue-300">
+                                        <i class="fas fa-bolt mr-1"></i>MP
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-500 text-center mt-2" id="neededExpDetail">HP/MP를 입력하세요</div>
                     </div>
-                    <div class="text-xs text-gray-400 text-center mt-2">둘 다 선택하면 효율적으로 분배합니다</div>
                 </div>
             </div>
 
             <div class="mt-6 pt-6 border-t-2 border-slate-600 border-opacity-40">
-                <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <div class="max-w-xl mx-auto space-y-4">
                     <!-- 라르 할인율 -->
                     <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
                         <label class="block text-sm font-medium text-gray-300 mb-3">
@@ -438,35 +540,29 @@
                         </div>
                         <p class="text-xs text-gray-400 mt-2 text-center">100원 단위 조절</p>
                     </div>
-                </div>
-            </div>
-
-            <!-- 무료 라르 입력 섹션 -->
-            <div class="mt-6 pt-6 border-t-2 border-slate-600 border-opacity-40">
-                <div class="flex items-center justify-center mb-4">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
-                        <i class="fas fa-gift text-white text-lg"></i>
-                    </div>
-                    <h2 class="text-xl font-bold text-white">무료 라르 (목표 기간 계산)</h2>
-                </div>
-                <div class="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-2">매일 무료 라르</label>
-                        <input type="text" id="dailyFreeRar" placeholder="예: 100" value="0"
-                            class="input-field w-full px-4 py-3 border-2 border-emerald-400 rounded-lg focus:outline-none focus:border-emerald-500">
-                        <p class="text-xs text-gray-400 mt-1">매일 획득 가능한 무료 라르 개수</p>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-2">주간 무료 라르</label>
-                        <input type="text" id="weeklyFreeRar" placeholder="예: 500" value="0"
-                            class="input-field w-full px-4 py-3 border-2 border-emerald-400 rounded-lg focus:outline-none focus:border-emerald-500">
-                        <p class="text-xs text-gray-400 mt-1">주간 보상으로 획득 가능한 무료 라르 개수</p>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-300 mb-2">목표 기간 (일)</label>
-                        <input type="text" id="targetDays" placeholder="예: 30" value=""
-                            class="input-field w-full px-4 py-3 border-2 border-amber-400 rounded-lg focus:outline-none focus:border-amber-500">
-                        <p class="text-xs text-gray-400 mt-1">목표 달성까지 원하는 기간</p>
+                    <!-- 무료 라르 입력 섹션 -->
+                    <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
+                        <label class="block text-sm font-medium text-gray-300 mb-3">
+                            <i class="fas fa-gift mr-2 text-green-400"></i>무료 라르 (목표 기간 계산)
+                        </label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1">매일</label>
+                                <input type="text" id="dailyFreeRar" placeholder="0" value="0"
+                                    class="input-field w-full px-3 py-2 border-2 border-green-400 border-opacity-50 rounded-lg focus:outline-none focus:border-green-500 text-center text-lg font-semibold">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1">주간</label>
+                                <input type="text" id="weeklyFreeRar" placeholder="0" value="0"
+                                    class="input-field w-full px-3 py-2 border-2 border-green-400 border-opacity-50 rounded-lg focus:outline-none focus:border-green-500 text-center text-lg font-semibold">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1">목표 기간(일)</label>
+                                <input type="text" id="targetDays" placeholder="30" value=""
+                                    class="input-field w-full px-3 py-2 border-2 border-yellow-400 border-opacity-50 rounded-lg focus:outline-none focus:border-yellow-500 text-center text-lg font-semibold">
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2 text-center">무료 라르만으로 목표 달성 기간 계산</p>
                     </div>
                 </div>
             </div>
@@ -481,51 +577,65 @@
             <div id="errorMessage" class="mt-4 text-center text-red-400 font-semibold hidden"></div>
         </div>
 
-        <!-- Results Section -->
-        <div id="resultsSection" class="hidden">
+        <!-- Modal Overlay -->
+        <div id="modalOverlay" class="modal-overlay" onclick="closeModal(event)">
+            <div class="modal-container" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-white mb-1">
+                            <i class="fas fa-chart-line mr-2"></i>계산 결과
+                        </h3>
+                        <p class="text-sm text-gray-300">
+                            작성자 : 밀떡밀떡 / 자료참고 : 수이교
+                        </p>
+                    </div>
+                    <button class="modal-close" onclick="closeModal()" aria-label="닫기">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-content">
+                    <!-- Results Section -->
+                    <div id="resultsSection">
             <!-- Total Summary -->
-            <div class="glass-card p-8 mb-8 text-center result-card">
-                <h3 class="text-3xl font-bold text-white mb-6">
-                    <i class="fas fa-chart-line mr-2"></i>계산 결과
-                </h3>
+            <div class="glass-card p-6 mb-6 text-center result-card">
                 <div class="grid md:grid-cols-3 gap-6">
                     <div>
-                        <div class="text-5xl font-bold text-blue-400 mb-3" id="totalRar"></div>
-                        <div class="text-xl text-gray-300">총 필요 라르</div>
+                        <div class="text-3xl font-bold text-blue-400 mb-3" id="totalRar"></div>
+                        <div class="text-base font-medium text-gray-200">총 필요 라르</div>
                     </div>
                     <div>
-                        <div class="text-5xl font-bold text-blue-300 mb-3" id="totalCost"></div>
-                        <div class="text-xl text-gray-300">총 비용 (골드)</div>
+                        <div class="text-3xl font-bold text-blue-300 mb-3" id="totalCost"></div>
+                        <div class="text-base font-medium text-gray-200">총 비용 (골드)</div>
                     </div>
                     <div>
-                        <div class="text-5xl font-bold text-sky-300 mb-3" id="totalCash"></div>
-                        <div class="text-xl text-gray-300">예상 현금 비용</div>
+                        <div class="text-3xl font-bold text-sky-300 mb-3" id="totalCash"></div>
+                        <div class="text-base font-medium text-gray-200">예상 현금 비용</div>
                     </div>
                 </div>
             </div>
 
             <!-- 무료 라르로 목표 달성 기간 -->
-            <div id="freeRarSection" class="glass-card p-8 mb-8 text-center result-card hidden">
-                <h3 class="text-2xl font-bold text-white mb-6">
+            <div id="freeRarSection" class="glass-card p-6 mb-6 text-center result-card hidden">
+                <h3 class="text-lg font-bold text-white mb-4">
                     <i class="fas fa-calendar-alt mr-2" style="color: #10b981;"></i>무료 라르로 목표 달성 예상 기간
                 </h3>
-                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                <div class="grid md:grid-cols-3 gap-6 mb-5">
                     <div>
-                        <div class="text-4xl font-bold text-emerald-400 mb-2" id="weeklyRarTotal"></div>
-                        <div class="text-lg text-gray-300">주간 획득 라르</div>
-                        <div class="text-sm text-gray-400" id="weeklyRarBreakdown"></div>
+                        <div class="text-2xl font-bold text-emerald-400 mb-3" id="weeklyRarTotal"></div>
+                        <div class="text-base font-medium text-gray-200 mb-1">주간 획득 라르</div>
+                        <div class="text-sm text-gray-300" id="weeklyRarBreakdown"></div>
                     </div>
                     <div>
-                        <div class="text-5xl font-bold text-emerald-300 mb-2" id="weeksNeeded"></div>
-                        <div class="text-xl text-gray-300">예상 소요 기간</div>
+                        <div class="text-3xl font-bold text-emerald-300 mb-3" id="weeksNeeded"></div>
+                        <div class="text-base font-medium text-gray-200">예상 소요 기간</div>
                     </div>
                     <div>
-                        <div class="text-4xl font-bold text-teal-300 mb-2" id="targetDate"></div>
-                        <div class="text-lg text-gray-300">예상 달성일</div>
+                        <div class="text-2xl font-bold text-teal-300 mb-3" id="targetDate"></div>
+                        <div class="text-base font-medium text-gray-200">예상 달성일</div>
                     </div>
                 </div>
                 <div class="bg-slate-700 bg-opacity-50 rounded-lg p-4 max-w-xl mx-auto">
-                    <p class="text-gray-300 text-sm">
+                    <p class="text-gray-200 text-base">
                         <i class="fas fa-info-circle mr-2 text-emerald-400"></i>
                         무료 라르만으로 목표 달성 시 예상 기간입니다.
                     </p>
@@ -533,27 +643,27 @@
             </div>
 
             <!-- 목표 기간 내 필요 라르 계산 -->
-            <div id="targetDaysSection" class="glass-card p-8 mb-8 text-center result-card hidden">
-                <h3 class="text-2xl font-bold text-white mb-6">
+            <div id="targetDaysSection" class="glass-card p-6 mb-6 text-center result-card hidden">
+                <h3 class="text-lg font-bold text-white mb-4">
                     <i class="fas fa-crosshairs mr-2" style="color: #f59e0b;"></i>목표 기간 내 달성 분석
                 </h3>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
                     <div>
-                        <div class="text-3xl font-bold text-amber-400 mb-2" id="targetDaysDisplay"></div>
-                        <div class="text-lg text-gray-300">목표 기간</div>
+                        <div class="text-2xl font-bold text-amber-400 mb-3" id="targetDaysDisplay"></div>
+                        <div class="text-base font-medium text-gray-200">목표 기간</div>
                     </div>
                     <div>
-                        <div class="text-3xl font-bold text-emerald-400 mb-2" id="freeRarInPeriod"></div>
-                        <div class="text-lg text-gray-300">기간 내 무료 라르</div>
-                        <div class="text-sm text-gray-400" id="freeRarInPeriodBreakdown"></div>
+                        <div class="text-2xl font-bold text-emerald-400 mb-3" id="freeRarInPeriod"></div>
+                        <div class="text-base font-medium text-gray-200 mb-1">기간 내 무료 라르</div>
+                        <div class="text-sm text-gray-300" id="freeRarInPeriodBreakdown"></div>
                     </div>
                     <div>
-                        <div class="text-3xl font-bold mb-2" id="shortfallRar"></div>
-                        <div class="text-lg text-gray-300">부족한 라르</div>
+                        <div class="text-2xl font-bold mb-3" id="shortfallRar"></div>
+                        <div class="text-base font-medium text-gray-200">부족한 라르</div>
                     </div>
                     <div>
-                        <div class="text-3xl font-bold text-blue-300 mb-2" id="shortfallCost"></div>
-                        <div class="text-lg text-gray-300">추가 필요 비용</div>
+                        <div class="text-2xl font-bold text-blue-300 mb-3" id="shortfallCost"></div>
+                        <div class="text-base font-medium text-gray-200">추가 필요 비용</div>
                     </div>
                 </div>
                 <div id="targetDaysMessage" class="bg-slate-700 bg-opacity-50 rounded-lg p-4 max-w-2xl mx-auto">
@@ -871,11 +981,78 @@
                         </tr>
                     </tbody>
                 </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // 소스 코드 보호
+        (function() {
+            'use strict';
+            // 개발자 도구 접근 방지 (기본 보호)
+            const devtools = {
+                open: false,
+                orientation: null
+            };
+            const threshold = 160;
+            setInterval(function() {
+                if (window.outerHeight - window.innerHeight > threshold || 
+                    window.outerWidth - window.innerWidth > threshold) {
+                    if (!devtools.open) {
+                        devtools.open = true;
+                        console.clear();
+                        console.log('%c경고', 'color: red; font-size: 50px; font-weight: bold;');
+                        console.log('%c이 페이지의 소스 코드는 보호되어 있습니다.', 'color: red; font-size: 20px;');
+                    }
+                } else {
+                    devtools.open = false;
+                }
+            }, 500);
+            
+            // 우클릭 방지
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // F12, Ctrl+Shift+I 등 단축키 방지
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'F12' || 
+                    (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) ||
+                    (e.ctrlKey && e.key === 'U')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        })();
+
+        // Modal functions
+        function openModal() {
+            const modal = document.getElementById('modalOverlay');
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            // X 버튼 클릭 시 바로 닫기
+            if (!event || event.target.closest('.modal-close') || event.target.id === 'modalOverlay') {
+                const modal = document.getElementById('modalOverlay');
+                modal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('modalOverlay');
+                if (modal.classList.contains('show')) {
+                    closeModal();
+                }
+            }
+        });
         // 단수 테이블 (7단~71단) - 필요 누적 경험치
         const dansuTable = [
             { dansu: 7, exp: 2000000000 },           // 20억
@@ -945,18 +1122,30 @@
             { dansu: 71, exp: 921000000000000 },     // 921조
         ];
 
-        // HP -> 경험치 변환 함수
+        // 계산 수식 보호를 위한 난독화
+        (function() {
+            'use strict';
+            const _0x1a2b = [300000, 50, 5, 150000, 25, 10];
+            window._calcHp = function(hp) {
+                const _b = _0x1a2b[0];
+                if (hp <= _b) return 0;
+                return (hp + _b - _0x1a2b[1]) * (hp - _b) * _0x1a2b[2];
+            };
+            window._calcMp = function(mp) {
+                const _b = _0x1a2b[3];
+                if (mp <= _b) return 0;
+                return (mp + _b - _0x1a2b[4]) * (mp - _b) * _0x1a2b[5];
+            };
+        })();
+
+        // HP -> 경험치 변환 함수 (보호됨)
         function calculateHpExp(hp) {
-            const baseHp = 300000; // 30만 (라르 시작 기준)
-            if (hp <= baseHp) return 0;
-            return (hp + baseHp - 50) * (hp - baseHp) * 5;
+            return window._calcHp(hp);
         }
 
-        // MP -> 경험치 변환 함수
+        // MP -> 경험치 변환 함수 (보호됨)
         function calculateMpExp(mp) {
-            const baseMp = 150000; // 15만 (라르 시작 기준)
-            if (mp <= baseMp) return 0;
-            return (mp + baseMp - 25) * (mp - baseMp) * 10;
+            return window._calcMp(mp);
         }
 
         // 총 경험치 계산
@@ -1054,59 +1243,52 @@
             return formatNumber(Math.round(tenThousands)) + '만';
         }
 
-        function calculateTierRar(current, target, tiers, defaultIncrement) {
-            let totalRar = 0;
-            let breakdown = [];
-            
-            // 첫 번째 티어의 min 값보다 작으면 라르 소모 시작점을 첫 번째 티어의 min 값으로 설정
-            const firstTierMin = tiers[0].min;
-            let currentValue = Math.max(current, firstTierMin);
-            
-            // 목표값도 첫 번째 티어의 min 값보다 작으면 라르 소모 안 함
-            if (target < firstTierMin) {
-                return { totalRar, breakdown };
-            }
-
-            for (let tier of tiers) {
-                if (currentValue >= target) break;
-                if (currentValue >= tier.max) continue;
-                if (target <= tier.min) continue;
-
-                let tierStart = Math.max(currentValue, tier.min);
-                let tierEnd = Math.min(target, tier.max);
-                let gainInTier = tierEnd - tierStart;
-
-                if (gainInTier > 0) {
-                    let rarNeeded = 0;
-                    let upgrades = 0;
-                    
-                    if (tier.increment) {
-                        // increment가 있는 경우: increment 단위로 계산
-                        upgrades = Math.ceil(gainInTier / tier.increment);
-                        rarNeeded = upgrades * tier.rarPerUpgrade;
-                    } else {
-                        // increment가 null인 경우: 기본 증가량(defaultIncrement)을 사용하여 비례 계산
-                        // 체력: 50씩 증가, 마력: 25씩 증가
-                        const tierRange = tier.max - tier.min;
-                        const tierTotalRar = (tierRange / defaultIncrement) * tier.rarPerUpgrade;
-                        rarNeeded = Math.round((gainInTier / tierRange) * tierTotalRar);
-                        upgrades = Math.ceil(gainInTier / defaultIncrement);
-                    }
-                    
-                    totalRar += rarNeeded;
-
-                    breakdown.push({
-                        label: tier.label,
-                        upgrades: upgrades,
-                        rar: rarNeeded,
-                        gain: gainInTier
-                    });
-
-                    currentValue = tierEnd;
+        // 라르 계산 함수 (보호됨)
+        (function() {
+            'use strict';
+            window._calcTier = function(current, target, tiers, defaultIncrement) {
+                let totalRar = 0;
+                let breakdown = [];
+                const firstTierMin = tiers[0].min;
+                let currentValue = Math.max(current, firstTierMin);
+                if (target < firstTierMin) {
+                    return { totalRar, breakdown };
                 }
-            }
+                for (let tier of tiers) {
+                    if (currentValue >= target) break;
+                    if (currentValue >= tier.max) continue;
+                    if (target <= tier.min) continue;
+                    let tierStart = Math.max(currentValue, tier.min);
+                    let tierEnd = Math.min(target, tier.max);
+                    let gainInTier = tierEnd - tierStart;
+                    if (gainInTier > 0) {
+                        let rarNeeded = 0;
+                        let upgrades = 0;
+                        if (tier.increment) {
+                            upgrades = Math.ceil(gainInTier / tier.increment);
+                            rarNeeded = upgrades * tier.rarPerUpgrade;
+                        } else {
+                            const tierRange = tier.max - tier.min;
+                            const tierTotalRar = (tierRange / defaultIncrement) * tier.rarPerUpgrade;
+                            rarNeeded = Math.round((gainInTier / tierRange) * tierTotalRar);
+                            upgrades = Math.ceil(gainInTier / defaultIncrement);
+                        }
+                        totalRar += rarNeeded;
+                        breakdown.push({
+                            label: tier.label,
+                            upgrades: upgrades,
+                            rar: rarNeeded,
+                            gain: gainInTier
+                        });
+                        currentValue = tierEnd;
+                    }
+                }
+                return { totalRar, breakdown };
+            };
+        })();
 
-            return { totalRar, breakdown };
+        function calculateTierRar(current, target, tiers, defaultIncrement) {
+            return window._calcTier(current, target, tiers, defaultIncrement);
         }
 
         function calculate() {
@@ -1280,26 +1462,26 @@
 
                 if (shortfall > 0) {
                     shortfallElement.textContent = formatNumber(shortfall) + ' 개';
-                    shortfallElement.className = 'text-3xl font-bold text-red-400 mb-2';
+                    shortfallElement.className = 'text-2xl font-bold text-red-400 mb-3';
                     document.getElementById('shortfallCost').textContent = formatCurrency(shortfallCost);
 
                     messageElement.innerHTML = `
-                        <p class="text-gray-300 text-sm mb-2">
+                        <p class="text-gray-200 text-base mb-2 font-medium">
                             <i class="fas fa-exclamation-triangle mr-2 text-amber-400"></i>
                             목표 기간 내 달성을 위해 <span class="text-red-400 font-bold">${formatNumber(shortfall)}개</span>의 라르를 추가 구매해야 합니다.
                         </p>
-                        <p class="text-gray-400 text-xs">
+                        <p class="text-gray-300 text-sm font-medium">
                             추가 비용: ${formatCurrency(shortfallCost)} (약 ${formatCash(shortfallCash)})
                         </p>
                     `;
                 } else {
                     shortfallElement.textContent = '0 개';
-                    shortfallElement.className = 'text-3xl font-bold text-emerald-400 mb-2';
+                    shortfallElement.className = 'text-2xl font-bold text-emerald-400 mb-3';
                     document.getElementById('shortfallCost').textContent = '0원';
 
                     const surplus = totalFreeRarInPeriod - totalRar;
                     messageElement.innerHTML = `
-                        <p class="text-gray-300 text-sm">
+                        <p class="text-gray-200 text-base font-medium">
                             <i class="fas fa-check-circle mr-2 text-emerald-400"></i>
                             무료 라르만으로 목표 기간 내 달성 가능합니다!
                             <span class="text-emerald-400 font-bold">${formatNumber(surplus)}개</span>의 라르가 남습니다.
@@ -1312,9 +1494,9 @@
                 targetDaysSection.classList.add('hidden');
             }
 
-            // Show results section
+            // Show results in modal
             document.getElementById('resultsSection').classList.remove('hidden');
-            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            openModal();
         }
 
         function toggleTable(tableId) {
@@ -1683,40 +1865,41 @@
 
             // 추가 정보 표시
             const resultSection = document.getElementById('resultsSection');
+            resultSection.classList.remove('hidden');
             const statChoiceText = statChoice === 'hp' ? 'HP만 올리기' : (statChoice === 'mp' ? 'MP만 올리기' : 'HP + MP 균등');
 
             let hpDisplay, mpDisplay;
             if (statChoice === 'hp') {
-                hpDisplay = `<div class="text-3xl font-bold text-red-400">${formatNumber(required.hp)}</div>
-                            <div class="text-gray-400">목표 HP (+${formatNumber(required.hpGain)})</div>`;
-                mpDisplay = `<div class="text-3xl font-bold text-gray-500">${formatNumber(currentMP)}</div>
-                            <div class="text-gray-500">MP (변경 없음)</div>`;
+                hpDisplay = `<div class="text-2xl font-bold text-red-400">${formatNumber(required.hp)}</div>
+                            <div class="text-sm text-gray-400">목표 HP (+${formatNumber(required.hpGain)})</div>`;
+                mpDisplay = `<div class="text-2xl font-bold text-gray-500">${formatNumber(currentMP)}</div>
+                            <div class="text-sm text-gray-500">MP (변경 없음)</div>`;
             } else if (statChoice === 'mp') {
-                hpDisplay = `<div class="text-3xl font-bold text-gray-500">${formatNumber(currentHP)}</div>
-                            <div class="text-gray-500">HP (변경 없음)</div>`;
-                mpDisplay = `<div class="text-3xl font-bold text-blue-400">${formatNumber(required.mp)}</div>
-                            <div class="text-gray-400">목표 MP (+${formatNumber(required.mpGain)})</div>`;
+                hpDisplay = `<div class="text-2xl font-bold text-gray-500">${formatNumber(currentHP)}</div>
+                            <div class="text-sm text-gray-500">HP (변경 없음)</div>`;
+                mpDisplay = `<div class="text-2xl font-bold text-blue-400">${formatNumber(required.mp)}</div>
+                            <div class="text-sm text-gray-400">목표 MP (+${formatNumber(required.mpGain)})</div>`;
             } else {
-                hpDisplay = `<div class="text-3xl font-bold text-red-400">${formatNumber(required.hp)}</div>
-                            <div class="text-gray-400">목표 HP (+${formatNumber(required.hpGain)})</div>`;
-                mpDisplay = `<div class="text-3xl font-bold text-blue-400">${formatNumber(required.mp)}</div>
-                            <div class="text-gray-400">목표 MP (+${formatNumber(required.mpGain)})</div>`;
+                hpDisplay = `<div class="text-2xl font-bold text-red-400">${formatNumber(required.hp)}</div>
+                            <div class="text-sm text-gray-400">목표 HP (+${formatNumber(required.hpGain)})</div>`;
+                mpDisplay = `<div class="text-2xl font-bold text-blue-400">${formatNumber(required.mp)}</div>
+                            <div class="text-sm text-gray-400">목표 MP (+${formatNumber(required.mpGain)})</div>`;
             }
 
             let dansuInfoHtml = `
-                <div class="glass-card p-6 mb-8 result-card">
-                    <h3 class="text-2xl font-bold text-white mb-4 text-center">
+                <div class="glass-card p-6 mb-6 result-card">
+                    <h3 class="text-lg font-bold text-white mb-3 text-center">
                         <i class="fas fa-star mr-2 text-amber-400"></i>목표 단수 달성 정보
                     </h3>
-                    <div class="text-center mb-4">
+                    <div class="text-center mb-3">
                         <span class="inline-block px-4 py-2 rounded-full text-sm font-bold" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
                             <i class="fas fa-arrow-up mr-2"></i>${statChoiceText}
                         </span>
                     </div>
                     <div class="grid md:grid-cols-3 gap-4 text-center">
                         <div>
-                            <div class="text-3xl font-bold text-purple-400">${targetDansu}단</div>
-                            <div class="text-gray-400">목표 단수</div>
+                            <div class="text-2xl font-bold text-purple-400">${targetDansu}단</div>
+                            <div class="text-sm text-gray-400">목표 단수</div>
                         </div>
                         <div>
                             ${hpDisplay}
