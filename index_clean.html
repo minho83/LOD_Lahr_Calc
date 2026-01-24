@@ -23,9 +23,663 @@
     <meta name="naver-site-verification" content="10b191f17d7461f326a77bb9c5e063a4a356a343" />
 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/solid.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/fontawesome.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #e2e8f0;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(96, 165, 250, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            box-shadow:
+                0 8px 32px 0 rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(148, 163, 184, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        .hp-theme {
+            background: linear-gradient(135deg, #8b4513 0%, #cd5c5c 100%);
+            box-shadow: 0 4px 15px rgba(205, 92, 92, 0.3);
+        }
+
+        .mp-theme {
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c2a 100%);
+            box-shadow: 0 4px 15px rgba(74, 124, 42, 0.3);
+        }
+
+        .input-field {
+            background: rgba(51, 65, 85, 0.6);
+            color: #e2e8f0;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .input-field::placeholder {
+            color: rgba(226, 232, 240, 0.5);
+        }
+
+        .input-field:focus {
+            background: rgba(51, 65, 85, 0.8);
+            border-color: rgba(59, 130, 246, 0.6);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 4px 12px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+            color: #ffffff;
+        }
+
+        .calc-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow:
+                0 4px 15px rgba(59, 130, 246, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .calc-button:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+            transform: translateY(-2px);
+            box-shadow:
+                0 8px 25px rgba(59, 130, 246, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .calc-button:active {
+            transform: translateY(0);
+        }
+
+        .result-card {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tier-row {
+            transition: all 0.3s ease;
+        }
+
+        .tier-row:hover {
+            background-color: rgba(138, 43, 226, 0.1);
+            transform: translateX(5px);
+        }
+
+        table {
+            border-collapse: collapse;
+            background: rgba(30, 41, 59, 0.7);
+        }
+
+        th {
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+        }
+
+        td {
+            padding: 8px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            color: #e2e8f0;
+        }
+
+        .table-hp th {
+            background: linear-gradient(135deg, #991b1b 0%, #dc2626 100%);
+            color: white;
+            border-color: rgba(220, 38, 38, 0.5);
+        }
+
+        .table-mp th {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .table-total {
+            background: rgba(59, 130, 246, 0.15);
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .table-black {
+            background-color: rgba(15, 23, 42, 0.6);
+        }
+
+        .collapsible {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .collapsible:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        h1,
+        h2,
+        h3 {
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(59, 130, 246, 0.2);
+        }
+
+        label {
+            color: #cbd5e1;
+        }
+
+        select {
+            background-color: rgba(51, 65, 85, 0.6);
+            color: #e2e8f0;
+        }
+
+        select option {
+            background-color: #1e293b;
+            color: #e2e8f0;
+        }
+
+        .tab-button {
+            opacity: 0.6;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            opacity: 1;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .tab-button:hover:not(.active) {
+            opacity: 0.8;
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow:
+                0 20px 60px 0 rgba(0, 0, 0, 0.7),
+                inset 0 1px 0 rgba(148, 163, 184, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            max-width: 90vw;
+            max-height: 90vh;
+            width: 100%;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            position: sticky;
+            top: 0;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-close {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 20px;
+        }
+
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.4);
+            border-color: rgba(239, 68, 68, 0.5);
+            color: #ffffff;
+            transform: rotate(90deg);
+        }
+
+        .modal-content {
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+
+            /* 모달 최적화 */
+            .modal-container {
+                max-width: 95vw;
+                max-height: 95vh;
+            }
+
+            .modal-content {
+                padding: 16px;
+            }
+
+            .modal-header {
+                padding: 12px 16px;
+            }
+
+            .modal-header h3 {
+                font-size: 18px !important;
+            }
+
+            .modal-header p {
+                font-size: 12px !important;
+            }
+
+            .modal-close {
+                width: 36px;
+                height: 36px;
+                font-size: 18px;
+            }
+
+            /* 결과 카드 간격 조정 */
+            .result-card {
+                margin-bottom: 16px !important;
+            }
+
+            .result-card .grid {
+                gap: 12px !important;
+            }
+
+            /* 전체 레이아웃 */
+            body {
+                padding: 12px !important;
+                font-size: 16px;
+            }
+
+            /* 제목 크기 조정 */
+            h1 {
+                font-size: 2rem !important;
+                line-height: 1.2;
+            }
+
+            h2 {
+                font-size: 1.5rem !important;
+            }
+
+            h3 {
+                font-size: 1.25rem !important;
+            }
+
+            /* 카드 패딩 조정 */
+            .glass-card {
+                padding: 16px !important;
+                border-radius: 12px;
+            }
+
+            /* 입력 필드 크기 조정 */
+            .input-field {
+                padding: 14px 16px !important;
+                font-size: 16px !important;
+                min-height: 48px;
+            }
+
+            /* 라벨 크기 조정 */
+            label {
+                font-size: 15px !important;
+                margin-bottom: 8px !important;
+            }
+
+            /* 버튼 크기 조정 */
+            .calc-button {
+                padding: 14px 20px !important;
+                font-size: 16px !important;
+                min-height: 48px;
+            }
+
+            /* 탭 버튼 최적화 */
+            .tab-button {
+                padding: 12px 8px !important;
+                font-size: 14px !important;
+                min-height: auto;
+                flex: 1;
+                min-width: 0;
+            }
+
+            .tab-button .text-xs {
+                font-size: 11px !important;
+                margin-top: 4px;
+            }
+
+            /* 탭 컨테이너 모바일 최적화 */
+            .inline-flex.rounded-lg {
+                flex-direction: row;
+                flex-wrap: wrap;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .inline-flex.rounded-lg .tab-button {
+                flex: 1 1 calc(33.333% - 4px);
+                min-width: 100px;
+            }
+
+            /* 테이블 최적화 */
+            table {
+                font-size: 13px;
+                min-width: 600px;
+            }
+
+            th {
+                padding: 10px 6px !important;
+                font-size: 12px;
+                white-space: nowrap;
+            }
+
+            td {
+                padding: 10px 6px !important;
+                font-size: 12px;
+            }
+
+            /* 테이블 컨테이너 스크롤 개선 */
+            .overflow-x-auto {
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+                overflow-x: auto;
+                overflow-y: visible;
+                position: relative;
+                border-radius: 8px;
+                background: rgba(15, 23, 42, 0.3);
+            }
+
+            /* 테이블 스크롤 인디케이터 */
+            .overflow-x-auto::-webkit-scrollbar {
+                height: 8px;
+            }
+
+            .overflow-x-auto::-webkit-scrollbar-track {
+                background: rgba(30, 41, 59, 0.5);
+                border-radius: 4px;
+            }
+
+            .overflow-x-auto::-webkit-scrollbar-thumb {
+                background: rgba(59, 130, 246, 0.5);
+                border-radius: 4px;
+            }
+
+            .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+                background: rgba(59, 130, 246, 0.7);
+            }
+
+            /* 결과 카드 텍스트 크기 */
+            .result-card .text-3xl {
+                font-size: 1.75rem !important;
+            }
+
+            .result-card .text-2xl {
+                font-size: 1.5rem !important;
+            }
+
+            .result-card .text-xl {
+                font-size: 1.25rem !important;
+            }
+
+            .result-card .text-base {
+                font-size: 14px !important;
+            }
+
+            /* 그리드 간격 조정 */
+            .grid {
+                gap: 12px !important;
+            }
+
+            /* 아이콘 크기 조정 */
+            .hp-theme,
+            .mp-theme {
+                width: 40px !important;
+                height: 40px !important;
+            }
+
+            .hp-theme i,
+            .mp-theme i {
+                font-size: 18px !important;
+            }
+
+            /* 간격 조정 */
+            .mb-8 {
+                margin-bottom: 24px !important;
+            }
+
+            .mb-6 {
+                margin-bottom: 20px !important;
+            }
+
+            .mb-4 {
+                margin-bottom: 16px !important;
+            }
+
+            .space-y-4>*+* {
+                margin-top: 16px !important;
+            }
+
+            /* 텍스트 크기 조정 */
+            .text-xl {
+                font-size: 18px !important;
+            }
+
+            .text-lg {
+                font-size: 16px !important;
+            }
+
+            .text-sm {
+                font-size: 14px !important;
+            }
+
+            .text-xs {
+                font-size: 12px !important;
+            }
+
+            /* 설명 텍스트 */
+            p {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+            /* 헤더 섹션 최적화 */
+            .text-center.mb-8 p {
+                font-size: 16px !important;
+                padding: 0 8px;
+            }
+
+            /* Quick Links 섹션 최적화 */
+            .glass-card .text-sm {
+                font-size: 13px !important;
+            }
+
+            .glass-card .text-lg {
+                font-size: 16px !important;
+            }
+
+            /* 간격 최적화 */
+            .gap-8 {
+                gap: 16px !important;
+            }
+
+            .gap-4 {
+                gap: 12px !important;
+            }
+
+            .gap-3 {
+                gap: 10px !important;
+            }
+
+            .gap-2 {
+                gap: 8px !important;
+            }
+
+            /* 조절 버튼 크기 */
+            button[onclick*="adjust"] {
+                min-width: 44px !important;
+                min-height: 44px !important;
+                font-size: 20px !important;
+            }
+
+            /* 모든 버튼 터치 타겟 크기 확보 */
+            button {
+                min-height: 44px;
+                touch-action: manipulation;
+            }
+
+            /* 입력 필드 터치 타겟 크기 확보 */
+            input[type="text"],
+            input[type="number"] {
+                min-height: 48px;
+                touch-action: manipulation;
+            }
+
+            /* 선택 요소 터치 타겟 크기 확보 */
+            select {
+                min-height: 48px;
+                touch-action: manipulation;
+            }
+        }
+
+        /* 작은 모바일 (480px 이하) */
+        @media (max-width: 480px) {
+            body {
+                padding: 8px !important;
+            }
+
+            h1 {
+                font-size: 1.75rem !important;
+            }
+
+            .glass-card {
+                padding: 12px !important;
+            }
+
+            .input-field {
+                padding: 12px 14px !important;
+                font-size: 16px !important;
+            }
+
+            .calc-button {
+                padding: 12px 16px !important;
+                font-size: 15px !important;
+            }
+
+            table {
+                font-size: 11px;
+                min-width: 500px;
+            }
+
+            th,
+            td {
+                padding: 8px 4px !important;
+                font-size: 11px;
+            }
+
+            .tab-button {
+                padding: 10px 6px !important;
+                font-size: 12px !important;
+            }
+
+            .tab-button .text-xs {
+                font-size: 10px !important;
+            }
+
+            /* 작은 화면에서 탭 버튼 세로 배치 */
+            .inline-flex.rounded-lg {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .inline-flex.rounded-lg .tab-button {
+                flex: 1 1 auto;
+                width: 100%;
+            }
+
+            /* 텍스트 줄바꿈 개선 */
+            * {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            /* 긴 숫자 표시 개선 */
+            .text-3xl,
+            .text-2xl,
+            .text-xl {
+                word-break: break-all;
+                line-height: 1.3;
+            }
+
+            /* 입력 필드 숫자 표시 개선 */
+            input[type="text"],
+            input[type="number"] {
+                font-size: 16px !important;
+                /* iOS 줌 방지 */
+            }
+        }
+    </style>
     <!-- 카카오 애드핏 스크립트 (광고 단위 코드 발급 후 활성화) -->
     <script async type="text/javascript" src="https://t1.daumcdn.net/kas/static/ba.min.js"></script>
 </head>
