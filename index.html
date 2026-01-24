@@ -2179,7 +2179,16 @@
                 const dansuInfo = calculateDansu(totalExp);
 
                 document.getElementById('currentDansuDisplay').textContent = dansuInfo.dansu + '단';
-                document.getElementById('currentExpDisplay').textContent = `총 경험치: ${formatExp(totalExp)}`;
+                
+                // 총 경험치와 현재단수 획득가능 최대 경험치 표시
+                const maxExp = getMaxExpForDansu(dansuInfo.dansu);
+                if (maxExp > 0) {
+                    document.getElementById('currentExpDisplay').innerHTML = 
+                        `총 경험치: ${formatExp(totalExp)}<br><span class="text-amber-400">현재단수 획득가능 최대 경험치: ${formatExp(maxExp)}</span>`;
+                } else {
+                    document.getElementById('currentExpDisplay').textContent = `총 경험치: ${formatExp(totalExp)}`;
+                }
+                
                 document.getElementById('dansuProgressBar').style.width = `${dansuInfo.progress}%`;
 
                 if (dansuInfo.nextExp) {
