@@ -10,22 +10,22 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="라르 포인트 계산기">
     <meta property="og:description" content="어둠의전설 순수 HP/MP 강화에 필요한 라르를 계산해보세요">
-    <meta property="og:image" content="https://minho83.github.io/LOD_Lahr_Calc/images/Thumbnail.webp">
+    <meta property="og:image" content="https://minho83.github.io/LOD_Lahr_Calc/Thumbnail.png">
     <meta property="og:url" content="https://minho83.github.io/LOD_Lahr_Calc/">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="라르 포인트 계산기">
     <meta name="twitter:description" content="어둠의전설 순수 HP/MP 강화에 필요한 라르를 계산해보세요">
-    <meta name="twitter:image" content="https://minho83.github.io/LOD_Lahr_Calc/images/Thumbnail.webp">
+    <meta name="twitter:image" content="https://minho83.github.io/LOD_Lahr_Calc/Thumbnail.png">
 
     <!-- Naver Search Console -->
     <meta name="naver-site-verification" content="10b191f17d7461f326a77bb9c5e063a4a356a343" />
 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/solid.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/fontawesome.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
 
         body {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 100%);
@@ -678,6 +678,8 @@
                 font-size: 16px !important;
                 /* iOS 줌 방지 */
             }
+        }
+    </style>
     <!-- 카카오 애드핏 스크립트 (광고 단위 코드 발급 후 활성화) -->
     <script async type="text/javascript" src="https://t1.daumcdn.net/kas/static/ba.min.js"></script>
 </head>
@@ -1548,7 +1550,7 @@
         </div>
 
         <script>
-            // 소스 코드 보호 (성능 최적화 버전)
+            // 소스 코드 보호
             (function () {
                 'use strict';
                 // 개발자 도구 접근 방지 (기본 보호)
@@ -1557,8 +1559,7 @@
                     orientation: null
                 };
                 const threshold = 160;
-                
-                function checkDevTools() {
+                setInterval(function () {
                     if (window.outerHeight - window.innerHeight > threshold ||
                         window.outerWidth - window.innerWidth > threshold) {
                         if (!devtools.open) {
@@ -1570,15 +1571,7 @@
                     } else {
                         devtools.open = false;
                     }
-                }
-                
-                // 필요할 때만 체크 (성능 개선)
-                window.addEventListener('resize', checkDevTools);
-                window.addEventListener('focus', checkDevTools);
-                window.addEventListener('blur', checkDevTools);
-                
-                // 초기 체크
-                setTimeout(checkDevTools, 1000);
+                }, 500);
 
                 // 우클릭 방지
                 document.addEventListener('contextmenu', function (e) {
