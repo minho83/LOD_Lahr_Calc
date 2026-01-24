@@ -1881,6 +1881,12 @@
             }
 
             function displayResults(hpResult, mpResult) {
+                // 이전 모드에서 생성된 추가 결과 카드들 제거
+                const existingDansuCard = document.getElementById('dansuResultCard');
+                if (existingDansuCard) existingDansuCard.remove();
+                const existingReverseCard = document.getElementById('reverseResultCard');
+                if (existingReverseCard) existingReverseCard.remove();
+
                 // Total Summary
                 const totalRar = hpResult.totalRar + mpResult.totalRar;
 
@@ -2605,9 +2611,11 @@
                 </div>
             `;
 
-                // 기존 단수 정보 카드가 있으면 제거
+                // 이전 모드에서 생성된 추가 결과 카드들 제거
                 const existingDansuCard = document.getElementById('dansuResultCard');
                 if (existingDansuCard) existingDansuCard.remove();
+                const existingReverseCard = document.getElementById('reverseResultCard');
+                if (existingReverseCard) existingReverseCard.remove();
 
                 // 새 카드 추가
                 const dansuCard = document.createElement('div');
@@ -2718,6 +2726,10 @@
 
             // 역산 결과 표시 함수
             function displayReverseResults(result, statName, currentValue, availableRar, currentHP, currentMP, finalHP, finalMP, additionalDamageInfo, currentAdditionalDamageInfo, enhanceLevel) {
+                // 이전 모드에서 생성된 추가 결과 카드들 제거
+                const existingDansuCard = document.getElementById('dansuResultCard');
+                if (existingDansuCard) existingDansuCard.remove();
+
                 const finalValue = result.finalValue;
                 const totalGain = result.totalGain;
                 const remainingRar = result.remainingRar;
