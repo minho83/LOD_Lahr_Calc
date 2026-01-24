@@ -492,82 +492,32 @@
                 </div>
             </div>
 
+            <!-- 설정 버튼 영역 -->
             <div class="mt-6 pt-6 border-t-2 border-slate-600 border-opacity-40">
-                <div class="max-w-xl mx-auto space-y-4">
-                    <!-- 첫 번째 행: 라르 할인율 | 어둠돈 환율 -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- 라르 할인율 -->
-                        <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
-                            <label class="block text-sm font-medium text-gray-300 mb-3">
-                                <i class="fas fa-percent mr-2 text-purple-400"></i>라르 할인율
-                            </label>
-                            <div class="flex items-center gap-2">
-                                <button type="button" onclick="adjustDiscountRate(-10)"
-                                    class="w-10 h-10 rounded-lg bg-purple-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
-                                    −
-                                </button>
-                                <div class="relative flex-1">
-                                    <input type="number" id="discountRate" placeholder="0" value="0" min="0" max="99"
-                                        class="input-field w-full px-3 py-2 border-2 border-purple-400 border-opacity-50 rounded-lg focus:outline-none focus:border-purple-500 text-center text-lg font-semibold">
-                                    <span
-                                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-300 font-medium">%</span>
-                                </div>
-                                <button type="button" onclick="adjustDiscountRate(10)"
-                                    class="w-10 h-10 rounded-lg bg-purple-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
-                                    +
-                                </button>
+                <div class="max-w-xl mx-auto">
+                    <button onclick="openSettingsModal()"
+                        class="w-full bg-slate-700 bg-opacity-50 hover:bg-opacity-70 border-2 border-slate-500 border-opacity-50 hover:border-cyan-400 rounded-xl p-4 transition-all flex items-center justify-between group">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-cyan-600 bg-opacity-30 flex items-center justify-center">
+                                <i class="fas fa-cog text-cyan-400 group-hover:rotate-90 transition-transform duration-300"></i>
                             </div>
-                            <p class="text-xs text-gray-400 mt-2 text-center">10% 단위 조절 (0~99%)</p>
-                        </div>
-                        <!-- 어둠돈 환율 -->
-                        <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
-                            <label class="block text-sm font-medium text-gray-300 mb-3">
-                                <i class="fas fa-coins mr-2 text-blue-400"></i>어둠돈 1억 = 현금
-                            </label>
-                            <div class="flex items-center gap-2">
-                                <button type="button" onclick="adjustExchangeRate(-100)"
-                                    class="w-10 h-10 rounded-lg bg-blue-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
-                                    −
-                                </button>
-                                <div class="relative flex-1">
-                                    <input type="text" id="exchangeRate" placeholder="6,000" value="6,000"
-                                        class="input-field w-full px-3 py-2 border-2 border-blue-400 border-opacity-50 rounded-lg focus:outline-none focus:border-blue-500 text-center text-lg font-semibold">
-                                    <span
-                                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-300 font-medium">원</span>
-                                </div>
-                                <button type="button" onclick="adjustExchangeRate(100)"
-                                    class="w-10 h-10 rounded-lg bg-blue-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
-                                    +
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-400 mt-2 text-center">100원 단위 조절</p>
-                        </div>
-                    </div>
-                    <!-- 두 번째 행: 무료 라르 입력 섹션 -->
-                    <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4">
-                        <label class="block text-sm font-medium text-gray-300 mb-3">
-                            <i class="fas fa-gift mr-2 text-green-400"></i>무료 라르 (목표 기간 계산)
-                        </label>
-                        <div class="grid grid-cols-3 gap-3">
-                            <div>
-                                <label class="block text-xs text-gray-400 mb-1">매일</label>
-                                <input type="text" id="dailyFreeRar" placeholder="0" value="0"
-                                    class="input-field w-full px-3 py-2 border-2 border-green-400 border-opacity-50 rounded-lg focus:outline-none focus:border-green-500 text-center text-lg font-semibold">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-gray-400 mb-1">주간</label>
-                                <input type="text" id="weeklyFreeRar" placeholder="0" value="0"
-                                    class="input-field w-full px-3 py-2 border-2 border-green-400 border-opacity-50 rounded-lg focus:outline-none focus:border-green-500 text-center text-lg font-semibold">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-gray-400 mb-1">목표 기간(일)</label>
-                                <input type="text" id="targetDays" placeholder="30" value=""
-                                    class="input-field w-full px-3 py-2 border-2 border-yellow-400 border-opacity-50 rounded-lg focus:outline-none focus:border-yellow-500 text-center text-lg font-semibold">
+                            <div class="text-left">
+                                <div class="text-sm font-medium text-white">계산 설정</div>
+                                <div id="settingsSummary" class="text-xs text-gray-400">할인 <span class="text-purple-400">0%</span> · 시세 <span class="text-blue-400">6,000원</span> · 무료라르 <span class="text-green-400">일0/주0</span></div>
                             </div>
                         </div>
-                        <p class="text-xs text-gray-400 mt-2 text-center">무료 라르만으로 목표 달성 기간 계산</p>
-                    </div>
+                        <i class="fas fa-chevron-right text-gray-400 group-hover:text-cyan-400 transition-colors"></i>
+                    </button>
                 </div>
+            </div>
+
+            <!-- 숨겨진 설정 입력 필드 (설정 모달에서 사용) -->
+            <div class="hidden">
+                <input type="number" id="discountRate" value="0">
+                <input type="text" id="exchangeRate" value="6,000">
+                <input type="text" id="dailyFreeRar" value="0">
+                <input type="text" id="weeklyFreeRar" value="0">
+                <input type="text" id="targetDays" value="">
             </div>
 
             <div class="text-center mt-6">
@@ -992,7 +942,215 @@
             </div>
         </div>
 
+        <!-- 설정 모달 -->
+        <div id="settingsModalOverlay" class="modal-overlay" onclick="if(event.target === this) closeSettingsModal()">
+            <div class="modal-container" style="max-width: 500px;" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-white mb-1">
+                            <i class="fas fa-cog mr-2 text-cyan-400"></i>계산 설정
+                        </h3>
+                        <p class="text-sm text-gray-300">
+                            할인율, 시세, 무료 라르 설정
+                        </p>
+                    </div>
+                    <button class="modal-close" onclick="closeSettingsModal()" aria-label="닫기">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-content">
+                    <!-- 라르 할인율 -->
+                    <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4 mb-4">
+                        <label class="block text-sm font-medium text-gray-300 mb-3">
+                            <i class="fas fa-percent mr-2 text-purple-400"></i>라르 할인율
+                        </label>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="adjustDiscountRate(-10)"
+                                class="w-10 h-10 rounded-lg bg-purple-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
+                                −
+                            </button>
+                            <div class="relative flex-1">
+                                <input type="number" id="discountRateModal" placeholder="0" value="0" min="0" max="99"
+                                    oninput="syncSettingFromModal('discountRate', this.value)"
+                                    class="input-field w-full px-3 py-2 border-2 border-purple-400 border-opacity-50 rounded-lg focus:outline-none focus:border-purple-500 text-center text-lg font-semibold">
+                                <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-300 font-medium">%</span>
+                            </div>
+                            <button type="button" onclick="adjustDiscountRate(10)"
+                                class="w-10 h-10 rounded-lg bg-purple-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
+                                +
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2 text-center">10% 단위 조절 (0~99%)</p>
+                    </div>
+
+                    <!-- 어둠돈 환율 -->
+                    <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4 mb-4">
+                        <label class="block text-sm font-medium text-gray-300 mb-3">
+                            <i class="fas fa-coins mr-2 text-blue-400"></i>어둠돈 1억 = 현금
+                        </label>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="adjustExchangeRate(-100)"
+                                class="w-10 h-10 rounded-lg bg-blue-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
+                                −
+                            </button>
+                            <div class="relative flex-1">
+                                <input type="text" id="exchangeRateModal" placeholder="6,000" value="6,000"
+                                    oninput="syncSettingFromModal('exchangeRate', this.value)"
+                                    class="input-field w-full px-3 py-2 border-2 border-blue-400 border-opacity-50 rounded-lg focus:outline-none focus:border-blue-500 text-center text-lg font-semibold">
+                                <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-300 font-medium">원</span>
+                            </div>
+                            <button type="button" onclick="adjustExchangeRate(100)"
+                                class="w-10 h-10 rounded-lg bg-blue-600 bg-opacity-50 hover:bg-opacity-70 text-white font-bold text-lg transition-all active:scale-95 flex items-center justify-center">
+                                +
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2 text-center">100원 단위 조절</p>
+                    </div>
+
+                    <!-- 무료 라르 -->
+                    <div class="bg-slate-700 bg-opacity-30 rounded-xl p-4 mb-4">
+                        <label class="block text-sm font-medium text-gray-300 mb-3">
+                            <i class="fas fa-gift mr-2 text-green-400"></i>무료 라르 (목표 기간 계산)
+                        </label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1">매일</label>
+                                <input type="text" id="dailyFreeRarModal" placeholder="0" value="0"
+                                    oninput="syncSettingFromModal('dailyFreeRar', this.value)"
+                                    class="input-field w-full px-3 py-2 border-2 border-green-400 border-opacity-50 rounded-lg focus:outline-none focus:border-green-500 text-center text-lg font-semibold">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1">주간</label>
+                                <input type="text" id="weeklyFreeRarModal" placeholder="0" value="0"
+                                    oninput="syncSettingFromModal('weeklyFreeRar', this.value)"
+                                    class="input-field w-full px-3 py-2 border-2 border-green-400 border-opacity-50 rounded-lg focus:outline-none focus:border-green-500 text-center text-lg font-semibold">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1">목표 기간(일)</label>
+                                <input type="text" id="targetDaysModal" placeholder="30" value=""
+                                    oninput="syncSettingFromModal('targetDays', this.value)"
+                                    class="input-field w-full px-3 py-2 border-2 border-yellow-400 border-opacity-50 rounded-lg focus:outline-none focus:border-yellow-500 text-center text-lg font-semibold">
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2 text-center">무료 라르만으로 목표 달성 기간 계산</p>
+                    </div>
+
+                    <!-- 저장 안내 -->
+                    <div class="bg-cyan-900 bg-opacity-30 border border-cyan-500 border-opacity-30 rounded-xl p-4">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-info-circle text-cyan-400 mt-0.5"></i>
+                            <div>
+                                <p class="text-sm text-cyan-200 font-medium mb-1">설정값 자동 저장</p>
+                                <p class="text-xs text-gray-400">
+                                    입력한 설정값은 브라우저의 로컬 저장소에 자동으로 저장됩니다.<br>
+                                    다음에 방문하셔도 설정값이 유지되며, 브라우저 데이터를 삭제하면 초기화됩니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 저장 버튼 -->
+                    <div class="mt-6">
+                        <button onclick="closeSettingsModal()"
+                            class="w-full calc-button px-6 py-3 text-white text-lg font-bold rounded-xl shadow-lg">
+                            <i class="fas fa-check mr-2"></i>설정 완료
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script>
+            // ========================================
+            // 설정값 저장/불러오기 (localStorage)
+            // ========================================
+            const STORAGE_KEY = 'lodCalcSettings';
+
+            // 설정값 저장
+            function saveSettings() {
+                const settings = {
+                    discountRate: document.getElementById('discountRate').value,
+                    exchangeRate: document.getElementById('exchangeRate').value,
+                    dailyFreeRar: document.getElementById('dailyFreeRar').value,
+                    weeklyFreeRar: document.getElementById('weeklyFreeRar').value,
+                    targetDays: document.getElementById('targetDays').value
+                };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+                updateSettingsSummary(); // 요약 업데이트
+            }
+
+            // 설정값 불러오기
+            function loadSettings() {
+                try {
+                    const saved = localStorage.getItem(STORAGE_KEY);
+                    if (saved) {
+                        const settings = JSON.parse(saved);
+                        if (settings.discountRate !== undefined) {
+                            document.getElementById('discountRate').value = settings.discountRate;
+                        }
+                        if (settings.exchangeRate !== undefined) {
+                            document.getElementById('exchangeRate').value = settings.exchangeRate;
+                        }
+                        if (settings.dailyFreeRar !== undefined) {
+                            document.getElementById('dailyFreeRar').value = settings.dailyFreeRar;
+                        }
+                        if (settings.weeklyFreeRar !== undefined) {
+                            document.getElementById('weeklyFreeRar').value = settings.weeklyFreeRar;
+                        }
+                        if (settings.targetDays !== undefined) {
+                            document.getElementById('targetDays').value = settings.targetDays;
+                        }
+                    }
+                    updateSettingsSummary(); // 요약 업데이트
+                } catch (e) {
+                    console.warn('설정 불러오기 실패:', e);
+                }
+            }
+
+            // 설정 요약 업데이트
+            function updateSettingsSummary() {
+                const discountRate = document.getElementById('discountRate').value || '0';
+                const exchangeRate = document.getElementById('exchangeRate').value || '6,000';
+                const dailyFreeRar = document.getElementById('dailyFreeRar').value || '0';
+                const weeklyFreeRar = document.getElementById('weeklyFreeRar').value || '0';
+                
+                const summaryEl = document.getElementById('settingsSummary');
+                if (summaryEl) {
+                    summaryEl.innerHTML = `할인 <span class="text-purple-400">${discountRate}%</span> · 시세 <span class="text-blue-400">${exchangeRate}원</span> · 무료라르 <span class="text-green-400">일${dailyFreeRar}/주${weeklyFreeRar}</span>`;
+                }
+            }
+
+            // 설정 모달 열기
+            function openSettingsModal() {
+                // 모달 필드에 현재 값 동기화
+                document.getElementById('discountRateModal').value = document.getElementById('discountRate').value;
+                document.getElementById('exchangeRateModal').value = document.getElementById('exchangeRate').value;
+                document.getElementById('dailyFreeRarModal').value = document.getElementById('dailyFreeRar').value;
+                document.getElementById('weeklyFreeRarModal').value = document.getElementById('weeklyFreeRar').value;
+                document.getElementById('targetDaysModal').value = document.getElementById('targetDays').value;
+                
+                const modal = document.getElementById('settingsModalOverlay');
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            // 설정 모달 닫기
+            function closeSettingsModal() {
+                const modal = document.getElementById('settingsModalOverlay');
+                modal.classList.remove('show');
+                document.body.style.overflow = '';
+                saveSettings(); // 닫을 때 저장
+            }
+
+            // 모달에서 메인 필드로 값 동기화
+            function syncSettingFromModal(fieldId, value) {
+                document.getElementById(fieldId).value = value;
+                saveSettings();
+            }
+
+            // 페이지 로드 시 설정 불러오기
+            document.addEventListener('DOMContentLoaded', loadSettings);
+
             // 소스 코드 보호
             (function () {
                 'use strict';
@@ -1815,21 +1973,28 @@
             // 환율 조절 함수 (100원 단위)
             function adjustExchangeRate(amount) {
                 const input = document.getElementById('exchangeRate');
-                let currentValue = parseNumber(input.value) || 6000;
+                const modalInput = document.getElementById('exchangeRateModal');
+                let currentValue = parseNumber(modalInput ? modalInput.value : input.value) || 6000;
                 currentValue += amount;
                 // 최소값 100원으로 제한
                 currentValue = Math.max(100, currentValue);
-                input.value = formatNumber(currentValue);
+                const formattedValue = formatNumber(currentValue);
+                input.value = formattedValue;
+                if (modalInput) modalInput.value = formattedValue;
+                saveSettings(); // 설정 저장
             }
 
             // 할인율 조절 함수 (10% 단위)
             function adjustDiscountRate(amount) {
                 const input = document.getElementById('discountRate');
-                let currentValue = parseInt(input.value) || 0;
+                const modalInput = document.getElementById('discountRateModal');
+                let currentValue = parseInt(modalInput ? modalInput.value : input.value) || 0;
                 currentValue += amount;
                 // 0~99 범위로 제한
                 currentValue = Math.max(0, Math.min(99, currentValue));
                 input.value = currentValue;
+                if (modalInput) modalInput.value = currentValue;
+                saveSettings(); // 설정 저장
 
                 // 풀경험치 모드일 때 재계산
                 if (currentMode === 'fullexp') {
