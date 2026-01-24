@@ -1431,60 +1431,71 @@
             // 새 공식: 1회 업그레이드 경험치 = [f(next) - f(current)] * (기준증가량 / 실제증가량)
             // HP 기준증가량 = 50, MP 기준증가량 = 25
             //
+            // 최적화: 각 티어 내에서 수학적으로 한 번에 계산
+            // 티어 내 총 경험치 = [f(end) - f(start)] * (기준증가량 / 실제증가량)
+            //
             function calculateHpExp(hp) {
                 if (hp <= 0) return 0;
 
-                const BASE_INCREMENT = 50; // HP 기준 증가량
+                const BASE_INCREMENT = 50;
                 let totalExp = 0;
                 let currentHp = 0;
 
-                for (let tierIdx = 0; tierIdx < hpExpTiers.length && currentHp < hp; tierIdx++) {
-                    const tier = hpExpTiers[tierIdx];
+                for (const tier of hpExpTiers) {
+                    if (currentHp >= hp) break;
+                    
                     const increment = tier.increment;
-
-                    while (currentHp < hp) {
-                        const currentIncrement = getHpExpIncrement(currentHp);
-                        if (currentIncrement !== increment) break;
-
-                        const nextHp = currentHp + increment;
-                        if (nextHp > hp) break;
-
-                        // 1회 업그레이드 경험치 = 기본경험치 * (기준증가량 / 실제증가량)
-                        const baseExp = nextHp * (nextHp - 50) * 5 - currentHp * (currentHp - 50) * 5;
-                        const adjustedExp = baseExp * (BASE_INCREMENT / increment);
-                        totalExp += adjustedExp;
-                        currentHp = nextHp;
-                    }
+                    const tierStart = Math.max(currentHp, tier.min);
+                    const tierEnd = Math.min(hp, tier.max);
+                    
+                    if (tierStart >= tierEnd) continue;
+                    
+                    // 이 티어에서 도달 가능한 최대값 계산
+                    const steps = Math.floor((tierEnd - tierStart) / increment);
+                    if (steps <= 0) continue;
+                    
+                    const actualEnd = tierStart + steps * increment;
+                    
+                    // 기본 경험치 (f(end) - f(start))
+                    const baseExp = actualEnd * (actualEnd - 50) * 5 - tierStart * (tierStart - 50) * 5;
+                    
+                    // 조정된 경험치 = 기본경험치 * (기준증가량 / 실제증가량)
+                    const adjustedExp = baseExp * (BASE_INCREMENT / increment);
+                    totalExp += adjustedExp;
+                    
+                    currentHp = actualEnd;
                 }
 
                 return totalExp;
             }
 
-            // MP -> 경험치 변환
+            // MP -> 경험치 변환 (최적화 버전)
             function calculateMpExp(mp) {
                 if (mp <= 0) return 0;
 
-                const BASE_INCREMENT = 25; // MP 기준 증가량
+                const BASE_INCREMENT = 25;
                 let totalExp = 0;
                 let currentMp = 0;
 
-                for (let tierIdx = 0; tierIdx < mpExpTiers.length && currentMp < mp; tierIdx++) {
-                    const tier = mpExpTiers[tierIdx];
+                for (const tier of mpExpTiers) {
+                    if (currentMp >= mp) break;
+                    
                     const increment = tier.increment;
-
-                    while (currentMp < mp) {
-                        const currentIncrement = getMpExpIncrement(currentMp);
-                        if (currentIncrement !== increment) break;
-
-                        const nextMp = currentMp + increment;
-                        if (nextMp > mp) break;
-
-                        // 1회 업그레이드 경험치 = 기본경험치 * (기준증가량 / 실제증가량)
-                        const baseExp = nextMp * (nextMp - 25) * 10 - currentMp * (currentMp - 25) * 10;
-                        const adjustedExp = baseExp * (BASE_INCREMENT / increment);
-                        totalExp += adjustedExp;
-                        currentMp = nextMp;
-                    }
+                    const tierStart = Math.max(currentMp, tier.min);
+                    const tierEnd = Math.min(mp, tier.max);
+                    
+                    if (tierStart >= tierEnd) continue;
+                    
+                    const steps = Math.floor((tierEnd - tierStart) / increment);
+                    if (steps <= 0) continue;
+                    
+                    const actualEnd = tierStart + steps * increment;
+                    
+                    const baseExp = actualEnd * (actualEnd - 25) * 10 - tierStart * (tierStart - 25) * 10;
+                    const adjustedExp = baseExp * (BASE_INCREMENT / increment);
+                    totalExp += adjustedExp;
+                    
+                    currentMp = actualEnd;
                 }
 
                 return totalExp;
@@ -2228,7 +2239,7 @@
             });
 
             // 목표 단수에서 필요한 HP/MP 찾기 (경험치 역산)
-            // 구간별 실제 증가량(increment)을 반영하여 순차적으로 계산
+            // 이진 탐색으로 최적화 - 1씩 증가 구간에서도 빠르게 계산
             function findRequiredStats(targetExp, currentHP, currentMP, statChoice) {
                 const currentTotalExp = calculateTotalExp(currentHP, currentMP);
                 const neededExp = targetExp - currentTotalExp;
@@ -2236,42 +2247,95 @@
                 if (neededExp <= 0) return { hp: currentHP, mp: currentMP, hpGain: 0, mpGain: 0 };
 
                 if (statChoice === 'hp') {
-                    // HP만 올리기 - 순차적으로 증가량에 맞게 올리기
-                    let targetHP = currentHP;
-
-                    while (calculateTotalExp(targetHP, currentMP) < targetExp) {
-                        const hpStep = getHpIncrement(targetHP);
-                        targetHP += hpStep;
+                    // HP만 올리기 - 이진 탐색으로 목표 HP 찾기
+                    let low = currentHP;
+                    let high = currentHP + 100000000; // 충분히 큰 상한
+                    
+                    while (high - low > 1) {
+                        const mid = Math.floor((low + high) / 2);
+                        if (calculateTotalExp(mid, currentMP) < targetExp) {
+                            low = mid;
+                        } else {
+                            high = mid;
+                        }
+                    }
+                    
+                    // high가 목표 경험치 이상인 최소값
+                    let targetHP = high;
+                    
+                    // 실제 도달 가능한 값으로 조정 (증가량 단위에 맞게)
+                    // 현재 HP에서 targetHP까지 증가량에 맞게 도달
+                    let adjustedHP = currentHP;
+                    while (adjustedHP < targetHP) {
+                        const step = getHpIncrement(adjustedHP);
+                        if (adjustedHP + step > targetHP + 1000) break; // 안전장치
+                        adjustedHP += step;
+                    }
+                    
+                    // 목표 경험치에 도달할 때까지 미세 조정
+                    while (calculateTotalExp(adjustedHP, currentMP) < targetExp) {
+                        adjustedHP += getHpIncrement(adjustedHP);
                     }
 
                     return {
-                        hp: targetHP,
+                        hp: adjustedHP,
                         mp: currentMP,
-                        hpGain: targetHP - currentHP,
+                        hpGain: adjustedHP - currentHP,
                         mpGain: 0
                     };
                 } else if (statChoice === 'mp') {
-                    // MP만 올리기 - 순차적으로 증가량에 맞게 올리기
-                    let targetMP = currentMP;
-
-                    while (calculateTotalExp(currentHP, targetMP) < targetExp) {
-                        const mpStep = getMpIncrement(targetMP);
-                        targetMP += mpStep;
+                    // MP만 올리기 - 이진 탐색으로 목표 MP 찾기
+                    let low = currentMP;
+                    let high = currentMP + 100000000;
+                    
+                    while (high - low > 1) {
+                        const mid = Math.floor((low + high) / 2);
+                        if (calculateTotalExp(currentHP, mid) < targetExp) {
+                            low = mid;
+                        } else {
+                            high = mid;
+                        }
+                    }
+                    
+                    let targetMP = high;
+                    
+                    let adjustedMP = currentMP;
+                    while (adjustedMP < targetMP) {
+                        const step = getMpIncrement(adjustedMP);
+                        if (adjustedMP + step > targetMP + 1000) break;
+                        adjustedMP += step;
+                    }
+                    
+                    while (calculateTotalExp(currentHP, adjustedMP) < targetExp) {
+                        adjustedMP += getMpIncrement(adjustedMP);
                     }
 
                     return {
                         hp: currentHP,
-                        mp: targetMP,
+                        mp: adjustedMP,
                         hpGain: 0,
-                        mpGain: targetMP - currentMP
+                        mpGain: adjustedMP - currentMP
                     };
                 } else {
                     // HP + MP 균등하게 올리기 (라르 효율 기반)
+                    // 고효율 구간까지만 순차 계산, 이후는 HP로 채우기
+                    const HP_EFFICIENT_THRESHOLD = 5550000;
+                    const MP_EFFICIENT_THRESHOLD = 2750000;
+                    
                     let resultHP = currentHP;
                     let resultMP = currentMP;
                     const discountRate = parseInt(document.getElementById('discountRate').value) || 0;
+                    
+                    // 고효율 구간에서만 라르 효율 비교
+                    let iterations = 0;
+                    const maxIterations = 500000;
 
-                    while (calculateTotalExp(resultHP, resultMP) < targetExp) {
+                    while (calculateTotalExp(resultHP, resultMP) < targetExp && iterations < maxIterations) {
+                        // 둘 다 저효율 구간이면 HP로 나머지 채우기
+                        if (resultHP >= HP_EFFICIENT_THRESHOLD && resultMP >= MP_EFFICIENT_THRESHOLD) {
+                            break;
+                        }
+                        
                         const currentExp = calculateTotalExp(resultHP, resultMP);
                         const remainingExp = targetExp - currentExp;
 
@@ -2302,12 +2366,42 @@
                             break;
                         }
 
-                        // 라르 효율이 더 좋은 쪽 선택
-                        if (hpEfficiency >= mpEfficiency) {
+                        // 고효율 구간 내에서만 올리기
+                        const canRaiseHP = resultHP < HP_EFFICIENT_THRESHOLD;
+                        const canRaiseMP = resultMP < MP_EFFICIENT_THRESHOLD;
+                        
+                        if (canRaiseHP && canRaiseMP) {
+                            // 둘 다 고효율 구간이면 효율 비교
+                            if (hpEfficiency >= mpEfficiency) {
+                                resultHP += hpStep;
+                            } else {
+                                resultMP += mpStep;
+                            }
+                        } else if (canRaiseHP) {
                             resultHP += hpStep;
-                        } else {
+                        } else if (canRaiseMP) {
                             resultMP += mpStep;
+                        } else {
+                            break;
                         }
+                        iterations++;
+                    }
+                    
+                    // 아직 목표 경험치에 도달하지 못했으면 이진 탐색으로 HP 추가
+                    if (calculateTotalExp(resultHP, resultMP) < targetExp) {
+                        let low = resultHP;
+                        let high = resultHP + 100000000;
+                        
+                        while (high - low > 1) {
+                            const mid = Math.floor((low + high) / 2);
+                            if (calculateTotalExp(mid, resultMP) < targetExp) {
+                                low = mid;
+                            } else {
+                                high = mid;
+                            }
+                        }
+                        
+                        resultHP = high;
                     }
 
                     return {
