@@ -747,6 +747,14 @@
                         </div>
                         <div class="text-xs font-normal opacity-80 mt-1">보유 라르 → 올릴 수 있는 HP/MP</div>
                     </button>
+                    <button id="tabFullExp" onclick="switchTab('fullexp')"
+                        class="tab-button px-6 py-3 rounded-lg font-bold text-white transition-all flex flex-col items-center">
+                        <div class="flex items-center">
+                            <i class="fas fa-battery-full mr-2"></i>
+                            <span>풀경험치 라르</span>
+                        </div>
+                        <div class="text-xs font-normal opacity-80 mt-1">단수별 풀경험치 필요 라르</div>
+                    </button>
                 </div>
             </div>
 
@@ -948,6 +956,95 @@
                             <i class="fas fa-info-circle mr-1"></i>
                             추가 데미지 공식: (순수체력 + 순수마력×2) × 강화보너스%
                         </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 풀경험치 라르 계산 섹션 (풀경험치 모드에서만) -->
+            <div id="fullExpSection" class="hidden mb-6">
+                <div class="max-w-2xl mx-auto space-y-4">
+                    <!-- 안내 문구 -->
+                    <div class="bg-amber-900 bg-opacity-30 rounded-xl p-4 border border-amber-500 border-opacity-30">
+                        <p class="text-sm text-amber-200 text-center">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            위에서 <strong>순수 HP/MP</strong>를 입력하면 현재 단수와 풀경험치 라르가 자동 계산됩니다
+                        </p>
+                    </div>
+
+                    <!-- 풀경험치 결과 표시 -->
+                    <div id="fullExpResult" class="hidden">
+                        <div class="bg-slate-700 bg-opacity-50 rounded-xl p-5 border-2 border-amber-500 border-opacity-30">
+                            <h3 class="text-lg font-bold text-amber-300 mb-4 text-center">
+                                <i class="fas fa-battery-full mr-2"></i><span id="fullExpDansuTitle"></span> 풀경험치 정보
+                            </h3>
+
+                            <!-- 풀경험치 획득량 표시 -->
+                            <div class="bg-slate-800 rounded-lg p-4 text-center mb-4">
+                                <div class="text-xs text-gray-400 mb-1">풀경험치 획득량</div>
+                                <div class="text-2xl font-bold text-amber-400" id="fullExpMaxExp"></div>
+                                <div class="text-xs text-gray-500 mt-1">현재 경험치와 관계없이 위 경험치가 추가됩니다</div>
+                            </div>
+
+                            <!-- HP/MP 필요 라르 비교 -->
+                            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                <!-- HP로 올릴 시 -->
+                                <div class="bg-gradient-to-br from-red-900 to-red-800 rounded-lg p-4 border border-red-500 border-opacity-30">
+                                    <div class="text-sm text-red-300 mb-2 font-medium">
+                                        <i class="fas fa-heart mr-1"></i>HP로 올릴 시
+                                    </div>
+                                    <div class="text-xs text-gray-400 mb-1">HP 변화</div>
+                                    <div class="text-sm font-bold text-white mb-1" id="fullExpHpNeeded"></div>
+                                    <div class="text-xs text-emerald-400 mb-2" id="fullExpHpGain"></div>
+                                    <div class="text-xs text-gray-400 mb-1">풀경험치 소모 라르</div>
+                                    <div class="text-xl font-bold text-red-400" id="fullExpHpRar"></div>
+                                </div>
+
+                                <!-- MP로 올릴 시 -->
+                                <div class="bg-gradient-to-br from-blue-900 to-blue-800 rounded-lg p-4 border border-blue-500 border-opacity-30">
+                                    <div class="text-sm text-blue-300 mb-2 font-medium">
+                                        <i class="fas fa-magic mr-1"></i>MP로 올릴 시
+                                    </div>
+                                    <div class="text-xs text-gray-400 mb-1">MP 변화</div>
+                                    <div class="text-sm font-bold text-white mb-1" id="fullExpMpNeeded"></div>
+                                    <div class="text-xs text-emerald-400 mb-2" id="fullExpMpGain"></div>
+                                    <div class="text-xs text-gray-400 mb-1">풀경험치 소모 라르</div>
+                                    <div class="text-xl font-bold text-blue-400" id="fullExpMpRar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- HP/MP 미입력 시 안내 -->
+                    <div id="fullExpNoInput" class="bg-slate-700 bg-opacity-30 rounded-xl p-6 text-center">
+                        <i class="fas fa-arrow-up text-4xl text-amber-400 mb-3"></i>
+                        <p class="text-gray-300">위에서 순수 HP/MP를 입력해주세요</p>
+                    </div>
+
+                    <!-- 보유 라르로 풀경험치 몇 번 가능한지 -->
+                    <div id="fullExpRarSection" class="hidden bg-slate-700 bg-opacity-30 rounded-xl p-5 border-2 border-cyan-500 border-opacity-30">
+                        <label class="block text-sm font-medium text-cyan-300 mb-3">
+                            <i class="fas fa-coins mr-2"></i>보유 라르로 풀경험치 계산
+                        </label>
+                        <input type="text" id="fullExpAvailableRar" placeholder="예: 100,000" oninput="calculateFullExpCount()"
+                            class="input-field w-full px-4 py-3 border-2 border-cyan-400 border-opacity-50 rounded-lg focus:outline-none focus:border-cyan-500 text-center text-lg font-semibold">
+                        <p class="text-xs text-gray-400 mt-2 text-center">보유 라르를 입력하면 풀경험치 몇 번 가능한지 계산합니다</p>
+
+                        <!-- 풀경험치 횟수 결과 -->
+                        <div id="fullExpCountResult" class="hidden mt-4 bg-slate-800 rounded-lg p-4">
+                            <div class="grid md:grid-cols-2 gap-4 text-center">
+                                <div>
+                                    <div class="text-sm text-gray-400 mb-1">풀경험치 가능 횟수</div>
+                                    <div class="text-2xl font-bold text-cyan-400" id="fullExpCountTimes"></div>
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-400 mb-1">남는 라르</div>
+                                    <div class="text-2xl font-bold text-yellow-400" id="fullExpCountRemaining"></div>
+                                </div>
+                            </div>
+                            <div class="mt-3 pt-3 border-t border-slate-600 text-center">
+                                <div class="text-sm text-gray-300" id="fullExpCountSummary"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1584,6 +1681,198 @@
                 { dansu: 71, exp: 921000000000000 },     // 921조
             ];
 
+            // 단수별 최대 보유 경험치 테이블
+            const maxExpTable = [
+                { dansu: 7, maxExp: 4294967295 },           // ~43억 (시스템 제한)
+                { dansu: 8, maxExp: 4294967295 },           // ~43억 (시스템 제한)
+                { dansu: 9, maxExp: 4294967295 },           // ~43억 (시스템 제한)
+                { dansu: 10, maxExp: 10000000000 },         // 100억
+                { dansu: 11, maxExp: 15000000000 },         // 150억
+                { dansu: 12, maxExp: 20000000000 },         // 200억
+                { dansu: 13, maxExp: 25000000000 },         // 250억
+                { dansu: 14, maxExp: 50000000000 },         // 500억
+                { dansu: 15, maxExp: 50000000000 },         // 500억
+                { dansu: 16, maxExp: 100000000000 },        // 1,000억
+                { dansu: 17, maxExp: 100000000000 },        // 1,000억
+                { dansu: 18, maxExp: 100000000000 },        // 1,000억
+                { dansu: 19, maxExp: 100000000000 },        // 1,000억
+                { dansu: 20, maxExp: 200000000000 },        // 2,000억
+                { dansu: 21, maxExp: 200000000000 },        // 2,000억
+                { dansu: 22, maxExp: 200000000000 },        // 2,000억
+                { dansu: 23, maxExp: 200000000000 },        // 2,000억
+                { dansu: 24, maxExp: 200000000000 },        // 2,000억
+                { dansu: 25, maxExp: 300000000000 },        // 3,000억
+                { dansu: 26, maxExp: 300000000000 },        // 3,000억
+                { dansu: 27, maxExp: 300000000000 },        // 3,000억
+                { dansu: 28, maxExp: 300000000000 },        // 3,000억
+                { dansu: 29, maxExp: 300000000000 },        // 3,000억
+                { dansu: 30, maxExp: 1000000000000 },       // 1조
+                { dansu: 31, maxExp: 1100000000000 },       // 1.1조
+                { dansu: 32, maxExp: 1200000000000 },       // 1.2조
+                { dansu: 33, maxExp: 1300000000000 },       // 1.3조
+                { dansu: 34, maxExp: 1400000000000 },       // 1.4조
+                { dansu: 35, maxExp: 1500000000000 },       // 1.5조
+                { dansu: 36, maxExp: 1600000000000 },       // 1.6조
+                { dansu: 37, maxExp: 1700000000000 },       // 1.7조
+                { dansu: 38, maxExp: 1800000000000 },       // 1.8조
+                { dansu: 39, maxExp: 1900000000000 },       // 1.9조
+                { dansu: 40, maxExp: 2000000000000 },       // 2조
+                { dansu: 41, maxExp: 2100000000000 },       // 2.1조
+                { dansu: 42, maxExp: 2200000000000 },       // 2.2조
+                { dansu: 43, maxExp: 2300000000000 },       // 2.3조
+                { dansu: 44, maxExp: 2400000000000 },       // 2.4조
+                { dansu: 45, maxExp: 2500000000000 },       // 2.5조
+                { dansu: 46, maxExp: 2600000000000 },       // 2.6조
+                { dansu: 47, maxExp: 2700000000000 },       // 2.7조
+                { dansu: 48, maxExp: 2800000000000 },       // 2.8조
+                { dansu: 49, maxExp: 2900000000000 },       // 2.9조
+                { dansu: 50, maxExp: 3000000000000 },       // 3조
+                { dansu: 51, maxExp: 3100000000000 },       // 3.1조
+                { dansu: 52, maxExp: 3200000000000 },       // 3.2조
+                { dansu: 53, maxExp: 3300000000000 },       // 3.3조
+                { dansu: 54, maxExp: 3400000000000 },       // 3.4조
+                { dansu: 55, maxExp: 3500000000000 },       // 3.5조
+                { dansu: 56, maxExp: 3600000000000 },       // 3.6조
+                { dansu: 57, maxExp: 3700000000000 },       // 3.7조
+                { dansu: 58, maxExp: 3800000000000 },       // 3.8조
+                { dansu: 59, maxExp: 3900000000000 },       // 3.9조
+                { dansu: 60, maxExp: 4000000000000 },       // 4조
+                { dansu: 61, maxExp: 4100000000000 },       // 4.1조
+                { dansu: 62, maxExp: 4200000000000 },       // 4.2조
+                { dansu: 63, maxExp: 4300000000000 },       // 4.3조
+                { dansu: 64, maxExp: 4400000000000 },       // 4.4조
+                { dansu: 65, maxExp: 4500000000000 },       // 4.5조
+                { dansu: 66, maxExp: 4600000000000 },       // 4.6조
+                { dansu: 67, maxExp: 4700000000000 },       // 4.7조
+                { dansu: 68, maxExp: 4800000000000 },       // 4.8조
+                { dansu: 69, maxExp: 4900000000000 },       // 4.9조
+                { dansu: 70, maxExp: 5000000000000 },       // 5조
+                { dansu: 71, maxExp: 5100000000000 },       // 5.1조
+            ];
+
+            // 단수별 최대 경험치 조회 함수
+            function getMaxExpForDansu(dansu) {
+                const entry = maxExpTable.find(e => e.dansu === dansu);
+                return entry ? entry.maxExp : 0;
+            }
+
+            // 경험치 → 필요 HP 역산 (HP만으로 해당 경험치 달성 시)
+            function expToHp(targetExp) {
+                // HP 경험치 공식: exp = hp * (hp - 50) * 5
+                // hp^2 - 50*hp - exp/5 = 0
+                // hp = 25 + sqrt(625 + exp/5)
+                if (targetExp <= 0) return 0;
+                return Math.ceil(25 + Math.sqrt(625 + targetExp / 5));
+            }
+
+            // 경험치 → 필요 MP 역산 (MP만으로 해당 경험치 달성 시)
+            function expToMp(targetExp) {
+                // MP 경험치 공식: exp = mp * (mp - 25) * 10
+                // mp^2 - 25*mp - exp/10 = 0
+                // mp = 12.5 + sqrt(156.25 + exp/10)
+                if (targetExp <= 0) return 0;
+                return Math.ceil(12.5 + Math.sqrt(156.25 + targetExp / 10));
+            }
+
+            // 부족한 경험치를 채우기 위해 HP/MP를 올릴 때 필요한 라르 계산
+            // currentStat: 현재 HP 또는 MP
+            // neededExp: 채워야 할 경험치
+            // statType: 'hp' 또는 'mp'
+            function calculateRarForNeededExp(currentStat, neededExp, statType, discountRate = 0) {
+                if (neededExp <= 0) {
+                    return { rar: 0, start: currentStat, target: currentStat, gain: 0 };
+                }
+
+                if (statType === 'hp') {
+                    const currentExp = calculateHpExp(currentStat);
+                    const goalExp = currentExp + neededExp;
+                    const targetHp = expToHp(goalExp);
+                    const hpGain = targetHp - currentStat;
+
+                    if (hpGain <= 0) return { rar: 0, start: currentStat, target: currentStat, gain: 0 };
+
+                    // 라르 티어 시작점 (30만 미만이면 30만부터, 현재값이 30만 이상이면 현재값부터)
+                    const calcStart = Math.max(currentStat, 300000);
+                    if (targetHp <= calcStart) {
+                        return { rar: 0, start: currentStat, target: targetHp, gain: hpGain };
+                    }
+
+                    const result = calculateTierRar(calcStart, targetHp, hpTiers, 50, discountRate);
+                    return { rar: result.totalRar, start: currentStat, target: targetHp, gain: hpGain };
+                } else {
+                    const currentExp = calculateMpExp(currentStat);
+                    const goalExp = currentExp + neededExp;
+                    const targetMp = expToMp(goalExp);
+                    const mpGain = targetMp - currentStat;
+
+                    if (mpGain <= 0) return { rar: 0, start: currentStat, target: currentStat, gain: 0 };
+
+                    // 라르 티어 시작점 (15만 미만이면 15만부터)
+                    const calcStart = Math.max(currentStat, 150000);
+                    if (targetMp <= calcStart) {
+                        return { rar: 0, start: currentStat, target: targetMp, gain: mpGain };
+                    }
+
+                    const result = calculateTierRar(calcStart, targetMp, mpTiers, 25, discountRate);
+                    return { rar: result.totalRar, start: currentStat, target: targetMp, gain: mpGain };
+                }
+            }
+
+            // 현재 HP/MP 기반으로 풀경험치에 필요한 라르 계산
+            function calculateFullExpRarWithCurrentStats(currentHP, currentMP, discountRate = 0) {
+                // 현재 경험치 계산
+                const currentTotalExp = calculateHpExp(currentHP) + calculateMpExp(currentMP);
+
+                // 현재 단수 계산
+                const dansuInfo = calculateDansu(currentTotalExp);
+                const currentDansu = dansuInfo.dansu;
+
+                // 해당 단수의 풀경험치
+                const maxExp = getMaxExpForDansu(currentDansu);
+                if (maxExp === 0) return null;
+
+                // 게임의 "풀경험치"는 현재 경험치와 관계없이 maxExp 전체를 추가하는 것
+                // 따라서 neededExp = maxExp 전체
+                const neededExp = maxExp;
+
+                // HP로 채울 때
+                const hpResult = calculateRarForNeededExp(currentHP, neededExp, 'hp', discountRate);
+
+                // MP로 채울 때
+                const mpResult = calculateRarForNeededExp(currentMP, neededExp, 'mp', discountRate);
+
+                return {
+                    dansu: currentDansu,
+                    maxExp: maxExp,
+                    currentTotalExp: currentTotalExp,
+                    neededExp: neededExp,
+                    hp: hpResult,
+                    mp: mpResult,
+                    recommended: hpResult.rar <= mpResult.rar ? 'hp' : 'mp',
+                    minRar: Math.min(hpResult.rar, mpResult.rar)
+                };
+            }
+
+            // (기존 함수 유지 - 보유 라르 역산에서 사용)
+            function calculateFullExpRar(dansu, currentHP, currentMP, discountRate = 0) {
+                const maxExp = getMaxExpForDansu(dansu);
+                if (maxExp === 0) return null;
+
+                // HP로 채울 때
+                const hpResult = calculateRarForNeededExp(currentHP || 300000, maxExp, 'hp', discountRate);
+                // MP로 채울 때
+                const mpResult = calculateRarForNeededExp(currentMP || 150000, maxExp, 'mp', discountRate);
+
+                return {
+                    dansu: dansu,
+                    maxExp: maxExp,
+                    hp: hpResult,
+                    mp: mpResult,
+                    recommended: hpResult.rar <= mpResult.rar ? 'hp' : 'mp',
+                    minRar: Math.min(hpResult.rar, mpResult.rar)
+                };
+            }
+
             // 계산 수식 보호를 위한 난독화
             (function () {
                 'use strict';
@@ -2084,6 +2373,11 @@
                 // 0~99 범위로 제한
                 currentValue = Math.max(0, Math.min(99, currentValue));
                 input.value = currentValue;
+
+                // 풀경험치 모드일 때 재계산
+                if (currentMode === 'fullexp') {
+                    calculateFullExpMode();
+                }
             }
 
             // 목걸이 강화수치 조절 함수 (1 단위)
@@ -2124,16 +2418,24 @@
                 document.getElementById('tabRar').classList.toggle('active', mode === 'rar');
                 document.getElementById('tabDansu').classList.toggle('active', mode === 'dansu');
                 document.getElementById('tabReverse').classList.toggle('active', mode === 'reverse');
+                document.getElementById('tabFullExp').classList.toggle('active', mode === 'fullexp');
 
                 // 섹션 표시/숨김
                 const isRarMode = mode === 'rar';
                 const isDansuMode = mode === 'dansu';
                 const isReverseMode = mode === 'reverse';
+                const isFullExpMode = mode === 'fullexp';
 
                 document.getElementById('targetHPSection').classList.toggle('hidden', !isRarMode);
                 document.getElementById('targetMPSection').classList.toggle('hidden', !isRarMode);
                 document.getElementById('currentDansuSection').classList.toggle('hidden', !isDansuMode);
                 document.getElementById('reverseRarSection').classList.toggle('hidden', !isReverseMode);
+                document.getElementById('fullExpSection').classList.toggle('hidden', !isFullExpMode);
+
+                // 풀경험치 모드일 때 단수 선택 옵션 초기화
+                if (isFullExpMode) {
+                    initFullExpDansuSelect();
+                }
 
                 // HP/MP 레이블 업데이트 (역산 모드일 때 "순수 체력/마력"으로 변경)
                 const hpLabel = document.getElementById('currentHPLabel');
@@ -2280,15 +2582,19 @@
                 updateNeededExp();
             });
 
-            // HP/MP 입력 변경 시 단수 업데이트
+            // HP/MP 입력 변경 시 단수/풀경험치 업데이트
             document.getElementById('currentHP').addEventListener('input', function () {
                 if (currentMode === 'dansu') {
                     updateCurrentDansu();
+                } else if (currentMode === 'fullexp') {
+                    calculateFullExpMode();
                 }
             });
             document.getElementById('currentMP').addEventListener('input', function () {
                 if (currentMode === 'dansu') {
                     updateCurrentDansu();
+                } else if (currentMode === 'fullexp') {
+                    calculateFullExpMode();
                 }
             });
 
@@ -2693,6 +2999,52 @@
                     </div>
             `;
 
+                // 풀경험치 정보 추가
+                const currentHpTotal = statName === 'HP' ? currentValue : currentHP;
+                const currentMpTotal = statName === 'MP' ? currentValue : currentMP;
+                const totalExp = calculateHpExp(currentHpTotal) + calculateMpExp(currentMpTotal);
+                const dansuInfo = calculateDansu(totalExp);
+                const currentDansu = dansuInfo.dansu;
+
+                // 현재 단수의 풀경험치 라르 계산
+                const discountRate = parseInt(document.getElementById('discountRate').value) || 0;
+                const fullExpResult = calculateFullExpRar(currentDansu, discountRate);
+
+                if (fullExpResult && fullExpResult.minRar > 0) {
+                    const fullExpTimes = Math.floor(availableRar / fullExpResult.minRar);
+                    const fullExpRemaining = availableRar - (fullExpTimes * fullExpResult.minRar);
+                    const recStat = fullExpResult.recommended === 'hp' ? fullExpResult.hp : fullExpResult.mp;
+                    const recStart = fullExpResult.recommended === 'hp' ? 300000 : 150000;
+                    const recName = fullExpResult.recommended === 'hp' ? 'HP' : 'MP';
+
+                    resultHtml += `
+                    <div class="bg-gradient-to-r from-amber-900 to-orange-900 rounded-xl p-5 mb-6 border-2 border-amber-500 border-opacity-30">
+                        <div class="text-sm font-medium text-amber-300 mb-4 flex items-center">
+                            <i class="fas fa-battery-full mr-2"></i>${currentDansu}단 풀경험치 정보
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-slate-800 bg-opacity-50 rounded-lg p-3 text-center">
+                                <div class="text-xs text-gray-400 mb-1">풀경험치 1회 라르</div>
+                                <div class="text-xl font-bold text-amber-400">${formatNumber(fullExpResult.minRar)} 개</div>
+                            </div>
+                            <div class="bg-slate-800 bg-opacity-50 rounded-lg p-3 text-center">
+                                <div class="text-xs text-gray-400 mb-1">가능 횟수</div>
+                                <div class="text-xl font-bold text-cyan-400">${fullExpTimes} 회</div>
+                            </div>
+                            <div class="bg-slate-800 bg-opacity-50 rounded-lg p-3 text-center">
+                                <div class="text-xs text-gray-400 mb-1">풀경험치 후 남는 라르</div>
+                                <div class="text-xl font-bold text-yellow-400">${formatNumber(fullExpRemaining)} 개</div>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-center text-sm text-gray-300">
+                            <i class="fas fa-info-circle mr-1 text-amber-400"></i>
+                            ${currentDansu}단 풀경험치: ${formatExp(fullExpResult.maxExp)}
+                            (${recName} ${formatNumber(recStart)} → ${formatNumber(recStat.stat)}, +${formatNumber(recStat.gain)})
+                        </div>
+                    </div>
+                    `;
+                }
+
                 // 추가 데미지 정보 표시
                 if (additionalDamageInfo && currentAdditionalDamageInfo && enhanceLevel > 0) {
                     const damageIncrease = additionalDamageInfo.additionalDamage - currentAdditionalDamageInfo.additionalDamage;
@@ -2778,6 +3130,88 @@
                 // 모달 표시
                 resultSection.classList.remove('hidden');
                 openModal();
+            }
+
+            // 풀경험치 모드 초기화
+            function initFullExpDansuSelect() {
+                calculateFullExpMode();
+            }
+
+            // 풀경험치 모드 계산
+            function calculateFullExpMode() {
+                // 현재 HP/MP 입력값 가져오기
+                const currentHP = parseNumber(document.getElementById('currentHP').value) || 0;
+                const currentMP = parseNumber(document.getElementById('currentMP').value) || 0;
+                const discountRate = parseInt(document.getElementById('discountRate').value) || 0;
+
+                // HP나 MP가 입력되지 않았으면 결과 숨김
+                if (currentHP <= 0 && currentMP <= 0) {
+                    document.getElementById('fullExpResult').classList.add('hidden');
+                    return;
+                }
+
+                const result = calculateFullExpRarWithCurrentStats(currentHP, currentMP, discountRate);
+                if (!result) {
+                    document.getElementById('fullExpResult').classList.add('hidden');
+                    return;
+                }
+
+                // 결과 표시
+                document.getElementById('fullExpDansuTitle').textContent = result.dansu + '단';
+                document.getElementById('fullExpMaxExp').textContent = formatExp(result.maxExp);
+
+                // HP 결과
+                document.getElementById('fullExpHpNeeded').textContent =
+                    formatNumber(result.hp.start) + ' → ' + formatNumber(result.hp.target);
+                document.getElementById('fullExpHpGain').textContent =
+                    '(+' + formatNumber(result.hp.gain) + ' 증가)';
+                document.getElementById('fullExpHpRar').textContent = formatNumber(result.hp.rar) + ' 개';
+
+                // MP 결과
+                document.getElementById('fullExpMpNeeded').textContent =
+                    formatNumber(result.mp.start) + ' → ' + formatNumber(result.mp.target);
+                document.getElementById('fullExpMpGain').textContent =
+                    '(+' + formatNumber(result.mp.gain) + ' 증가)';
+                document.getElementById('fullExpMpRar').textContent = formatNumber(result.mp.rar) + ' 개';
+
+                document.getElementById('fullExpResult').classList.remove('hidden');
+
+                // 보유 라르 계산도 업데이트
+                calculateFullExpCount();
+            }
+
+            // 보유 라르로 풀경험치 몇 번 가능한지 계산
+            function calculateFullExpCount() {
+                // 현재 HP/MP 입력값 가져오기
+                const currentHP = parseNumber(document.getElementById('currentHP').value) || 0;
+                const currentMP = parseNumber(document.getElementById('currentMP').value) || 0;
+                const availableRar = parseNumber(document.getElementById('fullExpAvailableRar').value) || 0;
+                const discountRate = parseInt(document.getElementById('discountRate').value) || 0;
+
+                if (availableRar <= 0 || (currentHP <= 0 && currentMP <= 0)) {
+                    document.getElementById('fullExpCountResult').classList.add('hidden');
+                    return;
+                }
+
+                const result = calculateFullExpRarWithCurrentStats(currentHP, currentMP, discountRate);
+                if (!result || result.minRar === 0) {
+                    document.getElementById('fullExpCountResult').classList.add('hidden');
+                    return;
+                }
+
+                const times = Math.floor(availableRar / result.minRar);
+                const remaining = availableRar - (times * result.minRar);
+
+                document.getElementById('fullExpCountTimes').textContent = times + ' 회';
+                document.getElementById('fullExpCountRemaining').textContent = formatNumber(remaining) + ' 개';
+
+                const statType = result.recommended === 'hp' ? 'HP' : 'MP';
+                const recStat = result.recommended === 'hp' ? result.hp : result.mp;
+                document.getElementById('fullExpCountSummary').innerHTML =
+                    `${result.dansu}단 풀경험치(${formatExp(result.maxExp)})를 <span class="text-cyan-400 font-bold">${times}번</span> 달성 가능<br>` +
+                    `<span class="text-xs text-gray-400">(${statType} ${formatNumber(recStat.start)} → ${formatNumber(recStat.target)}, +${formatNumber(recStat.gain)} 증가, 1회당 ${formatNumber(result.minRar)} 라르)</span>`;
+
+                document.getElementById('fullExpCountResult').classList.remove('hidden');
             }
         </script>
 
